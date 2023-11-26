@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 25 nov. 2023 à 17:30
+-- Généré le : dim. 26 nov. 2023 à 09:47
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.1.12
 
@@ -53,9 +53,16 @@ CREATE TABLE IF NOT EXISTS `cars` (
   `brand` varchar(255) NOT NULL,
   `model` varchar(255) NOT NULL,
   `year` year NOT NULL,
-  `mileage` int NOT NULL,
+  `mileage` varchar(7) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Déchargement des données de la table `cars`
+--
+
+INSERT INTO `cars` (`id`, `brand`, `model`, `year`, `mileage`) VALUES
+(2, 'AUDI', 'A6', 2001, '300');
 
 -- --------------------------------------------------------
 
@@ -98,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `birthday`) VALUES
 (1, 'Vincent', 'Godé', 'hello@vincentgo.fr', '1990-11-08 00:00:00'),
 (2, 'Albert', 'Dupond', 'sonemail@gmail.com', '1985-11-08 00:00:00'),
-(3, 'Thomas', 'Dumoulin', 'sonemail2@gmail.com', '1985-10-08 00:00:00');
+(3, 'Thomas', 'Dumoulin', 'sonemail2@gmail.com', '1985-10-08 09:44:46');
 
 --
 -- Contraintes pour les tables déchargées
