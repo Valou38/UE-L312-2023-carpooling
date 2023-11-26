@@ -30,9 +30,10 @@ class DataBaseService
         }
     }
 
-    /**
-     * Create an user.
-     */
+    /******************************************
+      Create an user
+     ****************************************/
+
     public function createUser(string $firstname, string $lastname, string $email, DateTime $birthday): bool
     {
         $isOk = false;
@@ -104,4 +105,162 @@ class DataBaseService
 
         return $isOk;
     }
+
+    /******************************
+        Create a car
+     *****************************/
+
+    public function createCar(string $brand, string $model, string $year, string $mileage): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'brand' => $brand,
+            'model' => $model,
+            'year' => $year,
+            'mileage' => $mileage,
+        ];
+        $sql = 'INSERT INTO cars (brand, model, year, mileage) VALUES (:brand, :model, :year, :mileage)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Return all cars.
+     */
+    public function getCars(): array
+    {
+        $cars = [];
+
+        $sql = 'SELECT * FROM cars';
+        $query = $this->connection->query($sql);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $cars = $results;
+        }
+
+        return $cars;
+    }
+
+    /**
+     * Update a car.
+     */
+    public function updateCar(string $id, string $brand, string $model, string $year, string $mileage): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+            'brand' => $brand,
+            'model' => $model,
+            'year' => $year,
+            'mileage' => $mileage,
+        ];
+        $sql = 'UPDATE cars SET brand = :brand, model = :model, year = :year, mileage = :mileage WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Delete a car.
+     */
+    public function deleteCar(string $id): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+        ];
+        $sql = 'DELETE FROM cars WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+
+/***********************************
+  Create a carpool ad
+ **********************************/
+
+public function createCarpoolad(int $carid, string $description, datetime $dateandtime, string $departurelocation, string $destination, int $availableseats): bool
+{
+    $isOk = false;
+
+    $data = [
+        'carid' => $carid,
+        'description' => $description,
+        'dateandtime' => $dateandtime,
+        'departurelocation' => $departurelocation,
+        'destination' => $destination,
+        'availableseats' => $availableseats
+    ];
+    $sql = 'INSERT INTO cars (carid, description, dateandtime, departurelocation, destination, availableseats) VALUES (:carid, :description, :dateandtime, :departurelocation, :destination, :availableseats)';
+    $query = $this->connection->prepare($sql);
+    $isOk = $query->execute($data);
+
+    return $isOk;
+}
+
+/**
+ * Return all ads.
+ */
+public function getCarpoolad(): array
+{
+    $carpoolad = [];
+
+    $sql = 'SELECT * FROM carpoolad';
+    $query = $this->connection->query($sql);
+    $results = $query->fetchAll(PDO::FETCH_ASSOC);
+    if (!empty($results)) {
+        $carpoolad = $results;
+    }
+
+    return $carpoolad;
+}
+
+/**
+ * Update an ad.
+ */
+public function updateCarpoolad(int $carid, string $description, datetime $dateandtime, string $departurelocation, string $destination, int $availableseats): bool
+{
+    $isOk = false;
+
+    $data = [
+        'carid' => $carid,
+        'description' => $description,
+        'dateandtime' => $dateandtime,
+        'departurelocation' => $departurelocation,
+        'destination' => $destination,
+        'availableseats' => $availableseats
+    ];
+
+
+    $sql = 'UPDATE carpoolad SET carid = :carid, description = :description, dateandtime = :dateandtime, departurelocation = :departurelocation, detination = :destination, avalableseats = :availableseats WHERE id = :id;';
+    $query = $this->connection->prepare($sql);
+    $isOk = $query->execute($data);
+
+    return $isOk;
+}
+
+/**
+ * Delete an ad.
+ */
+public function deleteCarpoolad(string $id): bool
+{
+    $isOk = false;
+
+    $data = [
+        'id' => $id,
+    ];
+    $sql = 'DELETE FROM carpoolad WHERE id = :id;';
+    $query = $this->connection->prepare($sql);
+    $isOk = $query->execute($data);
+
+    return $isOk;
+}
 }
