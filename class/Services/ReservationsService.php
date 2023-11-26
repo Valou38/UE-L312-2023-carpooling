@@ -43,7 +43,7 @@ class ReservationsService
                 $reservation->setReservedseats($reservationDTO['reservedseats']);
                 $dateandtime = new DateTime($reservationDTO['dateandtime']);
                 if ($dateandtime !== false) {
-                    $reservation->setDate($dateandtime);
+                    $reservation->setDateandtime($dateandtime);
                 }
                 $reservations[] = $reservation;
             }
