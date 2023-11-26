@@ -12,7 +12,7 @@ class DataBaseService
     const PORT = '3306';
     const DATABASE_NAME = 'carpooling';
     const MYSQL_USER = 'root';
-    const MYSQL_PASSWORD = 'password';
+    const MYSQL_PASSWORD = '';
 
     private $connection;
 
@@ -30,9 +30,10 @@ class DataBaseService
         }
     }
 
-    /**
-     * Create an user.
-     */
+    /******************************************
+      Create an user
+     ****************************************/
+
     public function createUser(string $firstname, string $lastname, string $email, DateTime $birthday): bool
     {
         $isOk = false;
@@ -105,9 +106,10 @@ class DataBaseService
         return $isOk;
     }
 
-    /**
-     * Create a car.
-     */
+    /******************************
+        Create a car
+     *****************************/
+
     public function createCar(string $brand, string $model, string $year, string $mileage): bool
     {
         $isOk = false;
@@ -174,6 +176,164 @@ class DataBaseService
             'id' => $id,
         ];
         $sql = 'DELETE FROM cars WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+
+    /***********************************
+      Create a carpool ad
+     **********************************/
+
+    public function createCarpoolad(int $carid, string $description, datetime $dateandtime, string $departurelocation, string $destination, int $availableseats): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'carid' => $carid,
+            'description' => $description,
+            'dateandtime' => $dateandtime,
+            'departurelocation' => $departurelocation,
+            'destination' => $destination,
+            'availableseats' => $availableseats
+        ];
+        $sql = 'INSERT INTO cars (carid, description, dateandtime, departurelocation, destination, availableseats) VALUES (:carid, :description, :dateandtime, :departurelocation, :destination, :availableseats)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Return all ads.
+     */
+    public function getCarpoolad(): array
+    {
+        $carpoolad = [];
+
+        $sql = 'SELECT * FROM carpoolad';
+        $query = $this->connection->query($sql);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $carpoolad = $results;
+        }
+
+        return $carpoolad;
+    }
+
+    /**
+     * Update an ad.
+     */
+    public function updateCarpoolad(int $carid, string $description, datetime $dateandtime, string $departurelocation, string $destination, int $availableseats): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'carid' => $carid,
+            'description' => $description,
+            'dateandtime' => $dateandtime,
+            'departurelocation' => $departurelocation,
+            'destination' => $destination,
+            'availableseats' => $availableseats
+        ];
+
+
+        $sql = 'UPDATE carpoolad SET carid = :carid, description = :description, dateandtime = :dateandtime, departurelocation = :departurelocation, detination = :destination, avalableseats = :availableseats WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Delete an ad.
+     */
+    public function deleteCarpoolad(string $id): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+        ];
+        $sql = 'DELETE FROM carpoolad WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /******************************************
+    Create a reservation
+     ****************************************/
+
+    public function createReservation(string $adid, string $userid, DateTime $dateandtime, string $reservedseats): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'adid' => $adid,
+            'userid' => $userid,
+            'dateandtime' => $dateandtime,
+            'reservedseats' => $reservedseats,
+        ];
+        $sql = 'INSERT INTO users (adid, userid, dateandtime, reservedseats) VALUES (:adid, :userid, :dateandtime, :reservedseats)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Return all reservations.
+     */
+    public function getReservations(): array
+    {
+        $reservations = [];
+
+        $sql = 'SELECT * FROM reservation';
+        $query = $this->connection->query($sql);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $reservations = $results;
+        }
+
+        return $reservations;
+    }
+
+    /**
+     * Update a reservation.
+     */
+    public function updateReservation(string $id, string $adid, string $userid, DateTime $dateandtime, string $reservedseats): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+            'adid' => $adid,
+            'userid' => $userid,
+            'dateandtime' => $dateandtime,
+            'reservedseats' => $reservedseats,
+        ];
+        $sql = 'UPDATE reservation SET adid = :adid, userid = :userid, dateandtime = :dateandtime, reservedseats = :reservedseats WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Delete a reservation.
+     */
+    public function deleteReservation(string $id): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+        ];
+        $sql = 'DELETE FROM reservation WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
