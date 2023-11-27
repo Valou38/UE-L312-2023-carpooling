@@ -40,7 +40,7 @@ $adService = new \App\Services\CarpooladService();
     <input type="text" name="description">
     <br />
     <label for="dateandtime">Jour et heure du départ :</label>
-    <input type="datetime" name="dateandtime">
+    <input type="datetime-local" name="dateandtime">
     <br />
     <label for="departurelocation">Lieu de départ :</label>
     <input type="text" name="départurelocation">
