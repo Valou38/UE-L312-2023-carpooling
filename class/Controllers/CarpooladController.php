@@ -61,11 +61,14 @@ class CarpooladController
                         $html = "Erreur : La date doit se situer dans le futur";
                     }
 
+            } else {   
+                $html = "Erreur : Merci de remplit tous les champs "; 
             }
 
         }
             return $html;
     }
+
 
 
         /**
