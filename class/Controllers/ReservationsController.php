@@ -132,7 +132,7 @@ class ReservationsController
                     // Process reservation creation:
                     $reservationService = new ReservationsService();
                     $isOk = $reservationService->setReservation(
-                        null,
+                        $id,
                         $adid,
                         $userid,
                         $reservedSeats
