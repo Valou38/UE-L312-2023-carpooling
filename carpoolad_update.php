@@ -17,7 +17,7 @@ echo $controller->updateCarpoolad();
     <label for="carid">Choisir une voiture :</label>
     <select name="carid">
     <?php
-        $cars = $controller->getCars();
+        $cars = $controller->getCarpoolad();
         foreach ($cars as $car) {
             echo "<option value='{$car['id']}'>{$car['id']}</option>";
         }
@@ -37,7 +37,7 @@ echo $controller->updateCarpoolad();
     <input type="text" name="destination">
     <br />
     <label for="availableseats">Nombre de sièges disponibles : </label>
-        <select type="int" name="availableseats">
+        <select name="availableseats">
           <option value="">--Please choose an option--</option>
           <option value="1">1</option>
           <option value="2">2</option>

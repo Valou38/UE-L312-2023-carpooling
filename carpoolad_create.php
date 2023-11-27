@@ -25,7 +25,7 @@ echo $controller->createCarpoolad();
     <input type="text" name="description">
     <br />
     <label for="dateandtime">Jour et heure du départ</label>
-    <input type="datetime" name="dateandtime">
+    <input type="datetime-local" name="dateandtime">
     <br />
     <label for="departurelocation">Lieu de départ</label>
     <input type="text" name="départurelocation">
@@ -34,7 +34,7 @@ echo $controller->createCarpoolad();
     <input type="text" name="destination">
     <br />
     <label for="availableseats">Nombre de sièges disponibles</label>
-        <select type="int" name="availableseats">
+        <select name="availableseats">
           <option value="">--Please choose an option--</option>
           <option value="1">1</option>
           <option value="2">2</option>
