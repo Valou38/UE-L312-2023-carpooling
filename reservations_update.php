@@ -35,7 +35,7 @@ echo $controller->updateReservation();
     </select>
     <br/>
     <label for="dateandtime">Date et heure:</label>
-    <input type="datetime" name="dateandtime">
+    <input type="datetime-local" name="dateandtime">
     <br>
     <label for="reservedseats">Nombre de siège réservé:</label>
     <select name="reservedseats">
