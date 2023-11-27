@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Services\CarpooladService;
 
+use Cassandra\Date;
 use DateTime;
 
 class CarpooladController
@@ -37,78 +38,75 @@ class CarpooladController
                 $availableseats = trim(htmlspecialchars(strip_tags($_POST['availableseats'])));
 
 
-                    // Check if the ad date is after today's date
-                    if ($dateandtime > $currentTime) {
+                // Check if the ad date is after today's date
+                if ($dateandtime > $currentTime) {
 
-                        // Create the ad :
-                        $carpooladService = new CarpooladService();
-                        $isOk = $carpooladService->setCarpoolad(
-                            null,
-                            $carid,
-                            $description,
-                            $dateandtime,
-                            $departurelocation,
-                            $destination,
-                            $availableseats
-                        );
-                        if ($isOk) {
-                            $html = "L'annonce a été créée avec succès.";
-                        } else {
-                            $html = "Erreur lors de la création de l'annonce. ";
-                        }
-
+                    // Create the ad :
+                    $carpooladService = new CarpooladService();
+                    $isOk = $carpooladService->setCarpoolad(
+                        null,
+                        $carid,
+                        $description,
+                        $dateandtime,
+                        $departurelocation,
+                        $destination,
+                        $availableseats
+                    );
+                    if ($isOk) {
+                        $html = "L'annonce a été créée avec succès.";
                     } else {
-                        $html = "Erreur : La date doit se situer dans le futur";
+                        $html = "Erreur lors de la création de l'annonce. ";
                     }
 
-            } else {   
-                $html = "Erreur : Merci de remplir tous les champs "; 
+                } else {
+                    $html = "Erreur : La date doit se situer dans le futur";
+                }
+
+            } else {
+                $html = "Erreur : Merci de remplir tous les champs ";
             }
 
         }
-            return $html;
+        return $html;
     }
 
 
 
-        /**
-         * Return the html for the read action.
-         */
-        public
-        function getCarpoolad(): string
-        {
-            $html = '';
+    /**
+     * Return the html for the read action.
+     */
+    public
+    function getCarpoolad(): string
+    {
+        $html = '';
 
-            // Get all cars :
-            $carpooladService = new CarpooladService();
-            $carpoolad = $carpooladService->getCarpoolad();
+        // Get all cars :
+        $carpooladService = new CarpooladService();
+        $carpoolad = $carpooladService->getCarpoolad();
 
-            // Get html :
-            foreach ($carpoolad as $carpool) {
-                $html .=
-                    '#' . $carpool->getId() . ' ' .
-                    $carpool->getCarid() . ' ' .
-                    $carpool->getDescription() . ' ' .
-                    $carpool->getDateandtime() . ' ' .
-                    $carpool->getDeparturelocation() . ' ' .
-                    $carpool->getDestination() . ' ' .
-                    $carpool->getAvailableseats() . '</br>';
-            }
-
-            return $html;
+        // Get html :
+        foreach ($carpoolad as $carpool) {
+            $html .=
+                '#' . $carpool->getId() . ' ' .
+                $carpool->getCarid() . ' ' .
+                $carpool->getDescription() . ' ' .
+                $carpool->getDateandtime() . ' ' .
+                $carpool->getDeparturelocation() . ' ' .
+                $carpool->getDestination() . ' ' .
+                $carpool->getAvailableseats() . '</br>';
         }
 
-        /**
-         * Update the ad.
-         */
-        public
-        function updateCarpoolad(): string
-        {
-            $html = '';
+        return $html;
+    }
 
-            // Get the current year
-             $currentTime = new DateTime() ;
+    /**
+     * Update the ad.
+     */
+    public function updateCarpoolad(): string
+    {
+        $html = '';
 
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // If the form have been submitted :
             if (!empty($_POST['id']) &&
                 !empty($_POST['carid']) &&
@@ -119,7 +117,7 @@ class CarpooladController
                 !empty($_POST['availableseats'])) {
 
                 // Clean and validate the inputs
-                $id =  trim(htmlspecialchars(strip_tags($_POST['id'])));
+                $id = trim(htmlspecialchars(strip_tags($_POST['id'])));
                 $carid = trim(htmlspecialchars(strip_tags($_POST['carid'])));
                 $description = trim(htmlspecialchars(strip_tags($_POST['description'])));
                 $dateandtime = new DateTime(trim(htmlspecialchars(strip_tags($_POST['dateandtime']))));
@@ -127,73 +125,75 @@ class CarpooladController
                 $destination = trim(htmlspecialchars(strip_tags($_POST['destination'])));
                 $availableseats = trim(htmlspecialchars(strip_tags($_POST['availableseats'])));
 
-                // Check if all fields are not empty
-                if (!empty($id) && !empty($carid) && !empty($description) && !empty($dateandtime) && !empty($departurelocation) && !empty($destination) && !empty($availableseats)) {
+                    $currentTime = new DateTime();
 
-                        // Check if the ad date is after today's date
-                        if ($dateandtime > $currentTime) {
+                    // Check if the ad date is after today's date
+                    if ($dateandtime > $currentTime) {
 
-                            // Update the ad :
-                            $carpooladService = new CarpooladService();
-                            $isOk = $carpooladService->setCarpoolad(
-                                null,
-                                $carid,
-                                $description,
-                                $dateandtime,
-                                $departurelocation,
-                                $destination,
-                                $availableseats
-                            );
-                            if ($isOk) {
-                                $html = "L'annonce a été créée avec succès.";
-                            } else {
-                                $html = "Erreur lors de la création de l'annonce. ";
-                            }
-
+                        // Update the ad :
+                        $carpooladService = new CarpooladService();
+                       
+                        $isOk = $carpooladService->setCarpoolad(
+                            $id,
+                            $carid,
+                            $description,
+                            $dateandtime,
+                            $departurelocation,
+                            $destination,
+                            $availableseats
+                        );
+                        if ($isOk) {
+                            $html = "L'annonce a été mise à jour avec succès.";
                         } else {
-                            $html = "Erreur : La date doit se situer dans le futur";
+                            $html = "Erreur lors de la création de l'annonce. ";
                         }
 
-                }
+                    } else {
+                        $html = "Erreur : La date doit se situer dans le futur";
+                    }
 
+            } else {
+                $html = "Erreur : Remplissez tous les champs";
             }
-            return $html;
         }
 
-        /**
-         * Delete an ad
-         */
-        public
-        function deleteCarpoolad(): string
-        {
-            $html = '';
+        return $html;
+    }
 
-            // If the form have been submitted and not empty :
-            if (!empty($_POST['id'])) {
-                // Clean and validate the inputs
-                $id = trim(htmlspecialchars(strip_tags($_POST['id'])));
+    /**
+     * Delete an ad
+     */
+    public
+    function deleteCarpoolad(): string
+    {
+        $html = '';
 
-                // Check if 'id' is a numeric value
-                if (is_numeric($id)) {
-                    // Check if 'id' is a positive number
-                    if ($id >= 0) {
-                        // Delete the ad :
-                        $carpooladService = new CarpooladService();
-                        $isOk = $carpooladService->deleteCarpoolad($id);
-                        if ($isOk) {
-                            $html = 'Annonce supprimée avec succès.';
-                        } else {
-                            $html = "Erreur lors de la suppression de l'annonce.";
-                        }
+        // If the form have been submitted and not empty :
+        if (!empty($_POST['id'])) {
+            // Clean and validate the inputs
+            $id = trim(htmlspecialchars(strip_tags($_POST['id'])));
+
+            // Check if 'id' is a numeric value
+            if (is_numeric($id)) {
+                // Check if 'id' is a positive number
+                if ($id >= 0) {
+                    // Delete the ad :
+                    $carpooladService = new CarpooladService();
+                    $isOk = $carpooladService->deleteCarpoolad($id);
+                    if ($isOk) {
+                        $html = 'Annonce supprimée avec succès.';
                     } else {
-                        $html = 'Erreur : L\'id doit être un nombre positif.';
+                        $html = "Erreur lors de la suppression de l'annonce.";
                     }
                 } else {
-                    $html = 'Erreur : L\'id doit être une valeur numérique.';
+                    $html = 'Erreur : L\'id doit être un nombre positif.';
                 }
+            } else {
+                $html = 'Erreur : L\'id doit être une valeur numérique.';
             }
-
-            return $html;
         }
 
+        return $html;
     }
+
+}
