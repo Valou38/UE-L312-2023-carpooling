@@ -1,131 +1,361 @@
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Hôte : 127.0.0.1:3306
--- Généré le : lun. 27 nov. 2023 à 09:20
--- Version du serveur : 8.0.31
--- Version de PHP : 8.1.12
+<?php
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+namespace App\Services;
+
+use DateTime;
+use Exception;
+use PDO;
+
+class DataBaseService
+{
+    const HOST = '127.0.0.1';
+    const PORT = '3306';
+    const DATABASE_NAME = 'carpooling';
+    const MYSQL_USER = 'root';
+    const MYSQL_PASSWORD = 'password';
+
+    private $connection;
+
+    public function __construct()
+    {
+        try {
+            $this->connection = new PDO(
+                'mysql:host=' . self::HOST . ';port=' . self::PORT . ';dbname=' . self::DATABASE_NAME,
+                self::MYSQL_USER,
+                self::MYSQL_PASSWORD
+            );
+            $this->connection->exec("SET CHARACTER SET utf8");
+        } catch (Exception $e) {
+            echo 'Erreur : ' . $e->getMessage();
+        }
+    }
+
+    /******************************************
+      Create an user
+     ****************************************/
+
+    public function createUser(string $firstname, string $lastname, string $email, DateTime $birthday): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'email' => $email,
+            'birthday' => $birthday->format(DateTime::RFC3339),
+        ];
+        $sql = 'INSERT INTO users (firstname, lastname, email, birthday) VALUES (:firstname, :lastname, :email, :birthday)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Return all users.
+     */
+    public function getUsers(): array
+    {
+        $users = [];
+
+        $sql = 'SELECT * FROM users';
+        $query = $this->connection->query($sql);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $users = $results;
+        }
+
+        return $users;
+    }
+
+    /**
+     * Update an user.
+     */
+    public function updateUser(string $id, string $firstname, string $lastname, string $email, DateTime $birthday): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'email' => $email,
+            'birthday' => $birthday->format(DateTime::RFC3339),
+        ];
+        $sql = 'UPDATE users SET firstname = :firstname, lastname = :lastname, email = :email, birthday = :birthday WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Delete an user.
+     */
+    public function deleteUser(string $id): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+        ];
+        $sql = 'DELETE FROM users WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /******************************
+        Create a car
+     *****************************/
+
+    public function createCar(string $brand, string $model, string $year, string $mileage): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'brand' => $brand,
+            'model' => $model,
+            'year' => $year,
+            'mileage' => $mileage,
+        ];
+        $sql = 'INSERT INTO cars (brand, model, year, mileage) VALUES (:brand, :model, :year, :mileage)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Return all cars.
+     */
+    public function getCars(): array
+    {
+        $cars = [];
+
+        $sql = 'SELECT * FROM cars';
+        $query = $this->connection->query($sql);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $cars = $results;
+        }
+
+        return $cars;
+    }
+
+    /**
+     * Update a car.
+     */
+    public function updateCar(string $id, string $brand, string $model, string $year, string $mileage): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+            'brand' => $brand,
+            'model' => $model,
+            'year' => $year,
+            'mileage' => $mileage,
+        ];
+        $sql = 'UPDATE cars SET brand = :brand, model = :model, year = :year, mileage = :mileage WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Delete a car.
+     */
+    public function deleteCar(string $id): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+        ];
+        $sql = 'DELETE FROM cars WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+    /***********************************
+      Create a carpool ad
+     **********************************/
 
---
--- Base de données : `carpooling`
---
+    public function createCarpoolad(int $carid, string $description, datetime $dateandtime, string $departurelocation, string $destination, int $availableseats): bool
+    {
+        $isOk = false;
 
--- --------------------------------------------------------
+        $data = [
+            'carid' => $carid,
+            'description' => $description,
+            'dateandtime' => $dateandtime,
+            'departurelocation' => $departurelocation,
+            'destination' => $destination,
+            'availableseats' => $availableseats
+        ];
+        $sql = 'INSERT INTO cars (carid, description, dateandtime, departurelocation, destination, availableseats) VALUES (:carid, :description, :dateandtime, :departurelocation, :destination, :availableseats)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
 
---
--- Structure de la table `carpoolad`
---
+        return $isOk;
+    }
 
-DROP TABLE IF EXISTS `carpoolad`;
-CREATE TABLE IF NOT EXISTS `carpoolad` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `carid` int NOT NULL,
-  `description` text NOT NULL,
-  `dateandtime` datetime NOT NULL,
-  `departurelocation` varchar(255) NOT NULL,
-  `destination` varchar(255) NOT NULL,
-  `availableseats` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `carid` (`carid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+    /**
+     * Return all ads.
+     */
+    public function getCarpoolad(): array
+    {
+        $carpoolad = [];
 
--- --------------------------------------------------------
+        $sql = 'SELECT * FROM carpoolad';
+        $query = $this->connection->query($sql);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $carpoolad = $results;
+        }
 
---
--- Structure de la table `cars`
---
+        return $carpoolad;
+    }
 
-DROP TABLE IF EXISTS `cars`;
-CREATE TABLE IF NOT EXISTS `cars` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `brand` varchar(255) NOT NULL,
-  `model` varchar(255) NOT NULL,
-  `year` year NOT NULL,
-  `mileage` varchar(7) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
+    /**
+     * Return an ad by id.
+     */
+    public function getCarpooladById($id): array
+    {
+        $carpoolad = [];
 
---
--- Déchargement des données de la table `cars`
---
+        $sql = 'SELECT * FROM carpoolad WHERE id = :id';
+        $query = $this->connection->prepare($sql);
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $carpoolad = $results[0];
+        }
 
-INSERT INTO `cars` (`id`, `brand`, `model`, `year`, `mileage`) VALUES
-(2, 'AUDI', 'A6', 2001, '300'),
-(9, 'Twingo', 'Petit', 2011, '200000');
+        return $carpoolad;
+    }
 
--- --------------------------------------------------------
+    /**
+     * Update an ad.
+     */
+    public function updateCarpoolad(int $carid, string $description, datetime $dateandtime, string $departurelocation, string $destination, int $availableseats): bool
+    {
+        $isOk = false;
 
---
--- Structure de la table `reservation`
---
+        $data = [
+            'carid' => $carid,
+            'description' => $description,
+            'dateandtime' => $dateandtime,
+            'departurelocation' => $departurelocation,
+            'destination' => $destination,
+            'availableseats' => $availableseats
+        ];
 
-DROP TABLE IF EXISTS `reservation`;
-CREATE TABLE IF NOT EXISTS `reservation` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `adid` int NOT NULL,
-  `userid` int NOT NULL,
-  `dateandtime` datetime NOT NULL,
-  `reservedseats` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `adid` (`adid`),
-  KEY `userid` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 
--- --------------------------------------------------------
+        $sql = 'UPDATE carpoolad SET carid = :carid, description = :description, dateandtime = :dateandtime, departurelocation = :departurelocation, detination = :destination, avalableseats = :availableseats WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
 
---
--- Structure de la table `users`
---
+        return $isOk;
+    }
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(255) NOT NULL,
-  `lastname` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `birthday` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+    /**
+     * Delete an ad.
+     */
+    public function deleteCarpoolad(string $id): bool
+    {
+        $isOk = false;
 
---
--- Déchargement des données de la table `users`
---
+        $data = [
+            'id' => $id,
+        ];
+        $sql = 'DELETE FROM carpoolad WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `birthday`) VALUES
-(1, 'Vincent', 'Godé', 'hello@vincentgo.fr', '1990-11-08 00:00:00'),
-(2, 'Albert', 'Dupond', 'sonemail@gmail.com', '1985-11-08 00:00:00'),
-(3, 'Thomas', 'Dumoulin', 'sonemail2@gmail.com', '1985-10-08 09:44:46'),
-(5, 'Siham', 'Charef', 'siham@gmail.com', '2001-08-15 02:00:00');
+        return $isOk;
+    }
 
---
--- Contraintes pour les tables déchargées
---
+    /******************************************
+    Create a reservation
+     ****************************************/
 
---
--- Contraintes pour la table `carpoolad`
---
-ALTER TABLE `carpoolad`
-  ADD CONSTRAINT `carpoolad_ibfk_1` FOREIGN KEY (`carid`) REFERENCES `cars` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+    public function createReservation(string $adid, string $userid, DateTime $dateandtime, string $reservedseats): bool
+    {
+        $isOk = false;
 
---
--- Contraintes pour la table `reservation`
---
-ALTER TABLE `reservation`
-  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`adid`) REFERENCES `carpoolad` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-COMMIT;
+        $data = [
+            'adid' => $adid,
+            'userid' => $userid,
+            'dateandtime' => $dateandtime,
+            'reservedseats' => $reservedseats,
+        ];
+        $sql = 'INSERT INTO reservation (adid, userid, dateandtime, reservedseats) VALUES (:adid, :userid, :dateandtime, :reservedseats)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+        return $isOk;
+    }
+
+    /**
+     * Return all reservations.
+     */
+    public function getReservations(): array
+    {
+        $reservations = [];
+
+        $sql = 'SELECT * FROM reservation';
+        $query = $this->connection->query($sql);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $reservations = $results;
+        }
+
+        return $reservations;
+    }
+
+    /**
+     * Update a reservation.
+     */
+    public function updateReservation(string $id, string $adid, string $userid, DateTime $dateandtime, string $reservedseats): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+            'adid' => $adid,
+            'userid' => $userid,
+            'dateandtime' => $dateandtime,
+            'reservedseats' => $reservedseats,
+        ];
+        $sql = 'UPDATE reservation SET adid = :adid, userid = :userid, dateandtime = :dateandtime, reservedseats = :reservedseats WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    /**
+     * Delete a reservation.
+     */
+    public function deleteReservation(string $id): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'id' => $id,
+        ];
+        $sql = 'DELETE FROM reservation WHERE id = :id;';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+}
