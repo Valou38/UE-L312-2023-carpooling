@@ -107,7 +107,7 @@ class CarpooladController
             $html = '';
 
             // Get the current year
-            $currentTime = date("Y-m-d H:i:s");
+             $currentTime = new DateTime() ;
 
             // If the form have been submitted :
             if (!empty($_POST['id']) &&
@@ -122,7 +122,7 @@ class CarpooladController
                 $id =  trim(htmlspecialchars(strip_tags($_POST['id'])));
                 $carid = trim(htmlspecialchars(strip_tags($_POST['carid'])));
                 $description = trim(htmlspecialchars(strip_tags($_POST['description'])));
-                $dateandtime = trim(htmlspecialchars(strip_tags($_POST['dateandtime'])));
+                $dateandtime = new DateTime(trim(htmlspecialchars(strip_tags($_POST['dateandtime']))));
                 $departurelocation = trim(htmlspecialchars(strip_tags($_POST['departurelocation'])));
                 $destination = trim(htmlspecialchars(strip_tags($_POST['destination'])));
                 $availableseats = trim(htmlspecialchars(strip_tags($_POST['availableseats'])));
