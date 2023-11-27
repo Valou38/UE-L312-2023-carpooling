@@ -16,7 +16,7 @@ class CarpooladController
         $html = '';
 
         // Get the current year
-        $currentTime = date("Y-m-d H:i:s");
+        $currentTime = new DateTime() ;
 
         // Check if the form has been submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -62,7 +62,7 @@ class CarpooladController
                     }
 
             } else {   
-                $html = "Erreur : Merci de remplit tous les champs "; 
+                $html = "Erreur : Merci de remplir tous les champs "; 
             }
 
         }
@@ -118,7 +118,6 @@ class CarpooladController
                 !empty($_POST['destination']) &&
                 !empty($_POST['availableseats'])) {
 
-                // Clean and validate the inputs
                 // Clean and validate the inputs
                 $id =  trim(htmlspecialchars(strip_tags($_POST['id'])));
                 $carid = trim(htmlspecialchars(strip_tags($_POST['carid'])));
