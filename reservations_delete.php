@@ -15,9 +15,9 @@ echo $controller->deleteReservation();
     <select name="id">
         <option value="">--Choisissez un ID de réservation--</option>
         <?php
-        $cars = $controller->getReservations();
-        foreach ($cars as $car) {
-            echo "<option value='{$car->getId()}'>{$car->getId()}</option>";
+        $reservations = $controller->getReservations();
+        foreach ($reservations as $reservation) {
+            echo "<option value='{$reservation->getId()}'>{$reservation->getId()}</option>";
         }
         ?>
     </select>
