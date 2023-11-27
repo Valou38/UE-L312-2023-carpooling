@@ -11,7 +11,7 @@ class CarpooladService
     /**
      * Create or update an ad
      */
-    public function setCarpoolad(?string $id, string $carid, string $description, DateTime $dateandtime, string $departurelocation, string $destination, string $availableseats):bool
+    public function setCarpoolad(?string $id, string $carid, string $description, DateTime $dateandtime, string $departurelocation, string $destination, string $availableseats): bool
     {
         $isOk = false;
 
@@ -22,7 +22,6 @@ class CarpooladService
         } else {
             $isOk = $dataBaseService-> updateCarpoolad($id, $carid, $description,$dateandtime, $departurelocation, $destination, $availableseats);
         }
-
 
         return $isOk;
     }
