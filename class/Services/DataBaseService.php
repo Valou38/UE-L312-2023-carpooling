@@ -245,26 +245,30 @@ class DataBaseService
     /**
      * Update an ad.
      */
-    public function updateCarpoolad(int $carid, string $description, datetime $dateandtime, string $departurelocation, string $destination, int $availableseats): bool
+    /**
+     * Update an ad.
+     */
+    public function updateCarpoolad(?string $id, int $carid, string $description, DateTime $dateandtime, string $departurelocation, string $destination, int $availableseats): bool
     {
         $isOk = false;
 
         $data = [
+            'id' => $id,
             'carid' => $carid,
             'description' => $description,
-            'dateandtime' => $dateandtime,
+            'dateandtime' => $dateandtime->format('Y-m-d H:i:s'),
             'departurelocation' => $departurelocation,
             'destination' => $destination,
             'availableseats' => $availableseats
         ];
 
-
-        $sql = 'UPDATE carpoolad SET carid = :carid, description = :description, dateandtime = :dateandtime, departurelocation = :departurelocation, detination = :destination, avalableseats = :availableseats WHERE id = :id;';
+        $sql = 'UPDATE carpoolad SET carid = :carid, description = :description, dateandtime = :dateandtime, departurelocation = :departurelocation, destination = :destination, availableseats = :availableseats WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
         return $isOk;
     }
+
 
     /**
      * Delete an ad.
