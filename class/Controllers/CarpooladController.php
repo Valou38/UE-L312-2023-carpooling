@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Services\CarpooladService;
 
+use DateTime;
+
 class CarpooladController
 {
     /**
@@ -27,10 +29,9 @@ class CarpooladController
                 !empty($_POST['availableseats'])) {
 
                 // Clean and validate the inputs
-                $id =  trim(htmlspecialchars(strip_tags($_POST['id'])));
                 $carid = trim(htmlspecialchars(strip_tags($_POST['carid'])));
                 $description = trim(htmlspecialchars(strip_tags($_POST['description'])));
-                $dateandtime = trim(htmlspecialchars(strip_tags($_POST['dateandtime'])));
+                $dateandtime = new DateTime(trim(htmlspecialchars(strip_tags($_POST['dateandtime']))));
                 $departurelocation = trim(htmlspecialchars(strip_tags($_POST['departurelocation'])));
                 $destination = trim(htmlspecialchars(strip_tags($_POST['destination'])));
                 $availableseats = trim(htmlspecialchars(strip_tags($_POST['availableseats'])));
@@ -106,13 +107,13 @@ class CarpooladController
             $currentTime = date("Y-m-d H:i:s");
 
             // If the form have been submitted :
-            if (!isset($_POST['id']) &&
-                !isset($_POST['carid']) &&
-                !isset($_POST['description']) &&
-                !isset($_POST['dateandtime']) &&
-                !isset($_POST['departurelocation']) &&
-                !isset($_POST['destination']) &&
-                !isset($_POST['availableseats'])) {
+            if (!empty($_POST['id']) &&
+                !empty($_POST['carid']) &&
+                !empty($_POST['description']) &&
+                !empty($_POST['dateandtime']) &&
+                !empty($_POST['departurelocation']) &&
+                !empty($_POST['destination']) &&
+                !empty($_POST['availableseats'])) {
 
                 // Clean and validate the inputs
                 // Clean and validate the inputs
