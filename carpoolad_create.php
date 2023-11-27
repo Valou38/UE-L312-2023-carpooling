@@ -7,6 +7,7 @@ require __DIR__ . '/vendor/autoload.php';
 $controller = new CarpooladController();
 echo $controller->createCarpoolad();
 
+$carService = new \App\Services\CarsService();
 ?>
 
 
@@ -16,7 +17,7 @@ echo $controller->createCarpoolad();
     <select name="carid">
           <option value="">--Choisissez l'ID de votre voiture--</option>
     <?php
-        $cars = $service->getCars();
+        $cars = $carService->getCars();
         foreach ($cars as $car) {
             echo "<option value='{$car->getId()}'>{$car->getId()}</option>";
         }
