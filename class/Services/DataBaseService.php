@@ -194,12 +194,12 @@ class DataBaseService
         $data = [
             'carid' => $carid,
             'description' => $description,
-            'dateandtime' => $dateandtime,
+            'dateandtime' => $dateandtime->format('Y-m-d H:i:s'),
             'departurelocation' => $departurelocation,
             'destination' => $destination,
             'availableseats' => $availableseats
         ];
-        $sql = 'INSERT INTO cars (carid, description, dateandtime, departurelocation, destination, availableseats) VALUES (:carid, :description, :dateandtime, :departurelocation, :destination, :availableseats)';
+        $sql = 'INSERT INTO carpoolad (carid, description, dateandtime, departurelocation, destination, availableseats) VALUES (:carid, :description, :dateandtime, :departurelocation, :destination, :availableseats)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
