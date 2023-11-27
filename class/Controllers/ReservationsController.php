@@ -29,20 +29,12 @@ class ReservationsController
             // If the form has been submitted and not empty:
             if (!empty($_POST['adid']) &&
                 !empty($_POST['userid']) &&
-                !empty($_POST['dateandtime']) &&
                 !empty($_POST['reservedseats'])) {
 
                 // Clean and validate the inputs
                 $adid = intval($_POST['adid']);
                 $userid = intval($_POST['userid']);
-                $dateandtime = trim(htmlspecialchars(strip_tags($_POST['dateandtime'])));
                 $reservedSeats = intval($_POST['reservedseats']);
-
-                // Check if the date is at least equal to the current date
-                if (strtotime($dateandtime) < strtotime(date('Y-m-d'))) {
-                    $html = 'Erreur : La date ne peut pas être antérieure à aujourd\'hui.';
-                    return $html;
-                }
 
                 // Check if the reserved seats do not exceed the available seats
                 $ad = $this->getCarpooladById($adid);
@@ -53,7 +45,6 @@ class ReservationsController
                         null,
                         $adid,
                         $userid,
-                        $dateandtime,
                         $reservedSeats
                     );
 
@@ -108,7 +99,6 @@ class ReservationsController
                 '#' . $reservation->getId() . ' ' .
                 $reservation->getAdid() . ' ' .
                 $reservation->getUserid() . ' ' .
-                $reservation->getDateandtime()->format('d-m-Y H:i:s') . ' ' .
                 $reservation->getReservedseats(). '</br>';
         }
 
@@ -128,21 +118,13 @@ class ReservationsController
             if (!empty($_POST['id']) &&
                 !empty($_POST['adid']) &&
                 !empty($_POST['userid']) &&
-                !empty($_POST['dateandtime']) &&
                 !empty($_POST['reservedseats'])) {
 
                 // Clean and validate the inputs
                 $id = intval($_POST['id']);
                 $adid = intval($_POST['adid']);
                 $userid = intval($_POST['userid']);
-                $dateandtime = trim(htmlspecialchars(strip_tags($_POST['dateandtime'])));
                 $reservedSeats = intval($_POST['reservedseats']);
-
-                // Check if the date is at least equal to the current date
-                if (strtotime($dateandtime) < strtotime(date('Y-m-d'))) {
-                    $html = 'Erreur : La date ne peut pas être antérieure à aujourd\'hui.';
-                    return $html;
-                }
 
                 // Check if the reserved seats do not exceed the available seats
                 $ad = $this->getCarpooladById($adid);
@@ -153,7 +135,6 @@ class ReservationsController
                         null,
                         $adid,
                         $userid,
-                        $dateandtime,
                         $reservedSeats
                     );
 
