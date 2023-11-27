@@ -12,13 +12,14 @@ echo $controller->createCarpoolad();
 <p>Création d'une annonce</p>
 <form method="post" action="carpoolad_create.php" name ="carpooladCreateForm">
     <label for="carid">Choisir une voiture :</label>
-    <input type="int" name="carid">
+    <select name="carid">
     <?php
-        $cars = $controller->getCars();
+        $cars = $controller->getCarpoolad();
         foreach ($cars as $car) {
             echo "<option value='{$car['id']}'>{$car['id']}</option>";
         }
-        ?>
+    ?>
+    </select>
     <br />
     <label for="description">Description de l'annonce</label>
     <input type="text" name="description">
