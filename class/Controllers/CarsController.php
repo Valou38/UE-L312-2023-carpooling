@@ -169,28 +169,32 @@ class CarsController
     {
         $html = '';
 
-        // If the form have been submitted and not empty :
-        if (!empty($_POST['id'])) {
-            // Clean and validate the inputs
-            $id = trim(htmlspecialchars(strip_tags($_POST['id'])));
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // If the form have been submitted and not empty :
+            if (!empty($_POST['id'])) {
+                // Clean and validate the inputs
+                $id = trim(htmlspecialchars(strip_tags($_POST['id'])));
 
-            // Check if 'id' is a numeric value
-            if (is_numeric($id)) {
-                // Check if 'id' is a positive number
-                if ($id >= 0) {
-                    // Delete the car :
-                    $carsService = new CarsService();
-                    $isOk = $carsService->deleteCar($id);
-                    if ($isOk) {
-                        $html = 'Véhicule supprimé avec succès.';
+                // Check if 'id' is a numeric value
+                if (is_numeric($id)) {
+                    // Check if 'id' is a positive number
+                    if ($id >= 0) {
+                        // Delete the car :
+                        $carsService = new CarsService();
+                        $isOk = $carsService->deleteCar($id);
+                        if ($isOk) {
+                            $html = 'Véhicule supprimé avec succès.';
+                        } else {
+                            $html = 'Erreur lors de la suppression du véhicule.';
+                        }
                     } else {
-                        $html = 'Erreur lors de la suppression du véhicule.';
+                        $html = 'Erreur : L\'id doit être un nombre positif.';
                     }
                 } else {
-                    $html = 'Erreur : L\'id doit être un nombre positif.';
+                    $html = 'Erreur : L\'id doit être une valeur numérique.';
                 }
             } else {
-                $html = 'Erreur : L\'id doit être une valeur numérique.';
+                $html= 'Erreur : aucun identifiant saisi';
             }
         }
 
