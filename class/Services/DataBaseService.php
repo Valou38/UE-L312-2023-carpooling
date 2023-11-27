@@ -224,6 +224,25 @@ class DataBaseService
     }
 
     /**
+     * Return an ad by id.
+     */
+    public function getCarpooladById($id): array
+    {
+        $carpoolad = [];
+
+        $sql = 'SELECT * FROM carpoolad WHERE id = :id';
+        $query = $this->connection->prepare($sql);
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $carpoolad = $results[0];
+        }
+
+        return $carpoolad;
+    }
+
+    /**
      * Update an ad.
      */
     public function updateCarpoolad(int $carid, string $description, datetime $dateandtime, string $departurelocation, string $destination, int $availableseats): bool
@@ -278,7 +297,7 @@ class DataBaseService
             'dateandtime' => $dateandtime,
             'reservedseats' => $reservedseats,
         ];
-        $sql = 'INSERT INTO users (adid, userid, dateandtime, reservedseats) VALUES (:adid, :userid, :dateandtime, :reservedseats)';
+        $sql = 'INSERT INTO reservation (adid, userid, dateandtime, reservedseats) VALUES (:adid, :userid, :dateandtime, :reservedseats)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
