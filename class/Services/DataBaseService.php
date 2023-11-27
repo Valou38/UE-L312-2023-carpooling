@@ -194,12 +194,12 @@ class DataBaseService
         $data = [
             'carid' => $carid,
             'description' => $description,
-            'dateandtime' => $dateandtime,
+            'dateandtime' => $dateandtime->format('Y-m-d H:i:s'),
             'departurelocation' => $departurelocation,
             'destination' => $destination,
             'availableseats' => $availableseats
         ];
-        $sql = 'INSERT INTO cars (carid, description, dateandtime, departurelocation, destination, availableseats) VALUES (:carid, :description, :dateandtime, :departurelocation, :destination, :availableseats)';
+        $sql = 'INSERT INTO carpoolad (carid, description, dateandtime, departurelocation, destination, availableseats) VALUES (:carid, :description, :dateandtime, :departurelocation, :destination, :availableseats)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -287,17 +287,16 @@ class DataBaseService
     Create a reservation
      ****************************************/
 
-    public function createReservation(string $adid, string $userid, DateTime $dateandtime, string $reservedseats): bool
+    public function createReservation(string $adid, string $userid, string $reservedseats): bool
     {
         $isOk = false;
 
         $data = [
             'adid' => $adid,
             'userid' => $userid,
-            'dateandtime' => $dateandtime,
             'reservedseats' => $reservedseats,
         ];
-        $sql = 'INSERT INTO reservation (adid, userid, dateandtime, reservedseats) VALUES (:adid, :userid, :dateandtime, :reservedseats)';
+        $sql = 'INSERT INTO reservation (adid, userid, reservedseats) VALUES (:adid, :userid, :reservedseats)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -324,7 +323,7 @@ class DataBaseService
     /**
      * Update a reservation.
      */
-    public function updateReservation(string $id, string $adid, string $userid, DateTime $dateandtime, string $reservedseats): bool
+    public function updateReservation(string $id, string $adid, string $userid, string $reservedseats): bool
     {
         $isOk = false;
 
@@ -332,10 +331,9 @@ class DataBaseService
             'id' => $id,
             'adid' => $adid,
             'userid' => $userid,
-            'dateandtime' => $dateandtime,
             'reservedseats' => $reservedseats,
         ];
-        $sql = 'UPDATE reservation SET adid = :adid, userid = :userid, dateandtime = :dateandtime, reservedseats = :reservedseats WHERE id = :id;';
+        $sql = 'UPDATE reservation SET adid = :adid, userid = :userid, reservedseats = :reservedseats WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
