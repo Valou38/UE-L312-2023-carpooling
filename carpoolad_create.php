@@ -7,16 +7,19 @@ require __DIR__ . '/vendor/autoload.php';
 $controller = new CarpooladController();
 echo $controller->createCarpoolad();
 
+$carService = new \App\Services\CarsService();
 ?>
+
 
 <p>Création d'une annonce</p>
 <form method="post" action="carpoolad_create.php" name ="carpooladCreateForm">
     <label for="carid">Choisir une voiture :</label>
     <select name="carid">
+          <option value="">--Choisissez l'ID de votre voiture--</option>
     <?php
-        $cars = $controller->getCars();
+        $cars = $carService->getCars();
         foreach ($cars as $car) {
-            echo "<option value='{$car['id']}'>{$car['id']}</option>";
+            echo "<option value='{$car->getId()}'>{$car->getId()}</option>";
         }
     ?>
     </select>
@@ -35,17 +38,14 @@ echo $controller->createCarpoolad();
     <br />
     <label for="availableseats">Nombre de sièges disponibles</label>
         <select name="availableseats">
-          <option value="">--Please choose an option--</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
+        <option value="">--Nombre de sièges--</option>
+        <?php
+            for ($i = 1; $i <= 10; $i++) {
+                echo "<option value='$i'>$i</option>";
+            }
+        ?>
         </select>
     <br />
+
     <input type="submit" value="Créer une annonce">
 </form>
-
