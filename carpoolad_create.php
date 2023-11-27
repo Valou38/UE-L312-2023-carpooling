@@ -1,16 +1,14 @@
 <?php
 
-use App\Controllers\ReservationsController;
+use App\Controllers\CarpooladController;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$controller = new ReservationsController();
-echo $controller->createReservation();
-
-
-$service = new \App\Services\CarsService();
+$controller = new CarpooladController();
+echo $controller->createCarpoolad();
 
 ?>
+
 
 <p>Création d'une annonce</p>
 <form method="post" action="carpoolad_create.php" name ="carpooladCreateForm">
