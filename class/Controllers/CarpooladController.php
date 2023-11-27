@@ -36,8 +36,6 @@ class CarpooladController
                 $availableseats = trim(htmlspecialchars(strip_tags($_POST['availableseats'])));
 
 
-                // Check if 'availableseats' is a valid number
-                if ($availableseats >= 0) {
                     // Check if the ad date is after today's date
                     if ($dateandtime > $currentTime) {
 
@@ -61,9 +59,6 @@ class CarpooladController
                     } else {
                         $html = "Erreur : La date doit se situer dans le futur";
                     }
-                } else {
-                    $html = 'Erreur : La quantité de sièges disponibles doit être un chiffre positif';
-                }
 
             }
 
@@ -131,8 +126,7 @@ class CarpooladController
 
                 // Check if all fields are not empty
                 if (!empty($id) && !empty($carid) && !empty($description) && !empty($dateandtime) && !empty($departurelocation) && !empty($destination) && !empty($availableseats)) {
-                    // Check if 'year' is a numeric value
-                    if ($availableseats >= 0) {
+
                         // Check if the ad date is after today's date
                         if ($dateandtime > $currentTime) {
 
@@ -156,9 +150,6 @@ class CarpooladController
                         } else {
                             $html = "Erreur : La date doit se situer dans le futur";
                         }
-                    } else {
-                        $html = 'Erreur : La quantité de sièges disponibles doit être un chiffre positif';
-                    }
 
                 }
 
