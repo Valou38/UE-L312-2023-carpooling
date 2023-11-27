@@ -9,10 +9,18 @@ echo $controller->deleteReservation();
 
 ?>
 
-<p>Supression d'une réservation</p>
+<p>Suppression d'une réservation</p>
 <form method="post" action="reservations_delete.php" name ="reservationDeleteForm">
-    <label for="id">Id :</label>
-    <input type="text" name="id">
+    <label for="id">ID réservation :</label>
+    <select name="id">
+        <option value="">--Choisissez un ID de réservation--</option>
+        <?php
+        $cars = $controller->getReservations();
+        foreach ($cars as $car) {
+            echo "<option value='{$car->getId()}'>{$car->getId()}</option>";
+        }
+        ?>
+    </select>
     <br />
     <input type="submit" value="Supprimer une réservation">
 </form>
