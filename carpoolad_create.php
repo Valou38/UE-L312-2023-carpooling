@@ -31,7 +31,7 @@ $carService = new \App\Services\CarsService();
     <input type="datetime-local" name="dateandtime">
     <br />
     <label for="departurelocation">Lieu de départ</label>
-    <input type="text" name="départurelocation">
+    <input type="text" name="departurelocation">
     <br />
     <label for="destination">Lieu d'arrivée</label>
     <input type="text" name="destination">
