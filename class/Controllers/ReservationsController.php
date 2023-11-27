@@ -8,6 +8,16 @@ use App\Services\ReservationsService;
 class ReservationsController
 {
     /**
+     * Return just the carpoolad choice
+     */
+
+    public function getCarpooladById($id): array
+    {
+        $dataBaseService = new DataBaseService();
+        return $dataBaseService->getCarpooladById($id);
+    }
+
+    /**
      * Return the html for the create action.
      */
     public function createReservation(): string
@@ -34,20 +44,26 @@ class ReservationsController
                     return $html;
                 }
 
-                // Process reservation creation:
-                $reservationService = new ReservationsService();
-                $isOk = $reservationService->setReservation(
-                    null,
-                    $adid,
-                    $userid,
-                    $dateandtime,
-                    $reservedSeats
-                );
+                // Check if the reserved seats do not exceed the available seats
+                $ad = $this->getCarpooladById($adid);
+                if ($ad['availableseats'] >= $reservedSeats) {
+                    // Process reservation creation:
+                    $reservationService = new ReservationsService();
+                    $isOk = $reservationService->setReservation(
+                        null,
+                        $adid,
+                        $userid,
+                        $dateandtime,
+                        $reservedSeats
+                    );
 
-                if ($isOk) {
-                    $html = 'Réservation créée avec succès.';
+                    if ($isOk) {
+                        $html = 'Réservation créée avec succès.';
+                    } else {
+                        $html = 'Erreur lors de la création de la réservation.';
+                    }
                 } else {
-                    $html = 'Erreur lors de la création de la réservation.';
+                    $html = 'Erreur : Le nombre de sièges réservés ne peut pas dépasser le nombre de sièges disponibles.';
                 }
             } else {
                 $html = 'Erreur : Tous les champs doivent être remplis.';
@@ -92,7 +108,7 @@ class ReservationsController
                 '#' . $reservation->getId() . ' ' .
                 $reservation->getAdid() . ' ' .
                 $reservation->getUserid() . ' ' .
-                $reservation->getDateandtime() . ' ' .
+                $reservation->getDateandtime()->format('d-m-Y H:i:s') . ' ' .
                 $reservation->getReservedseats(). '</br>';
         }
 
@@ -106,44 +122,48 @@ class ReservationsController
     {
         $html = '';
 
-        // Get the current date
-        $currentDate = date('Y-m-d');
+        // Check if the form has been submitted
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // If the form has been submitted and not empty:
+            if (!empty($_POST['id']) &&
+                !empty($_POST['adid']) &&
+                !empty($_POST['userid']) &&
+                !empty($_POST['dateandtime']) &&
+                !empty($_POST['reservedseats'])) {
 
-        // If the form has been submitted :
-        if ($_SERVER["REQUEST_METHOD"] == "POST" &&
-            isset($_POST['id']) &&
-            isset($_POST['adid']) &&
-            isset($_POST['userid']) &&
-            isset($_POST['dateandtime']) &&
-            isset($_POST['reservedseats'])) {
+                // Clean and validate the inputs
+                $id = intval($_POST['id']);
+                $adid = intval($_POST['adid']);
+                $userid = intval($_POST['userid']);
+                $dateandtime = trim(htmlspecialchars(strip_tags($_POST['dateandtime'])));
+                $reservedSeats = intval($_POST['reservedseats']);
 
-            // Clean and validate the inputs
-            $id = trim(htmlspecialchars(strip_tags($_POST['id'])));
-            $adid = trim(htmlspecialchars(strip_tags($_POST['adid'])));
-            $userid = trim(htmlspecialchars(strip_tags($_POST['userid'])));
-            $date = trim(htmlspecialchars(strip_tags($_POST['dateandtime'])));
-            $reservedSeats = trim(htmlspecialchars(strip_tags($_POST['reservedseats'])));
+                // Check if the date is at least equal to the current date
+                if (strtotime($dateandtime) < strtotime(date('Y-m-d'))) {
+                    $html = 'Erreur : La date ne peut pas être antérieure à aujourd\'hui.';
+                    return $html;
+                }
 
-            // Check if all fields are not empty
-            if (!empty($id) && !empty($adid) && !empty($userid) && !empty($dateandtime) && !empty($reservedSeats)) {
-                // Check if the date is not earlier than the current date
-                if (strtotime($dateandtime) >= strtotime($currentDate)) {
-                    // Update the reservation:
-                    $reservationService = new ReservationsService(); // Assuming you have a ReservationService class
-                    $isOk = $reservationService->setReservation()(
+                // Check if the reserved seats do not exceed the available seats
+                $ad = $this->getCarpooladById($adid);
+                if ($ad['availableseats'] >= $reservedSeats) {
+                    // Process reservation creation:
+                    $reservationService = new ReservationsService();
+                    $isOk = $reservationService->setReservation(
                         null,
                         $adid,
                         $userid,
                         $dateandtime,
                         $reservedSeats
                     );
+
                     if ($isOk) {
                         $html = 'Réservation mise à jour avec succès.';
                     } else {
                         $html = 'Erreur lors de la mise à jour de la réservation.';
                     }
                 } else {
-                    $html = 'Erreur : La date ne peut pas être antérieure à aujourd\'hui.';
+                    $html = 'Erreur : Le nombre de sièges réservés ne peut pas dépasser le nombre de sièges disponibles.';
                 }
             } else {
                 $html = 'Erreur : Tous les champs doivent être remplis.';
