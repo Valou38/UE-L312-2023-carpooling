@@ -14,7 +14,7 @@ echo $controller->createCarpoolad();
     <label for="carid">Choisir une voiture :</label>
     <select name="carid">
     <?php
-        $cars = $controller->getCarpoolad();
+        $cars = $controller->getCars();
         foreach ($cars as $car) {
             echo "<option value='{$car['id']}'>{$car['id']}</option>";
         }
