@@ -10,7 +10,7 @@ class CarpooladService
     /**
      * Create or update an ad
      */
-    public function setCarpoolad(?string $id, int $carid, string $description, datetime $dateandtime, string $departurelocation, string $destination, int $availableseats):bool
+    public function setCarpoolad(?string $id, string $carid, string $description, string $dateandtime, string $departurelocation, string $destination, string $availableseats):bool
     {
         $isOk = false;
 
