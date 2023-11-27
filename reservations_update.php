@@ -7,6 +7,8 @@ require __DIR__ . '/vendor/autoload.php';
 $controller = new ReservationsController();
 echo $controller->updateReservation();
 
+$service = new \App\Services\ReservationsService();
+
 ?>
 
 <p>Modification d'une réservation</p>
@@ -15,9 +17,9 @@ echo $controller->updateReservation();
     <select name="id">
         <option value="">--Choisissez un ID de réservation--</option>
         <?php
-        $cars = $controller->getReservations();
-        foreach ($cars as $car) {
-            echo "<option value='{$car->getId()}'>{$car->getId()}</option>";
+        $reservations = $service->getReservations();
+        foreach ($reservations as $reservation) {
+            echo "<option value='{$reservation->getId()}'>{$reservation->getId()}</option>";
         }
         ?>
     </select>
