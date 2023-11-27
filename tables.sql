@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 26 nov. 2023 à 09:47
+-- Généré le : lun. 27 nov. 2023 à 09:20
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.1.12
 
@@ -31,7 +31,6 @@ DROP TABLE IF EXISTS `carpoolad`;
 CREATE TABLE IF NOT EXISTS `carpoolad` (
   `id` int NOT NULL AUTO_INCREMENT,
   `carid` int NOT NULL,
-  `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `dateandtime` datetime NOT NULL,
   `departurelocation` varchar(255) NOT NULL,
@@ -39,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `carpoolad` (
   `availableseats` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `carid` (`carid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -55,14 +54,15 @@ CREATE TABLE IF NOT EXISTS `cars` (
   `year` year NOT NULL,
   `mileage` varchar(7) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `cars`
 --
 
 INSERT INTO `cars` (`id`, `brand`, `model`, `year`, `mileage`) VALUES
-(2, 'AUDI', 'A6', 2001, '300');
+(2, 'AUDI', 'A6', 2001, '300'),
+(9, 'Twingo', 'Petit', 2011, '200000');
 
 -- --------------------------------------------------------
 
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   PRIMARY KEY (`id`),
   KEY `adid` (`adid`),
   KEY `userid` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) NOT NULL,
   `birthday` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `users`
@@ -105,7 +105,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `birthday`) VALUES
 (1, 'Vincent', 'Godé', 'hello@vincentgo.fr', '1990-11-08 00:00:00'),
 (2, 'Albert', 'Dupond', 'sonemail@gmail.com', '1985-11-08 00:00:00'),
-(3, 'Thomas', 'Dumoulin', 'sonemail2@gmail.com', '1985-10-08 09:44:46');
+(3, 'Thomas', 'Dumoulin', 'sonemail2@gmail.com', '1985-10-08 09:44:46'),
+(5, 'Siham', 'Charef', 'siham@gmail.com', '2001-08-15 02:00:00');
 
 --
 -- Contraintes pour les tables déchargées
