@@ -75,7 +75,6 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `id` int NOT NULL AUTO_INCREMENT,
   `adid` int NOT NULL,
   `userid` int NOT NULL,
-  `dateandtime` datetime NOT NULL,
   `reservedseats` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `adid` (`adid`),
