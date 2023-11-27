@@ -161,7 +161,7 @@ class CarpooladController
          * Delete an ad
          */
         public
-        function deleteCar(): string
+        function deleteCarpoolad(): string
         {
             $html = '';
 
