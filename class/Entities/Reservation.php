@@ -2,14 +2,11 @@
 
 namespace App\Entities;
 
-use DateTime;
-
 class Reservation
 {
     private $id;
     private $adid;
     private $userid;
-    private $dateandtime;
     private $reservedseats;
 
     public function getId() : string
@@ -40,16 +37,6 @@ class Reservation
     public function setUserid(string $userid): void
     {
         $this->userid = $userid;
-    }
-
-    public function getDateandtime() : DateTime
-    {
-        return $this->dateandtime;
-    }
-
-    public function setDateandtime(DateTime $dateandtime): void
-    {
-        $this->dateandtime = $dateandtime;
     }
 
     public function getReservedseats() : string
