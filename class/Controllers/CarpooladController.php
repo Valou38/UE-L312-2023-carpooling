@@ -14,7 +14,7 @@ class CarpooladController
         $html = '';
 
         // Get the current year
-        $currentTime = date();
+        $currentTime = date("Y-m-d H:i:s");
 
         // Check if the form has been submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -108,7 +108,7 @@ class CarpooladController
             $html = '';
 
             // Get the current year
-            $currentTime = date();
+            $currentTime = date("Y-m-d H:i:s");
 
             // If the form have been submitted :
             if (!isset($_POST['id']) &&
