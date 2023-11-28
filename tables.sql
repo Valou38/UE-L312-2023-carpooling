@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `carpoolad`;
 CREATE TABLE IF NOT EXISTS `carpoolad` (
-   `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `users_cars_id` int(11) NOT NULL,
   `description` text NOT NULL,
   `dateandtime` datetime NOT NULL,
@@ -44,6 +44,8 @@ ALTER TABLE `carpoolad`
   ADD PRIMARY KEY (`id`),
   ADD KEY `carpoolad_ibfk_1` (`users_cars_id`);
 
+ALTER TABLE `carpoolad` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
+
 
 
 --
@@ -51,7 +53,7 @@ ALTER TABLE `carpoolad`
 --
 
 CREATE TABLE `cars` (
-   `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `brand` varchar(255) NOT NULL,
   `model` varchar(255) NOT NULL,
   `year` year(4) NOT NULL,
@@ -65,7 +67,7 @@ CREATE TABLE `cars` (
 --
 ALTER TABLE `cars`
   ADD PRIMARY KEY (`id`);
-
+ALTER TABLE `cars` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
 
 -- Déchargement des données de la table `cars`
 --
@@ -80,7 +82,7 @@ INSERT INTO `cars` (`id`, `brand`, `model`, `year`, `mileage`, `color`, `nbrSlot
 
 DROP TABLE IF EXISTS `reservation`;
 CREATE TABLE IF NOT EXISTS `reservation` (
-   `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `adid` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   `reservedseats` int(11) NOT NULL
@@ -94,14 +96,14 @@ ALTER TABLE `reservation`
   ADD KEY `reservation_ibfk_1` (`adid`),
   ADD KEY `reservation_ibfk_2` (`userid`);
 
-
+ALTER TABLE `reservation` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
 --
 -- Structure de la table `users`
 --
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-   `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `firstname` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -113,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
-
+ALTER TABLE `users` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
 
 -- Déchargement des données de la table `users`
 --
@@ -129,7 +131,7 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `birthday`) VALUES
 --
 
 CREATE TABLE `users_cars` (
-   `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `car_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
@@ -141,9 +143,7 @@ ALTER TABLE `users_cars`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ID_user` (`user_id`),
   ADD KEY `ID_car` (`car_id`);
-
-
-
+ALTER TABLE `users_cars` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Contraintes pour la table `carpoolad`
