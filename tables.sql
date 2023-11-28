@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 27 nov. 2023 à 09:20
+-- Généré le : mar. 28 nov. 2023 à 16:15
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.1.12
 
@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS `carpoolad` (
   `destination` varchar(255) NOT NULL,
   `availableseats` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `carid` (`carid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+  KEY `carpoolad_ibfk_1` (`carid`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `cars` (
   `year` year NOT NULL,
   `mileage` varchar(7) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `cars`
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `cars` (
 
 INSERT INTO `cars` (`id`, `brand`, `model`, `year`, `mileage`) VALUES
 (2, 'AUDI', 'A6', 2001, '300'),
-(9, 'Twingo', 'Petit', 2011, '200000');
+(9, 'Twingo', 'Sport', 2023, '50000');
 
 -- --------------------------------------------------------
 
@@ -77,9 +77,9 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `userid` int NOT NULL,
   `reservedseats` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `adid` (`adid`),
-  KEY `userid` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+  KEY `reservation_ibfk_1` (`adid`),
+  KEY `reservation_ibfk_2` (`userid`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) NOT NULL,
   `birthday` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `users`
@@ -104,8 +104,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `birthday`) VALUES
 (1, 'Vincent', 'Godé', 'hello@vincentgo.fr', '1990-11-08 00:00:00'),
 (2, 'Albert', 'Dupond', 'sonemail@gmail.com', '1985-11-08 00:00:00'),
-(3, 'Thomas', 'Dumoulin', 'sonemail2@gmail.com', '1985-10-08 09:44:46'),
-(5, 'Siham', 'Charef', 'siham@gmail.com', '2001-08-15 02:00:00');
+(3, 'Thomas', 'Dumoulin', 'sonemail2@gmail.com', '1985-10-08 09:44:46');
 
 --
 -- Contraintes pour les tables déchargées
@@ -115,14 +114,14 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `birthday`) VALUES
 -- Contraintes pour la table `carpoolad`
 --
 ALTER TABLE `carpoolad`
-  ADD CONSTRAINT `carpoolad_ibfk_1` FOREIGN KEY (`carid`) REFERENCES `cars` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `carpoolad_ibfk_1` FOREIGN KEY (`carid`) REFERENCES `cars` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `reservation`
 --
 ALTER TABLE `reservation`
-  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`adid`) REFERENCES `carpoolad` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`adid`) REFERENCES `carpoolad` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
