@@ -6,12 +6,23 @@ require __DIR__ . '/vendor/autoload.php';
 
 $controller = new UsersController();
 echo $controller->updateUser();
+
+$service = new \App\Services\UsersService();
+
 ?>
 
 <p>Mise à jour d'un utilisateur</p>
 <form method="post" action="users_update.php" name ="userUpdateForm">
-    <label for="id">Id :</label>
-    <input type="text" name="id">
+    <label for="id">ID  :</label>
+    <select name="id">
+        <option value="">--Choisissez un ID d'utilisateur--</option>
+        <?php
+        $users = $service->getUsers();
+        foreach ($users as $user) {
+            echo "<option value='{$user->getId()}'>{$user->getId()}</option>";
+        }
+        ?>
+    </select>
     <br />
     <label for="firstname">Prénom :</label>
     <input type="text" name="firstname">

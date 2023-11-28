@@ -3,22 +3,20 @@
 namespace App\Services;
 
 use App\Entities\Reservation;
-use DateTime;
 class ReservationsService
 {
     /**
      * Create or update a reservation.
      */
-    public function setReservation(?string $id, string $adid, string $userid, string $dateandtime, string $reservedseats): bool
+    public function setReservation(?string $id, string $adid, string $userid, string $reservedseats): bool
     {
         $isOk = false;
 
         $dataBaseService = new DataBaseService();
-        $dateandtime = new DateTime($dateandtime);
         if (empty($id)) {
-            $isOk = $dataBaseService->createReservation($adid, $userid, $dateandtime, $reservedseats);
+            $isOk = $dataBaseService->createReservation($adid, $userid, $reservedseats);
         } else {
-            $isOk = $dataBaseService->updateReservation($id, $adid, $userid, $dateandtime, $reservedseats);
+            $isOk = $dataBaseService->updateReservation($id, $adid, $userid, $reservedseats);
         }
 
         return $isOk;
@@ -41,10 +39,6 @@ class ReservationsService
                 $reservation->setAdid($reservationDTO['adid']);
                 $reservation->setUserid($reservationDTO['userid']);
                 $reservation->setReservedseats($reservationDTO['reservedseats']);
-                $dateandtime = new DateTime($reservationDTO['dateandtime']);
-                if ($dateandtime !== false) {
-                    $reservation->setDateandtime($dateandtime);
-                }
                 $reservations[] = $reservation;
             }
         }
