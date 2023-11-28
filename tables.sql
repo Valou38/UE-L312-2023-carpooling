@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `carpoolad`;
 CREATE TABLE IF NOT EXISTS `carpoolad` (
-  `id` int(11) NOT NULL,
+   `id` int NOT NULL AUTO_INCREMENT,
   `users_cars_id` int(11) NOT NULL,
   `description` text NOT NULL,
   `dateandtime` datetime NOT NULL,
@@ -51,7 +51,7 @@ ALTER TABLE `carpoolad`
 --
 
 CREATE TABLE `cars` (
-  `id` int(11) NOT NULL,
+   `id` int NOT NULL AUTO_INCREMENT,
   `brand` varchar(255) NOT NULL,
   `model` varchar(255) NOT NULL,
   `year` year(4) NOT NULL,
@@ -80,7 +80,7 @@ INSERT INTO `cars` (`id`, `brand`, `model`, `year`, `mileage`, `color`, `nbrSlot
 
 DROP TABLE IF EXISTS `reservation`;
 CREATE TABLE IF NOT EXISTS `reservation` (
-  `id` int(11) NOT NULL,
+   `id` int NOT NULL AUTO_INCREMENT,
   `adid` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
   `reservedseats` int(11) NOT NULL
@@ -101,7 +101,7 @@ ALTER TABLE `reservation`
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL,
+   `id` int NOT NULL AUTO_INCREMENT,
   `firstname` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -129,7 +129,7 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `birthday`) VALUES
 --
 
 CREATE TABLE `users_cars` (
-  `id` int(11) NOT NULL,
+   `id` int NOT NULL AUTO_INCREMENT,
   `car_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
