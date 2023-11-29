@@ -86,8 +86,8 @@ echo $controller->createCar();
                 </select>
             </div>
             <div class="form-field">
-                <label for="nbrSlots">Nombre de places :</label>
-                <select name="nbrSlots">
+                <label for="nbr_slots">Nombre de places :</label>
+                <select name="nbr_slots">
                     <option value="">--Choisissez un nombre--</option>
                     <?php
                     for ($i = 1; $i <= 10; $i++) {

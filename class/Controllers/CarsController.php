@@ -24,14 +24,14 @@ class CarsController
                 !empty($_POST['year']) &&
                 !empty($_POST['mileage']) &&
                 !empty($_POST['color']) &&
-                !empty($_POST['nbrSlots'])) {
+                !empty($_POST['nbr_slots'])) {
                 // Clean and validate the inputs
                 $brand = trim(htmlspecialchars(strip_tags($_POST['brand'])));
                 $model = trim(htmlspecialchars(strip_tags($_POST['model'])));
                 $year = trim(htmlspecialchars(strip_tags($_POST['year'])));
                 $mileage = trim(htmlspecialchars(strip_tags($_POST['mileage'])));
                 $color = trim(htmlspecialchars(strip_tags($_POST['color'])));
-                $nbrSlots = trim(htmlspecialchars(strip_tags($_POST['nbrSlots'])));
+                $nbrSlots = trim(htmlspecialchars(strip_tags($_POST['nbr_slots'])));
 
                 // Check if 'year' is a numeric value
                 if (is_numeric($year)) {
@@ -120,7 +120,7 @@ class CarsController
             isset($_POST['year']) &&
             isset($_POST['mileage']) &&
             isset($_POST['color']) &&
-            isset($_POST['nbrSlots'])) {
+            isset($_POST['nbr_slots'])) {
             // Clean and validate the inputs
             $id = trim(htmlspecialchars(strip_tags($_POST['id'])));
             $brand = trim(htmlspecialchars(strip_tags($_POST['brand'])));
@@ -128,7 +128,7 @@ class CarsController
             $year = trim(htmlspecialchars(strip_tags($_POST['year'])));
             $mileage = trim(htmlspecialchars(strip_tags($_POST['mileage'])));
             $color = trim(htmlspecialchars(strip_tags($_POST['color'])));
-            $nbrSlots = trim(htmlspecialchars(strip_tags($_POST['nbrSlots'])));
+            $nbrSlots = trim(htmlspecialchars(strip_tags($_POST['nbr_slots'])));
 
             // Check if all fields are not empty
             if (!empty($id) &&

@@ -44,7 +44,7 @@ class CarsService
                 $car->setYear($carDTO['year']);
                 $car->setMileage($carDTO['mileage']);
                 $car->setColor($carDTO['color']);
-                $car->setNbrSlots($carDTO['nbrSlots']);
+                $car->setNbrSlots($carDTO['nbr_slots']);
 
                 $cars[] = $car;
             }

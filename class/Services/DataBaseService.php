@@ -120,9 +120,9 @@ class DataBaseService
             'year' => $year,
             'mileage' => $mileage,
             'color' => $color,
-            'nbrSlots' => $nbrSlots,
+            'nbr_slots' => $nbrSlots,
         ];
-        $sql = 'INSERT INTO cars (brand, model, year, mileage, color, nbrSlots) VALUES (:brand, :model, :year, :mileage, :color, :nbrSlots)';
+        $sql = 'INSERT INTO cars (brand, model, year, mileage, color, nbr_slots) VALUES (:brand, :model, :year, :mileage, :color, :nbr_slots)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -160,9 +160,9 @@ class DataBaseService
             'year' => $year,
             'mileage' => $mileage,
             'color' => $color,
-            'nbrSlots' => $nbrSlots,
+            'nbr_slots' => $nbrSlots,
         ];
-        $sql = 'UPDATE cars SET brand = :brand, model = :model, year = :year, mileage = :mileage, color = :color, nbrSlots = :nbrSlots WHERE id = :id;';
+        $sql = 'UPDATE cars SET brand = :brand, model = :model, year = :year, mileage = :mileage, color = :color, nbr_slots = :nbr_slots WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
