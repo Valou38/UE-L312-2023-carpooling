@@ -1,0 +1,111 @@
+.header {
+    background-image: url('https://cdn.pixabay.com/photo/2015/09/01/03/42/driving-916405_960_720.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+    position: relative;
+}
+.header h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    text-transform: uppercase;
+    font-size: 3rem;
+    text-align: center;
+}
+h1 {
+    text-transform: uppercase;
+    font-size: 3rem;
+    color: black;
+    text-align: center;
+}
+.menu {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f2f2f2;
+    padding: 10px 0;
+    max-width: 80%;
+    margin: -50px auto 0 auto;
+    z-index: 1;
+    position: relative;
+}
+.menu div {
+    margin: 0 10px;
+    position: relative;
+}
+.menu div a:not(:first-child) {
+    display: none;
+    padding: 5px;
+    background-color: #ddd;
+    text-align: center;
+}
+.menu div:hover a:not(:first-child) {
+    display: block;
+}
+.menu a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+.menu a:hover {
+    background-color: #bbb;
+}
+.menu div:hover a:not(:first-child):hover {
+    background-color: #aaa;
+}
+.menu h2 {
+    text-transform: uppercase;
+}
+
+/* Formulaires */
+
+.form-container {
+    width: 300px;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+.form-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.form-field label {
+    margin-bottom: 10px;
+}
+.form-field input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.form-field input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+.form-field input[type="submit"]:hover {
+    background-color: #45a049;
+}
+.form-field select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f2f2f2;
+    color: #333;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+.form-field select:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px #4CAF50;
+}
+.form-field select option {
+    padding: 10px;
+}
+.form-field select option:hover {
+    background-color: #4CAF50;
+    color: white;
+}

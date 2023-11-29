@@ -7,20 +7,36 @@ require __DIR__ . '/vendor/autoload.php';
 $controller = new UsersController();
 echo $controller->createUser();
 ?>
-
-<p>Création d'un utilisateur</p>
-<form method="post" action="users_create.php" name ="userCreateForm">
-    <label for="firstname">Prénom :</label>
-    <input type="text" name="firstname">
-    <br />
-    <label for="lastname">Nom :</label>
-    <input type="text" name="lastname">
-    <br />
-    <label for="email">Email :</label>
-    <input type="text" name="email">
-    <br />
-    <label for="birthday">Date d'anniversaire au format yyyy-mm-dd :</label>
-    <input type="text" name="birthday">
-    <br />
-    <input type="submit" value="Créer un utilisateur">
-</form>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="/UE-L312-2023-carpooling/assets/css/styles.css">
+</head>
+<body>
+    <h1>Création d'un utilisateur</h1>
+    <div class="form-container">
+        <form method="post" action="users_create.php" name ="userCreateForm">
+            <div class="form-field">
+                <label for="firstname">Prénom :</label>
+                <input type="text" name="firstname">
+            </div>
+            <div class="form-field">
+                <label for="lastname">Nom :</label>
+                <input type="text" name="lastname">
+            </div>
+            <div class="form-field">
+                <label for="email">Email :</label>
+                <input type="text" name="email">
+            </div>
+            <div class="form-field">
+                <label for="birthday">Date d'anniversaire au format yyyy-mm-dd :</label>
+                <input type="text" name="birthday">
+            </div>
+            <div class="form-field">
+                <input type="submit" value="Créer un utilisateur">
+            </div>
+        </form>
+    </div>
+</body>

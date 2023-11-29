@@ -3,65 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <!--<link rel="stylesheet" type="text/css" href="/Views/assets/css/styles.css">-->
-    <style>
-        .header {
-            background-image: url('https://cdn.pixabay.com/photo/2015/09/01/03/42/driving-916405_960_720.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            height: 500px;
-            position: relative;
-        }
-        h1 {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: white;
-            text-shadow: 2px 2px 4px #000000;
-            text-transform: uppercase;
-            font-size: 3rem;
-        }
-        .menu {
-            display: flex;
-            justify-content: space-around;
-            background-color: #f2f2f2;
-            padding: 10px 0;
-            max-width: 80%;
-            margin: -50px auto 0 auto;
-            z-index: 1;
-            position: relative;
-        }
-        .menu div {
-            margin: 0 10px;
-            position: relative;
-        }
-        .menu div a:not(:first-child) {
-            display: none;
-            padding: 5px;
-            background-color: #ddd;
-            text-align: center;
-        }
-        .menu div:hover a:not(:first-child) {
-            display: block;
-        }
-        .menu a {
-            color: #333;
-            text-decoration: none;
-            display: block;
-        }
-        .menu a:hover {
-            background-color: #bbb;
-        }
-        /* Ajout de la règle pour changer la couleur de fond du sous-menu au survol */
-        .menu div:hover a:not(:first-child):hover {
-            background-color: #aaa;
-        }
-        .menu h2 {
-            text-transform: uppercase;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/UE-L312-2023-carpooling/assets/css/styles.css">
 </head>
 <body>
 <div class="header">
