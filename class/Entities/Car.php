@@ -9,6 +9,8 @@ class Car
  private $model;
  private $year;
  private $mileage;
+ private $color;
+ private $nbrSlots;
 
     public function getId() : string
     {
@@ -58,5 +60,25 @@ class Car
     public function setMileage(string $mileage): void
     {
         $this->mileage = $mileage;
+    }
+
+    public function getColor() : string
+    {
+        return $this->color;
+    }
+
+    public function setColor(string $color): void
+    {
+        $this->color = $color;
+    }
+
+    public function getNbrSlots() : string
+    {
+        return $this->nbrSlots;
+    }
+
+    public function setNbrSlots(string $nbrSlots): void
+    {
+        $this->nbrSlots = $nbrSlots;
     }
 }

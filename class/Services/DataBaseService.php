@@ -110,7 +110,7 @@ class DataBaseService
         Create a car
      *****************************/
 
-    public function createCar(string $brand, string $model, string $year, string $mileage): bool
+    public function createCar(string $brand, string $model, string $year, string $mileage, string $color, string $nbrSlots): bool
     {
         $isOk = false;
 
@@ -119,8 +119,10 @@ class DataBaseService
             'model' => $model,
             'year' => $year,
             'mileage' => $mileage,
+            'color' => $color,
+            'nbrSlots' => $nbrSlots,
         ];
-        $sql = 'INSERT INTO cars (brand, model, year, mileage) VALUES (:brand, :model, :year, :mileage)';
+        $sql = 'INSERT INTO cars (brand, model, year, mileage, color, nbrSlots) VALUES (:brand, :model, :year, :mileage, :color, :nbrSlots)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -147,7 +149,7 @@ class DataBaseService
     /**
      * Update a car.
      */
-    public function updateCar(string $id, string $brand, string $model, string $year, string $mileage): bool
+    public function updateCar(string $id, string $brand, string $model, string $year, string $mileage, string $color, string $nbrSlots): bool
     {
         $isOk = false;
 
@@ -157,8 +159,10 @@ class DataBaseService
             'model' => $model,
             'year' => $year,
             'mileage' => $mileage,
+            'color' => $color,
+            'nbrSlots' => $nbrSlots,
         ];
-        $sql = 'UPDATE cars SET brand = :brand, model = :model, year = :year, mileage = :mileage WHERE id = :id;';
+        $sql = 'UPDATE cars SET brand = :brand, model = :model, year = :year, mileage = :mileage, color = :color, nbrSlots = :nbrSlots WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
