@@ -84,24 +84,27 @@ class CarsController
     {
         $html = '';
 
-        // Get all cars :
+        // Get all cars:
         $carsService = new CarsService();
         $cars = $carsService->getCars();
 
-        // Get html :
+        // Get html:
         foreach ($cars as $car) {
-            $html .=
-                '#' . $car->getId() . ', ' .
-                $car->getBrand() . ', ' .
-                $car->getModel() . ', ' .
-                $car->getYear() . ', ' .
-                $car->getMileage(). ', '.
-                $car->getColor(). ', '.
-                $car->getNbrSlots().  ' place(s)' . '<hr />';
+            $html .= '
+            <div class="info">
+                <p class="id">#' . $car->getId() . '</p>
+                <p class="features">Marque : ' . $car->getBrand() . '</p>
+                <p class="features">Modèle : ' . $car->getModel() . '</p>
+                <p class="features">Année : ' . $car->getYear() . '</p>
+                <p class="features">Kilométrage : ' . $car->getMileage() . '</p>
+                <p class="features">Couleur : ' . $car->getColor() . '</p>
+                <p class="features">Nombre de places : ' . $car->getNbrSlots() . '</p>
+            </div>';
         }
 
         return $html;
     }
+
 
     /**
      * Update the car.
