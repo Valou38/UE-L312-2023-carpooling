@@ -295,16 +295,16 @@ class DataBaseService
     Create a reservation
      ****************************************/
 
-    public function createReservation(string $adid, string $userid, string $reservedseats): bool
+    public function createReservation(string $adid, string $userid, string $reservedSeats): bool
     {
         $isOk = false;
 
         $data = [
             'adid' => $adid,
             'userid' => $userid,
-            'reservedseats' => $reservedseats,
+            'reserved_seats' => $reservedSeats,
         ];
-        $sql = 'INSERT INTO reservation (adid, userid, reservedseats) VALUES (:adid, :userid, :reservedseats)';
+        $sql = 'INSERT INTO reservation (adid, userid, reserved_seats) VALUES (:adid, :userid, :reserved_seats)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -331,7 +331,7 @@ class DataBaseService
     /**
      * Update a reservation.
      */
-    public function updateReservation(string $id, string $adid, string $userid, string $reservedseats): bool
+    public function updateReservation(string $id, string $adid, string $userid, string $reservedSeats): bool
     {
         $isOk = false;
 
@@ -339,9 +339,9 @@ class DataBaseService
             'id' => $id,
             'adid' => $adid,
             'userid' => $userid,
-            'reservedseats' => $reservedseats,
+            'reserved_seats' => $reservedSeats,
         ];
-        $sql = 'UPDATE reservation SET adid = :adid, userid = :userid, reservedseats = :reservedseats WHERE id = :id;';
+        $sql = 'UPDATE reservation SET adid = :adid, userid = :userid, reserved_seats = :reserved_seats WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
