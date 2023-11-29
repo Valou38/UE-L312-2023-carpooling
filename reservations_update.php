@@ -10,51 +10,67 @@ echo $controller->updateReservation();
 $service = new \App\Services\ReservationsService();
 
 ?>
-
-<p>Modification d'une réservation</p>
-<form method="post" action="reservations_update.php" name="reservationUpdateForm">
-    <label for="id">ID réservation :</label>
-    <select name="id">
-        <option value="">--Choisissez un ID de réservation--</option>
-        <?php
-        $reservations = $service->getReservations();
-        foreach ($reservations as $reservation) {
-            echo "<option value='{$reservation->getId()}'>{$reservation->getId()}</option>";
-        }
-        ?>
-    </select>
-    <br />
-    <label for="adid">ID annonce de covoiturage:</label>
-    <select name="adid">
-        <option value="">--Choisissez une annonce--</option>
-        <?php
-        $ads = $controller->getCarpoolad();
-        foreach ($ads as $ad) {
-            echo "<option value='{$ad['id']}'>{$ad['id']}</option>";
-        }
-        ?>
-    </select>
-    <br/>
-    <label for="userid">ID utilisateur :</label>
-    <select name="userid">
-        <option value="">--Choisissez un utilisateur--</option>
-        <?php
-        $users = $controller->getUsers();
-        foreach ($users as $user) {
-            echo "<option value='{$user['id']}'>{$user['id']}</option>";
-        }
-        ?>
-    </select>
-    <br/>
-    <label for="reservedseats">Nombre de siège réservé:</label>
-    <select name="reservedseats">
-        <option value="">--Choisissez un nombre--</option>
-        <?php
-        for ($i = 1; $i <= 10; $i++) {
-            echo "<option value='$i'>$i</option>";
-        }
-        ?>
-    </select>
-    <br/>
-    <input type="submit" value="Modifier une réservation">
-</form>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="/UE-L312-2023-carpooling/assets/css/styles.css">
+</head>
+<body>
+    <h1>Modification d'une réservation</h1>
+    <div class="form-container">
+        <form method="post" action="reservations_update.php" name="reservationUpdateForm">
+            <div class="form-field">
+                <label for="id">ID réservation :</label>
+                <select name="id">
+                    <option value="">--Choisissez un ID de réservation--</option>
+                    <?php
+                    $reservations = $service->getReservations();
+                    foreach ($reservations as $reservation) {
+                        echo "<option value='{$reservation->getId()}'>{$reservation->getId()}</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="form-field">
+                <label for="adid">ID annonce de covoiturage:</label>
+                <select name="adid">
+                    <option value="">--Choisissez une annonce--</option>
+                    <?php
+                    $ads = $controller->getCarpoolad();
+                    foreach ($ads as $ad) {
+                        echo "<option value='{$ad['id']}'>{$ad['id']}</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="form-field">
+                <label for="userid">ID utilisateur :</label>
+                <select name="userid">
+                    <option value="">--Choisissez un utilisateur--</option>
+                    <?php
+                    $users = $controller->getUsers();
+                    foreach ($users as $user) {
+                        echo "<option value='{$user['id']}'>{$user['id']}</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="form-field">
+                <label for="reservedseats">Nombre de siège réservé:</label>
+                <select name="reservedseats">
+                    <option value="">--Choisissez un nombre--</option>
+                    <?php
+                    for ($i = 1; $i <= 10; $i++) {
+                        echo "<option value='$i'>$i</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="form-field">
+                <input type="submit" value="Modifier une réservation">
+            </div>
+        </form>
+    </div>
+</body>
