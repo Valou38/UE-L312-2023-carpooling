@@ -10,16 +10,16 @@ class CarsService
     /**
      * Create or update a car
      */
-    public function setCar(?string $id, string $brand, string $model, string $year, string $mileage): bool
+    public function setCar(?string $id, string $brand, string $model, string $year, string $mileage, string $color, string $nbrSlots): bool
     {
         $isOk = false;
 
         $dataBaseService = new DataBaseService();
 
         if (empty($id)){
-            $isOk = $dataBaseService->createCar($brand, $model, $year, $mileage);
+            $isOk = $dataBaseService->createCar($brand, $model, $year, $mileage, $color, $nbrSlots);
         } else {
-            $isOk = $dataBaseService-> updateCar($id, $brand, $model, $year, $mileage);
+            $isOk = $dataBaseService-> updateCar($id, $brand, $model, $year, $mileage, $color, $nbrSlots);
         }
 
         return $isOk;
@@ -43,6 +43,8 @@ class CarsService
                 $car->setModel($carDTO['model']);
                 $car->setYear($carDTO['year']);
                 $car->setMileage($carDTO['mileage']);
+                $car->setColor($carDTO['color']);
+                $car->setNbrSlots($carDTO['nbrSlots']);
 
                 $cars[] = $car;
             }

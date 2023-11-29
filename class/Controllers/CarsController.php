@@ -22,21 +22,25 @@ class CarsController
             if (!empty($_POST['brand']) &&
                 !empty($_POST['model']) &&
                 !empty($_POST['year']) &&
-                !empty($_POST['mileage'])) {
+                !empty($_POST['mileage']) &&
+                !empty($_POST['color']) &&
+                !empty($_POST['nbrSlots'])) {
                 // Clean and validate the inputs
                 $brand = trim(htmlspecialchars(strip_tags($_POST['brand'])));
                 $model = trim(htmlspecialchars(strip_tags($_POST['model'])));
                 $year = trim(htmlspecialchars(strip_tags($_POST['year'])));
                 $mileage = trim(htmlspecialchars(strip_tags($_POST['mileage'])));
+                $color = trim(htmlspecialchars(strip_tags($_POST['color'])));
+                $nbrSlots = trim(htmlspecialchars(strip_tags($_POST['nbrSlots'])));
 
                 // Check if 'year' is a numeric value
                 if (is_numeric($year)) {
                     // Check if 'year' is a valid year
                     if ($year >= 1886 && $year <= $currentYear) {
-                        // Check if 'mileage' is a numeric value
-                        if (is_numeric($mileage)) {
-                            // Check if 'mileage' is a positive number
-                            if ($mileage >= 0) {
+                        // Check if 'mileage' and 'nbrSlots' are numeric values
+                        if (is_numeric($mileage) && is_numeric($nbrSlots)) {
+                            // Check if 'mileage' and 'nbrSlots' positive numbers
+                            if ($mileage >= 0 && $nbrSlots >= 0) {
                                 // Create the car :
                                 $carsService = new CarsService();
                                 $isOk = $carsService->setCar(
@@ -44,7 +48,9 @@ class CarsController
                                     $brand,
                                     $model,
                                     $year,
-                                    $mileage
+                                    $mileage,
+                                    $color,
+                                    $nbrSlots
                                 );
                                 if ($isOk) {
                                     $html = 'Véhicule créé avec succès.';
@@ -52,10 +58,10 @@ class CarsController
                                     $html = 'Erreur lors de la création du véhicule.';
                                 }
                             } else {
-                                $html = 'Erreur : Le kilométrage doit être un nombre positif.';
+                                $html = 'Erreur : Le kilométrage et le nombre de places doivent être un nombre positif.';
                             }
                         } else {
-                            $html = 'Erreur : Le kilométrage doit être une valeur numérique.';
+                            $html = 'Erreur : Le kilométrage et le nombre de places doivent être une valeur numérique.';
                         }
                     } else {
                         $html = 'Erreur : L\'année doit être une valeur numérique à quatre chiffres entre 1886 et ' . $currentYear . '.';
@@ -85,11 +91,13 @@ class CarsController
         // Get html :
         foreach ($cars as $car) {
             $html .=
-                '#' . $car->getId() . ' ' .
-                $car->getBrand() . ' ' .
-                $car->getModel() . ' ' .
-                $car->getYear() . ' ' .
-                $car->getMileage(). '</br>';
+                '#' . $car->getId() . ', ' .
+                $car->getBrand() . ', ' .
+                $car->getModel() . ', ' .
+                $car->getYear() . ', ' .
+                $car->getMileage(). ', '.
+                $car->getColor(). ', '.
+                $car->getNbrSlots().  ' place(s)' . '<hr />';
         }
 
         return $html;
@@ -110,24 +118,34 @@ class CarsController
             isset($_POST['brand']) &&
             isset($_POST['model']) &&
             isset($_POST['year']) &&
-            isset($_POST['mileage'])) {
+            isset($_POST['mileage']) &&
+            isset($_POST['color']) &&
+            isset($_POST['nbrSlots'])) {
             // Clean and validate the inputs
             $id = trim(htmlspecialchars(strip_tags($_POST['id'])));
             $brand = trim(htmlspecialchars(strip_tags($_POST['brand'])));
             $model = trim(htmlspecialchars(strip_tags($_POST['model'])));
             $year = trim(htmlspecialchars(strip_tags($_POST['year'])));
             $mileage = trim(htmlspecialchars(strip_tags($_POST['mileage'])));
+            $color = trim(htmlspecialchars(strip_tags($_POST['color'])));
+            $nbrSlots = trim(htmlspecialchars(strip_tags($_POST['nbrSlots'])));
 
             // Check if all fields are not empty
-            if (!empty($id) && !empty($brand) && !empty($model) && !empty($year) && !empty($mileage)) {
+            if (!empty($id) &&
+                !empty($brand) &&
+                !empty($model) &&
+                !empty($year) &&
+                !empty($mileage) &&
+                !empty($color) &&
+                !empty($nbrSlots)) {
                 // Check if 'year' is a numeric value
                 if (is_numeric($year)) {
                     // Check if 'year' is a valid year
                     if ($year >= 1886 && $year <= $currentYear) {
-                        // Check if 'mileage' is a numeric value
-                        if (is_numeric($mileage)) {
-                            // Check if 'mileage' is a positive number
-                            if ($mileage >= 0) {
+                        // Check if 'mileage' and 'nbrSlots' are numeric values
+                        if (is_numeric($mileage) && is_numeric($nbrSlots)) {
+                            // Check if 'mileage' and 'nbrSlots' are positive numbers
+                            if ($mileage >= 0 && $nbrSlots >= 0) {
                                 // Update the car :
                                 $carsService = new CarsService();
                                 $isOk = $carsService->setCar(
@@ -135,7 +153,9 @@ class CarsController
                                     $brand,
                                     $model,
                                     $year,
-                                    $mileage
+                                    $mileage,
+                                    $color,
+                                    $nbrSlots
                                 );
                                 if ($isOk) {
                                     $html = 'Véhicule mis à jour avec succès.';

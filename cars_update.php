@@ -69,5 +69,31 @@ $service = new \App\Services\CarsService();
         ?>
     </select>
     <br />
+    <label for="color">Couleur :</label>
+    <select name="color">
+        <option value="">--Choisissez une couleur--</option>
+        <option value="Rouge">Rouge</option>
+        <option value="Bleu">Bleu</option>
+        <option value="Vert">Vert</option>
+        <option value="Jaune">Jaune</option>
+        <option value="Noir">Noir</option>
+        <option value="Blanc">Blanc</option>
+        <option value="Gris">Gris</option>
+        <option value="Orange">Orange</option>
+        <option value="Violet">Violet</option>
+        <option value="Rose">Rose</option>
+        <option value="Marron">Marron</option>
+    </select>
+    <br />
+    <label for="nbrSlots">Nombre de places:</label>
+    <select name="nbrSlots">
+        <option value="">--Choisissez un nombre--</option>
+        <?php
+        for ($i = 1; $i <= 10; $i++) {
+            echo "<option value='$i'>$i</option>";
+        }
+        ?>
+    </select>
+    <br />
     <input type="submit" value="Modifier le véhicule">
 </form>
