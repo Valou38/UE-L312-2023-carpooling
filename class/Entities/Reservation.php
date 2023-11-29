@@ -7,7 +7,7 @@ class Reservation
     private $id;
     private $adid;
     private $userid;
-    private $reservedseats;
+    private $reservedSeats;
 
     public function getId() : string
     {
@@ -39,13 +39,13 @@ class Reservation
         $this->userid = $userid;
     }
 
-    public function getReservedseats() : string
+    public function getReservedSeats() : string
     {
-        return $this->reservedseats;
+        return $this->reservedSeats;
     }
 
-    public function setReservedseats(string $reservedseats): void
+    public function setReservedSeats(string $reservedSeats): void
     {
-        $this->reservedseats = $reservedseats;
+        $this->reservedSeats = $reservedSeats;
     }
 }

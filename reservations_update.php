@@ -58,8 +58,8 @@ $service = new \App\Services\ReservationsService();
                 </select>
             </div>
             <div class="form-field">
-                <label for="reservedseats">Nombre de siège réservé:</label>
-                <select name="reservedseats">
+                <label for="reserved_seats">Nombre de siège réservé:</label>
+                <select name="reserved_seats">
                     <option value="">--Choisissez un nombre--</option>
                     <?php
                     for ($i = 1; $i <= 10; $i++) {
@@ -72,5 +72,6 @@ $service = new \App\Services\ReservationsService();
                 <input type="submit" value="Modifier une réservation">
             </div>
         </form>
+        <p>Le prix total de votre réservation est de : </p>
     </div>
 </body>

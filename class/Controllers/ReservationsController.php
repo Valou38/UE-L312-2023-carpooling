@@ -29,12 +29,12 @@ class ReservationsController
             // If the form has been submitted and not empty:
             if (!empty($_POST['adid']) &&
                 !empty($_POST['userid']) &&
-                !empty($_POST['reservedseats'])) {
+                !empty($_POST['reserved_seats'])) {
 
                 // Clean and validate the inputs
                 $adid = intval($_POST['adid']);
                 $userid = intval($_POST['userid']);
-                $reservedSeats = intval($_POST['reservedseats']);
+                $reservedSeats = intval($_POST['reserved_seats']);
 
                 // Check if the reserved seats do not exceed the available seats
                 $ad = $this->getCarpooladById($adid);
@@ -99,7 +99,7 @@ class ReservationsController
                 '#' . $reservation->getId() . ' ' .
                 $reservation->getAdid() . ' ' .
                 $reservation->getUserid() . ' ' .
-                $reservation->getReservedseats(). '</br>';
+                $reservation->getReservedSeats(). '</br>';
         }
 
         return $html;
@@ -118,13 +118,13 @@ class ReservationsController
             if (!empty($_POST['id']) &&
                 !empty($_POST['adid']) &&
                 !empty($_POST['userid']) &&
-                !empty($_POST['reservedseats'])) {
+                !empty($_POST['reserved_seats'])) {
 
                 // Clean and validate the inputs
                 $id = intval($_POST['id']);
                 $adid = intval($_POST['adid']);
                 $userid = intval($_POST['userid']);
-                $reservedSeats = intval($_POST['reservedseats']);
+                $reservedSeats = intval($_POST['reserved_seats']);
 
                 // Check if the reserved seats do not exceed the available seats
                 $ad = $this->getCarpooladById($adid);
