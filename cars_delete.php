@@ -10,19 +10,32 @@ echo $controller->deleteCar();
 $service = new \App\Services\CarsService();
 
 ?>
-
-<p>Suppression d'un véhicule</p>
-<form method="post" action="cars_delete.php" name ="carDeleteForm">
-    <label for="id">ID véhicule :</label>
-    <select name="id">
-        <option value="">--Choisissez un ID de véhicule--</option>
-        <?php
-        $cars = $service->getCars();
-        foreach ($cars as $car) {
-            echo "<option value='{$car->getId()}'>{$car->getId()}</option>";
-        }
-        ?>
-    </select>
-    <br />
-    <input type="submit" value="Supprimer un véhicule">
-</form>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="/UE-L312-2023-carpooling/assets/css/styles.css">
+</head>
+<body>
+<h1>Suppression d'un véhicule</h1>
+    <div class="form-container">
+        <form method="post" action="cars_delete.php" name="carDeleteForm">
+            <div class="form-field">
+                <label for="id">ID véhicule :</label>
+                <select name="id">
+                    <option value="">--Choisissez un ID de véhicule--</option>
+                    <?php
+                    $cars = $service->getCars();
+                    foreach ($cars as $car) {
+                        echo "<option value='{$car->getId()}'>{$car->getId()}</option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="form-field">
+                <input type="submit" value="Supprimer un véhicule">
+            </div>
+        </form>
+    </div>
+</body>
