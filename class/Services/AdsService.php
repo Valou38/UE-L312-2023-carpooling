@@ -11,16 +11,16 @@ class AdsService
     /**
      * Create or update an ad
      */
-    public function setAd(?string $id, string $carId, string $description, DateTime $dateTime, string $departure, string $destination, string $availableSeats, string $price): bool
+    public function setAd(?string $id, string $description, DateTime $dateTime, string $departure, string $destination, string $availableSeats, string $price): bool
     {
         $isOk = false;
 
         $dataBaseService = new DataBaseService();
 
         if (empty($id)){
-            $isOk = $dataBaseService->createAd($carId, $description,$dateTime, $departure, $destination, $availableSeats, $price);
+            $isOk = $dataBaseService->createAd($description,$dateTime, $departure, $destination, $availableSeats, $price);
         } else {
-            $isOk = $dataBaseService-> updateAd($id, $carId, $description,$dateTime, $departure, $destination, $availableSeats, $price);
+            $isOk = $dataBaseService-> updateAd($id, $description,$dateTime, $departure, $destination, $availableSeats, $price);
         }
 
         return $isOk;
@@ -31,28 +31,28 @@ class AdsService
      */
     public function getAds(): array
     {
-        $ad = [];
+        $ads = [];
 
         $dataBaseService = new DataBaseService();
         $adsDTO = $dataBaseService->getAds();
 
         if (!empty($adsDTO)){
             foreach ($adsDTO as $adDTO){
-                $adDTO = new Ad();
-                $adDTO->setId($adDTO['id']);
-                $adDTO->setCarId($adDTO['car_id']);
-                $adDTO->setDescription($adDTO['description']);
-                $adDTO->setDateTime($adDTO['date_time']);
-                $adDTO->setDeparture($adDTO['departure']);
-                $adDTO->setDestination($adDTO['destination']);
-                $adDTO->setAvailableSeats($adDTO['available_seats']);
-                $adDTO->setPrice($adDTO['price']);
+                $ad = new Ad();
+                $ad->setId($adDTO['id']);
+                $ad->setCarId($adDTO['car_id']);
+                $ad->setDescription($adDTO['description']);
+                $ad->setDateTime($adDTO['date_time']);
+                $ad->setDeparture($adDTO['departure']);
+                $ad->setDestination($adDTO['destination']);
+                $ad->setAvailableSeats($adDTO['available_seats']);
+                $ad->setPrice($adDTO['price']);
 
-                $adsDTO[] = $adDTO;
+                $ads[] = $ad;
             }
         }
 
-        return $adsDTO;
+        return $ads;
     }
 
     /**

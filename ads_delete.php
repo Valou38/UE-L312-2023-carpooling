@@ -28,7 +28,7 @@ $adService = new \App\Services\AdsService();
                     <?php
                     $ads = $adService->getAds();
                     foreach ($ads as $ad) {
-                        echo "<option value='{$ad->getId()}'>{$ad->getId()}</option>";
+                        echo "<option value='{$ad->getId()}'>{$ad->getId()} - {$ad->getCarId()} {$ad->getDeparture()}-{$ad->getDestination()}</option>";
                     }
                     ?>
                 </select>

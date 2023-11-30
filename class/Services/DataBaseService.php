@@ -196,7 +196,6 @@ class DataBaseService
         $isOk = false;
 
         $data = [
-            'car_id' => $carId,
             'description' => $description,
             'date_time' => $dateTime->format('Y-m-d H:i:s'),
             'departure' => $departure,
@@ -204,7 +203,7 @@ class DataBaseService
             'available_seats' => $availableSeats,
             'price' => $price,
         ];
-        $sql = 'INSERT INTO ads (car_id, description, date_time, departure, destination, available_seats, price) VALUES (:car_id, :description, :date_time, :departure, :destination, :available_seats, :price)';
+        $sql = 'INSERT INTO ads (description, date_time, departure, destination, available_seats, price) VALUES (:description, :date_time, :departure, :destination, :available_seats, :price)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -235,7 +234,7 @@ class DataBaseService
     {
         $ad = [];
 
-        $sql = 'SELECT * FROM ad WHERE id = :id';
+        $sql = 'SELECT * FROM ads WHERE id = :id';
         $query = $this->connection->prepare($sql);
         $query->bindParam(':id', $id, PDO::PARAM_INT);
         $query->execute();
@@ -250,22 +249,21 @@ class DataBaseService
     /**
      * Update an ad.
      */
-    public function updateAd(?string $id, int $carId, string $description, DateTime $dateTime, string $departure, string $destination, int $availableSeats, $price): bool
+    public function updateAd(?string $id, string $description, DateTime $dateTime, string $departure, string $destination, int $availableSeats, $price): bool
     {
         $isOk = false;
 
         $data = [
             'id' => $id,
-            'car_id' => $carId,
             'description' => $description,
             'date_time' => $dateTime->format('Y-m-d H:i:s'),
             'departure' => $departure,
             'destination' => $destination,
-            'available_seats' => $availablSseats,
+            'available_seats' => $availableSeats,
             'price' => $price
         ];
 
-        $sql = 'UPDATE ads SET car_id = :car_id, description = :description, date_time = :date_time, departure = :departure, destination = :destination, available_seats = :available_seats, price = :price WHERE id = :id;';
+        $sql = 'UPDATE ads SET description = :description, date_time = :date_time, departure = :departure, destination = :destination, available_seats = :available_seats, price = :price WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -294,17 +292,15 @@ class DataBaseService
     Create a reservation
      ****************************************/
 
-    public function createReservation(string $adId, string $userId, string $reservedSeats, string $totalPrice): bool
+    public function createReservation(string $reservedSeats, string $totalPrice): bool
     {
         $isOk = false;
 
         $data = [
-            'ad_id' => $adId,
-            'user_id' => $userId,
             'reserved_seats' => $reservedSeats,
             'total_price' => $totalPrice
         ];
-        $sql = 'INSERT INTO reservations (ad_id, user_id, reserved_seats, total_price) VALUES (:ad_id, :user_id, :reserved_seats, :total_price)';
+        $sql = 'INSERT INTO reservations (reserved_seats, total_price) VALUES (:reserved_seats, :total_price)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 

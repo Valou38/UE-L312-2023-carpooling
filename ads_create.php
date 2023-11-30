@@ -27,7 +27,7 @@ $carService = new \App\Services\CarsService();
                     <?php
                     $cars = $carService->getCars();
                     foreach ($cars as $car) {
-                        echo "<option value='{$car->getId()}'>{$car->getId()}</option>";
+                        echo "<option value='{$car->getId()}'>{$car->getId()} - {$car->getBrand()} {$car->getModel()} {$car->getColor()}</option>";
                     }
                     ?>
                 </select>

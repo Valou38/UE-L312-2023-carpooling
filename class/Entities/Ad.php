@@ -24,9 +24,9 @@ class Ad
     }
 
     public function getCarId() : string
-    {
-        return $this->carId;
-    }
+{
+    return $this->carId;
+}
 
     public function setCarId(string $carId): void
     {

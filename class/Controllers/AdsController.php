@@ -49,7 +49,7 @@ class AdsController
 
                             // Create the ad :
                             $adsService = new AdsService();
-                            $isOk = $adsService->setCarpoolad(
+                            $isOk = $adsService->setAd(
                                 null,
                                 $carId,
                                 $description,

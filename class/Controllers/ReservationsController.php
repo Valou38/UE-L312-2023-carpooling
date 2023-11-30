@@ -11,10 +11,10 @@ class ReservationsController
      * Return just the carpoolad choice
      */
 
-    public function getCarpooladById($id): array
+    public function getAdById($id): array
     {
         $dataBaseService = new DataBaseService();
-        return $dataBaseService->getCarpooladById($id);
+        return $dataBaseService->getAdById($id);
     }
 
     /**
@@ -39,8 +39,8 @@ class ReservationsController
                 //$totalPrice = $reservedSeats * ;
 
                 // Check if the reserved seats do not exceed the available seats
-                $ad = $this->getCarpooladById($adId);
-                if ($ad['availableseats'] >= $reservedSeats) {
+                $ad = $this->getAdById($adId);
+                if ($ad['available_seats'] >= $reservedSeats) {
                     // Process reservation creation:
                     $reservationService = new ReservationsService();
                     $isOk = $reservationService->setReservation(
@@ -70,10 +70,10 @@ class ReservationsController
     /**
      * Fetch available ad IDs from the database.
      */
-    public function getCarpoolad(): array
+    public function getAds(): array
     {
         $dataBaseService = new DataBaseService();
-        return $dataBaseService->getCarpoolad();
+        return $dataBaseService->getAds();
     }
 
     /**
@@ -98,12 +98,14 @@ class ReservationsController
 
         // Get html :
         foreach ($reservations as $reservation) {
-            $html .=
-                '#' . $reservation->getId() . ' ' .
-                $reservation->getAdId() . ' ' .
-                $reservation->getUserId() . ' ' .
-                $reservation->getReservedSeats(). ' ' .
-                $reservation->getTotalPrice(). '<br />';
+            $html .= '
+            <div class="info">
+                <p class="id">#' . $reservation->getId() . '</p>
+                <p class="features">ID de l\'annonce : ' . $reservation->getAdId() . '</p>
+                <p class="features">ID de l\'utilisateur : ' . $reservation->getUserId() . '</p>
+                <p class="features">Sièges réservées : ' . $reservation->getReservedSeats() . '</p>
+                <p class="features">Prix total : ' . $reservation->getTotalPrice() . '</p>
+            </div>';
         }
 
         return $html;

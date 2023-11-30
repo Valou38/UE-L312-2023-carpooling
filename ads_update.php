@@ -29,19 +29,19 @@ $adService = new \App\Services\AdsService();
                     <?php
                     $ads = $adService->getAds();
                     foreach ($ads as $ad) {
-                        echo "<option value='{$ad->getId()}'>{$ad->getId()}</option>";
+                        echo "<option value='{$ad->getId()}'>{$ad->getId()} - {$ad->getCarId()} {$ad->getDeparture()}-{$ad->getDestination()}</option>";
                     }
                     ?>
                 </select>
             </div>
             <div class="form-field">
-                <label for="carid">ID du véhicule:</label>
+                <label for="carid">ID du nouveau véhicule:</label>
                 <select name="carid">
                     <option value="">--Choisissez un véhicule--</option>
                     <?php
                     $cars = $carService->getCars();
                     foreach ($cars as $car) {
-                        echo "<option value='{$car->getId()}'>{$car->getId()}</option>";
+                        echo "<option value='{$car->getId()}'>{$car->getId()} - {$car->getBrand()} {$car->getModel()} {$car->getColor()}</option>";
                     }
                     ?>
                 </select>
@@ -51,20 +51,20 @@ $adService = new \App\Services\AdsService();
                 <input type="text" name="description">
             </div>
             <div class="form-field">
-                <label for="dateandtime">Jour et heure du départ :</label>
-                <input type="datetime-local" name="dateandtime">
+                <label for="date_time">Jour et heure du départ :</label>
+                <input type="datetime-local" name="date_time">
             </div>
             <div class="form-field">
-                <label for="departurelocation">Lieu de départ :</label>
-                <input type="text" name="departurelocation">
+                <label for="departure">Lieu de départ :</label>
+                <input type="text" name="departure">
             </div>
             <div class="form-field">
                 <label for="destination">Lieu d'arrivée :</label>
                 <input type="text" name="destination">
             </div>
             <div class="form-field">
-                <label for="availableseats">Nombre de sièges disponibles : </label>
-                <select name="availableseats">
+                <label for="available_seats">Nombre de sièges disponibles : </label>
+                <select name="available_seats">
                     <option value="">--Nombre de sièges--</option>
                     <?php
                     for ($i = 1; $i <= 10; $i++) {
@@ -72,6 +72,10 @@ $adService = new \App\Services\AdsService();
                     }
                     ?>
                 </select>
+            </div>
+            <div class="form-field">
+                <label for="price">Prix</label>
+                <input type="number" name="price" min="0" max="100" step="1">
             </div>
             <div class="form-field">
                 <input type="submit" value="Modifier l'annonce">

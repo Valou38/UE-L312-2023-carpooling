@@ -24,9 +24,9 @@ echo $controller->createReservation();
                 <select name="ad_id">
                     <option value="">--Choisissez une annonce--</option>
                     <?php
-                    $ads = $controller->getCarpoolad();
+                    $ads = $controller->getAds();
                     foreach ($ads as $ad) {
-                        echo "<option value='{$ad['id']}'>{$ad['id']}</option>";
+                        echo "<option value='{$ad['id']}'>{$ad['id']} - {$ad['car_id']} {$ad['departure']}-{$ad['destination']}</option>";
                     }
                     ?>
                 </select>
@@ -38,7 +38,7 @@ echo $controller->createReservation();
                     <?php
                     $users = $controller->getUsers();
                     foreach ($users as $user) {
-                        echo "<option value='{$user['id']}'>{$user['id']}</option>";
+                        echo "<option value='{$user['id']}'>{$user['id']} - {$user['first_name']} {$user['last_name']} </option>";
                     }
                     ?>
                 </select>
