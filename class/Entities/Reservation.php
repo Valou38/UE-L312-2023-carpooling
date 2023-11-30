@@ -5,9 +5,10 @@ namespace App\Entities;
 class Reservation
 {
     private $id;
-    private $adid;
-    private $userid;
+    private $adId;
+    private $userId;
     private $reservedSeats;
+    private $totalPrice;
 
     public function getId() : string
     {
@@ -19,24 +20,24 @@ class Reservation
         $this ->id = $id;
     }
 
-    public function getAdid() : string
+    public function getAdId() : string
     {
-        return $this->adid;
+        return $this->adId;
     }
 
-    public function setAdid(string $adid): void
+    public function setAdId(string $adId): void
     {
-        $this->adid = $adid;
+        $this->adId = $adId;
     }
 
-    public function getUserid() : string
+    public function getUserId() : string
     {
-        return $this->userid;
+        return $this->userId;
     }
 
-    public function setUserid(string $userid): void
+    public function setUserId(string $userId): void
     {
-        $this->userid = $userid;
+        $this->userId = $userId;
     }
 
     public function getReservedSeats() : string
@@ -47,5 +48,15 @@ class Reservation
     public function setReservedSeats(string $reservedSeats): void
     {
         $this->reservedSeats = $reservedSeats;
+    }
+
+    public function getTotalPrice() : string
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(string $totalPrice): void
+    {
+        $this->totalPrice = $totalPrice;
     }
 }

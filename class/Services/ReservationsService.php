@@ -8,15 +8,15 @@ class ReservationsService
     /**
      * Create or update a reservation.
      */
-    public function setReservation(?string $id, string $adid, string $userid, string $reservedSeats): bool
+    public function setReservation(?string $id, string $adId, string $userId, string $reservedSeats, string $totalPrice): bool
     {
         $isOk = false;
 
         $dataBaseService = new DataBaseService();
         if (empty($id)) {
-            $isOk = $dataBaseService->createReservation($adid, $userid, $reservedSeats);
+            $isOk = $dataBaseService->createReservation($adId, $userId, $reservedSeats, $totalPrice);
         } else {
-            $isOk = $dataBaseService->updateReservation($id, $adid, $userid, $reservedSeats);
+            $isOk = $dataBaseService->updateReservation($id, $adId, $userId, $reservedSeats, $totalPrice);
         }
 
         return $isOk;
@@ -36,9 +36,10 @@ class ReservationsService
             foreach ($reservationsDTO as $reservationDTO) {
                 $reservation = new Reservation();
                 $reservation->setId($reservationDTO['id']);
-                $reservation->setAdid($reservationDTO['adid']);
-                $reservation->setUserid($reservationDTO['userid']);
+                $reservation->setAdId($reservationDTO['ad_id']);
+                $reservation->setUserId($reservationDTO['user_id']);
                 $reservation->setReservedSeats($reservationDTO['reserved_seats']);
+                $reservation->setTotalPrice($reservationDTO['total_price']);
                 $reservations[] = $reservation;
             }
         }

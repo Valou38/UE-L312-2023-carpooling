@@ -295,16 +295,17 @@ class DataBaseService
     Create a reservation
      ****************************************/
 
-    public function createReservation(string $adid, string $userid, string $reservedSeats): bool
+    public function createReservation(string $adId, string $userId, string $reservedSeats, string $totalPrice): bool
     {
         $isOk = false;
 
         $data = [
-            'adid' => $adid,
-            'userid' => $userid,
+            'ad_id' => $adId,
+            'user_id' => $userId,
             'reserved_seats' => $reservedSeats,
+            'total_price' => $totalPrice
         ];
-        $sql = 'INSERT INTO reservation (adid, userid, reserved_seats) VALUES (:adid, :userid, :reserved_seats)';
+        $sql = 'INSERT INTO reservations (ad_id, user_id, reserved_seats, total_price) VALUES (:ad_id, :user_id, :reserved_seats, :total_price)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -318,7 +319,7 @@ class DataBaseService
     {
         $reservations = [];
 
-        $sql = 'SELECT * FROM reservation';
+        $sql = 'SELECT * FROM reservations';
         $query = $this->connection->query($sql);
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
         if (!empty($results)) {
@@ -331,17 +332,18 @@ class DataBaseService
     /**
      * Update a reservation.
      */
-    public function updateReservation(string $id, string $adid, string $userid, string $reservedSeats): bool
+    public function updateReservation(string $id, string $adId, string $userId, string $reservedSeats, string $totalPrice): bool
     {
         $isOk = false;
 
         $data = [
             'id' => $id,
-            'adid' => $adid,
-            'userid' => $userid,
+            'ad_id' => $adId,
+            'user_id' => $userId,
             'reserved_seats' => $reservedSeats,
+            'total_price' => $totalPrice
         ];
-        $sql = 'UPDATE reservation SET adid = :adid, userid = :userid, reserved_seats = :reserved_seats WHERE id = :id;';
+        $sql = 'UPDATE reservations SET ad_id = :adid, user_id = :userid, reserved_seats = :reserved_seats, total_price = :total_price WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -358,7 +360,7 @@ class DataBaseService
         $data = [
             'id' => $id,
         ];
-        $sql = 'DELETE FROM reservation WHERE id = :id;';
+        $sql = 'DELETE FROM reservations WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 

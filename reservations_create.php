@@ -20,8 +20,8 @@ echo $controller->createReservation();
     <div class="form-container">
         <form method="post" action="reservations_create.php" name="reservationCreateForm">
             <div class="form-field">
-                <label for="adid">ID annonce de covoiturage:</label>
-                <select name="adid">
+                <label for="ad_id">ID annonce de covoiturage:</label>
+                <select name="ad_id">
                     <option value="">--Choisissez une annonce--</option>
                     <?php
                     $ads = $controller->getCarpoolad();
@@ -32,8 +32,8 @@ echo $controller->createReservation();
                 </select>
             </div>
             <div class="form-field">
-                <label for="userid">ID utilisateur :</label>
-                <select name="userid">
+                <label for="user_id">ID utilisateur :</label>
+                <select name="user_id">
                     <option value="">--Choisissez un utilisateur--</option>
                     <?php
                     $users = $controller->getUsers();
@@ -58,6 +58,5 @@ echo $controller->createReservation();
                 <input type="submit" value="Créer une réservation">
             </div>
         </form>
-        <p>Le prix total de votre réservation est de : </p>
     </div>
 </body>

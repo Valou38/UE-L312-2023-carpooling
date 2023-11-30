@@ -27,29 +27,32 @@ class ReservationsController
         // Check if the form has been submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // If the form has been submitted and not empty:
-            if (!empty($_POST['adid']) &&
-                !empty($_POST['userid']) &&
-                !empty($_POST['reserved_seats'])) {
+            if (!empty($_POST['ad_id']) &&
+                !empty($_POST['user_id']) &&
+                !empty($_POST['reserved_seats'])){
 
                 // Clean and validate the inputs
-                $adid = intval($_POST['adid']);
-                $userid = intval($_POST['userid']);
+                $adId = intval($_POST['ad_id']);
+                $userId = intval($_POST['user_id']);
                 $reservedSeats = intval($_POST['reserved_seats']);
+                $totalPrice = 0;
+                //$totalPrice = $reservedSeats * ;
 
                 // Check if the reserved seats do not exceed the available seats
-                $ad = $this->getCarpooladById($adid);
+                $ad = $this->getCarpooladById($adId);
                 if ($ad['availableseats'] >= $reservedSeats) {
                     // Process reservation creation:
                     $reservationService = new ReservationsService();
                     $isOk = $reservationService->setReservation(
                         null,
-                        $adid,
-                        $userid,
-                        $reservedSeats
+                        $adId,
+                        $userId,
+                        $reservedSeats,
+                        $totalPrice
                     );
 
                     if ($isOk) {
-                        $html = 'Réservation créée avec succès.';
+                        $html = '<div class="form-container"><p>Réservation créée avec succès. Le prix total est de ' .$totalPrice. ' $</p></div>';
                     } else {
                         $html = 'Erreur lors de la création de la réservation.';
                     }
@@ -97,9 +100,10 @@ class ReservationsController
         foreach ($reservations as $reservation) {
             $html .=
                 '#' . $reservation->getId() . ' ' .
-                $reservation->getAdid() . ' ' .
-                $reservation->getUserid() . ' ' .
-                $reservation->getReservedSeats(). '</br>';
+                $reservation->getAdId() . ' ' .
+                $reservation->getUserId() . ' ' .
+                $reservation->getReservedSeats(). ' ' .
+                $reservation->getTotalPrice(). '<br />';
         }
 
         return $html;
@@ -116,30 +120,33 @@ class ReservationsController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // If the form has been submitted and not empty:
             if (!empty($_POST['id']) &&
-                !empty($_POST['adid']) &&
-                !empty($_POST['userid']) &&
+                !empty($_POST['ad_id']) &&
+                !empty($_POST['user_id']) &&
                 !empty($_POST['reserved_seats'])) {
 
                 // Clean and validate the inputs
                 $id = intval($_POST['id']);
-                $adid = intval($_POST['adid']);
-                $userid = intval($_POST['userid']);
+                $adId = intval($_POST['ad_id']);
+                $userId = intval($_POST['user_id']);
                 $reservedSeats = intval($_POST['reserved_seats']);
+                $totalPrice = 0;
+                //$totalPrice = $reservedSeats * ;
 
                 // Check if the reserved seats do not exceed the available seats
-                $ad = $this->getCarpooladById($adid);
+                $ad = $this->getCarpooladById($adId);
                 if ($ad['availableseats'] >= $reservedSeats) {
                     // Process reservation creation:
                     $reservationService = new ReservationsService();
                     $isOk = $reservationService->setReservation(
                         $id,
-                        $adid,
-                        $userid,
-                        $reservedSeats
+                        $adId,
+                        $userId,
+                        $reservedSeats,
+                        $totalPrice
                     );
 
                     if ($isOk) {
-                        $html = 'Réservation mise à jour avec succès.';
+                        $html = '<div class="form-container"><p>Réservation mise à jour avec succès. Le prix total est de ' .$totalPrice. ' $</p></div>';
                     } else {
                         $html = 'Erreur lors de la mise à jour de la réservation.';
                     }
