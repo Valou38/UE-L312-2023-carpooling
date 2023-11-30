@@ -1,14 +1,14 @@
 <?php
 
-use App\Controllers\CarpooladController;
+use App\Controllers\AdsController;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$controller = new CarpooladController();
-echo $controller->updateCarpoolad();
+$controller = new AdsController();
+echo $controller->updateAd();
 
 $carService = new \App\Services\CarsService();
-$adService = new \App\Services\CarpooladService();
+$adService = new \App\Services\AdsService();
 
 ?>
 <!DOCTYPE html>
@@ -21,13 +21,13 @@ $adService = new \App\Services\CarpooladService();
 <body>
     <h1>Mise à jour d'une annonce</h1>
     <div class="form-container">
-        <form method="post" action="carpoolad_update.php" name="carpooladUpdateForm">
+        <form method="post" action="ads_update.php" name="carpooladUpdateForm">
             <div class="form-field">
-                <label for="id">Id :</label>
+                <label for="id">ID de l'annonce :</label>
                 <select name="id">
                     <option value="">--Choisissez une annonce--</option>
                     <?php
-                    $ads = $adService->getCarpoolad();
+                    $ads = $adService->getAds();
                     foreach ($ads as $ad) {
                         echo "<option value='{$ad->getId()}'>{$ad->getId()}</option>";
                     }
