@@ -22,24 +22,24 @@ $service = new \App\Services\UsersService();
     <div class="form-container">
         <form method="post" action="users_update.php" name ="userUpdateForm">
             <div class="form-field">
-                <label for="id">ID :</label>
+                <label for="id">ID de l'utilisateur :</label>
                 <select name="id">
                     <option value="">--Choisissez un ID d'utilisateur--</option>
                     <?php
                     $users = $service->getUsers();
                     foreach ($users as $user) {
-                        echo "<option value='{$user->getId()}'>{$user->getId()}</option>";
+                        echo "<option value='{$user->getId()}'>{$user->getId()} - {$user->getFirstName()} {$user->getLastName()}</option>";
                     }
                     ?>
                 </select>
             </div>
             <div class="form-field">
-                <label for="firstname">Prénom :</label>
-                <input type="text" name="firstname">
+                <label for="first_name">Prénom :</label>
+                <input type="text" name="first_name">
             </div>
             <div class="form-field">
-                <label for="lastname">Nom :</label>
-                <input type="text" name="lastname">
+                <label for="last_name">Nom :</label>
+                <input type="text" name="last_name">
             </div>
             <div class="form-field">
                 <label for="email">Email :</label>

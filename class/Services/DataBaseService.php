@@ -34,17 +34,17 @@ class DataBaseService
       Create an user
      ****************************************/
 
-    public function createUser(string $firstname, string $lastname, string $email, DateTime $birthday): bool
+    public function createUser(string $firstName, string $lastName, string $email, DateTime $birthday): bool
     {
         $isOk = false;
 
         $data = [
-            'firstname' => $firstname,
-            'lastname' => $lastname,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
             'email' => $email,
             'birthday' => $birthday->format(DateTime::RFC3339),
         ];
-        $sql = 'INSERT INTO users (firstname, lastname, email, birthday) VALUES (:firstname, :lastname, :email, :birthday)';
+        $sql = 'INSERT INTO users (first_name, last_name, email, birthday) VALUES (:first_name, :last_name, :email, :birthday)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -71,18 +71,18 @@ class DataBaseService
     /**
      * Update an user.
      */
-    public function updateUser(string $id, string $firstname, string $lastname, string $email, DateTime $birthday): bool
+    public function updateUser(string $id, string $firstName, string $lastName, string $email, DateTime $birthday): bool
     {
         $isOk = false;
 
         $data = [
             'id' => $id,
-            'firstname' => $firstname,
-            'lastname' => $lastname,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
             'email' => $email,
             'birthday' => $birthday->format(DateTime::RFC3339),
         ];
-        $sql = 'UPDATE users SET firstname = :firstname, lastname = :lastname, email = :email, birthday = :birthday WHERE id = :id;';
+        $sql = 'UPDATE users SET first_name = :first_name, last_name = :last_name, email = :email, birthday = :birthday WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
