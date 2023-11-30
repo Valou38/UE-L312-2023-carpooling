@@ -10,16 +10,16 @@ class UsersService
     /**
      * Create or update an user.
      */
-    public function setUser(?string $id, string $firstname, string $lastname, string $email, string $birthday): bool
+    public function setUser(?string $id, string $firstName, string $lastName, string $email, string $birthday): bool
     {
         $isOk = false;
 
         $dataBaseService = new DataBaseService();
         $birthdayDateTime = new DateTime($birthday);
         if (empty($id)) {
-            $isOk = $dataBaseService->createUser($firstname, $lastname, $email, $birthdayDateTime);
+            $isOk = $dataBaseService->createUser($firstName, $lastName, $email, $birthdayDateTime);
         } else {
-            $isOk = $dataBaseService->updateUser($id, $firstname, $lastname, $email, $birthdayDateTime);
+            $isOk = $dataBaseService->updateUser($id, $firstName, $lastName, $email, $birthdayDateTime);
         }
 
         return $isOk;
@@ -38,12 +38,12 @@ class UsersService
             foreach ($usersDTO as $userDTO) {
                 $user = new User();
                 $user->setId($userDTO['id']);
-                $user->setFirstname($userDTO['firstname']);
-                $user->setLastname($userDTO['lastname']);
+                $user->setFirstName($userDTO['first_name']);
+                $user->setLastName($userDTO['last_name']);
                 $user->setEmail($userDTO['email']);
                 $date = new DateTime($userDTO['birthday']);
                 if ($date !== false) {
-                    $user->setbirthday($date);
+                    $user->setBirthday($date);
                 }
                 $users[] = $user;
             }

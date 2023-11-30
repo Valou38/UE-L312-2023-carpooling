@@ -26,10 +26,10 @@
     </div>
     <div>
         <h2>Annonces</h2>
-        <a href="carpoolad_create.php">Créer</a><!--<a href="Views/templates/cardpoolads/cardpoolad_create.php">Créer</a>-->
-        <a href="carpoolad_read.php">Lire</a><!--<a href="Views/templates/cardpoolads/cardpoolad_read.php">Lire</a>-->
-        <a href="carpoolad_update.php">Modifier</a><!--<a href="Views/templates/cardpoolads/cardpoolad_update.php">Modifier</a>-->
-        <a href="carpoolad_delete.php">Supprimer</a><!--<a href="Views/templates/cardpoolads/cardpoolad_delete.php">Supprimer</a>-->
+        <a href="ads_create.php">Créer</a><!--<a href="Views/templates/cardpoolads/cardpoolad_create.php">Créer</a>-->
+        <a href="ads_read.php">Lire</a><!--<a href="Views/templates/cardpoolads/cardpoolad_read.php">Lire</a>-->
+        <a href="ads_update.php">Modifier</a><!--<a href="Views/templates/cardpoolads/cardpoolad_update.php">Modifier</a>-->
+        <a href="ads_delete.php">Supprimer</a><!--<a href="Views/templates/cardpoolads/cardpoolad_delete.php">Supprimer</a>-->
     </div>
     <div>
         <h2>Réservations</h2>

@@ -11,10 +11,10 @@ class ReservationsController
      * Return just the carpoolad choice
      */
 
-    public function getCarpooladById($id): array
+    public function getAdById($id): array
     {
         $dataBaseService = new DataBaseService();
-        return $dataBaseService->getCarpooladById($id);
+        return $dataBaseService->getAdById($id);
     }
 
     /**
@@ -27,29 +27,32 @@ class ReservationsController
         // Check if the form has been submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // If the form has been submitted and not empty:
-            if (!empty($_POST['adid']) &&
-                !empty($_POST['userid']) &&
-                !empty($_POST['reserved_seats'])) {
+            if (!empty($_POST['ad_id']) &&
+                !empty($_POST['user_id']) &&
+                !empty($_POST['reserved_seats'])){
 
                 // Clean and validate the inputs
-                $adid = intval($_POST['adid']);
-                $userid = intval($_POST['userid']);
+                $adId = intval($_POST['ad_id']);
+                $userId = intval($_POST['user_id']);
                 $reservedSeats = intval($_POST['reserved_seats']);
+                $totalPrice = 0;
+                //$totalPrice = $reservedSeats * ;
 
                 // Check if the reserved seats do not exceed the available seats
-                $ad = $this->getCarpooladById($adid);
-                if ($ad['availableseats'] >= $reservedSeats) {
+                $ad = $this->getAdById($adId);
+                if ($ad['available_seats'] >= $reservedSeats) {
                     // Process reservation creation:
                     $reservationService = new ReservationsService();
                     $isOk = $reservationService->setReservation(
                         null,
-                        $adid,
-                        $userid,
-                        $reservedSeats
+                        $adId,
+                        $userId,
+                        $reservedSeats,
+                        $totalPrice
                     );
 
                     if ($isOk) {
-                        $html = 'Réservation créée avec succès.';
+                        $html = '<div class="form-container"><p>Réservation créée avec succès. Le prix total est de ' .$totalPrice. ' $</p></div>';
                     } else {
                         $html = 'Erreur lors de la création de la réservation.';
                     }
@@ -67,10 +70,10 @@ class ReservationsController
     /**
      * Fetch available ad IDs from the database.
      */
-    public function getCarpoolad(): array
+    public function getAds(): array
     {
         $dataBaseService = new DataBaseService();
-        return $dataBaseService->getCarpoolad();
+        return $dataBaseService->getAds();
     }
 
     /**
@@ -95,11 +98,14 @@ class ReservationsController
 
         // Get html :
         foreach ($reservations as $reservation) {
-            $html .=
-                '#' . $reservation->getId() . ' ' .
-                $reservation->getAdid() . ' ' .
-                $reservation->getUserid() . ' ' .
-                $reservation->getReservedSeats(). '</br>';
+            $html .= '
+            <div class="info">
+                <p class="id">#' . $reservation->getId() . '</p>
+                <p class="features">ID de l\'annonce : ' . $reservation->getAdId() . '</p>
+                <p class="features">ID de l\'utilisateur : ' . $reservation->getUserId() . '</p>
+                <p class="features">Sièges réservées : ' . $reservation->getReservedSeats() . '</p>
+                <p class="features">Prix total : ' . $reservation->getTotalPrice() . '</p>
+            </div>';
         }
 
         return $html;
@@ -116,30 +122,33 @@ class ReservationsController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // If the form has been submitted and not empty:
             if (!empty($_POST['id']) &&
-                !empty($_POST['adid']) &&
-                !empty($_POST['userid']) &&
+                !empty($_POST['ad_id']) &&
+                !empty($_POST['user_id']) &&
                 !empty($_POST['reserved_seats'])) {
 
                 // Clean and validate the inputs
                 $id = intval($_POST['id']);
-                $adid = intval($_POST['adid']);
-                $userid = intval($_POST['userid']);
+                $adId = intval($_POST['ad_id']);
+                $userId = intval($_POST['user_id']);
                 $reservedSeats = intval($_POST['reserved_seats']);
+                $totalPrice = 0;
+                //$totalPrice = $reservedSeats * ;
 
                 // Check if the reserved seats do not exceed the available seats
-                $ad = $this->getCarpooladById($adid);
+                $ad = $this->getCarpooladById($adId);
                 if ($ad['availableseats'] >= $reservedSeats) {
                     // Process reservation creation:
                     $reservationService = new ReservationsService();
                     $isOk = $reservationService->setReservation(
                         $id,
-                        $adid,
-                        $userid,
-                        $reservedSeats
+                        $adId,
+                        $userId,
+                        $reservedSeats,
+                        $totalPrice
                     );
 
                     if ($isOk) {
-                        $html = 'Réservation mise à jour avec succès.';
+                        $html = '<div class="form-container"><p>Réservation mise à jour avec succès. Le prix total est de ' .$totalPrice. ' $</p></div>';
                     } else {
                         $html = 'Erreur lors de la mise à jour de la réservation.';
                     }

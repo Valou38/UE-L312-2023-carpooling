@@ -6,15 +6,15 @@
     <link rel="stylesheet" type="text/css" href="/UE-L312-2023-carpooling/assets/css/styles.css">
 </head>
 <body>
-    <h1>Liste des réservations</h1>
+    <h1>Liste des annonces disponibles</h1>
     <?php
 
-        use App\Controllers\ReservationsController;
+        use App\Controllers\AdsController;
 
         require __DIR__ . '/vendor/autoload.php';
 
-        $controller = new ReservationsController();
-        echo $controller->getReservations();
+        $controller = new AdsController();
+        echo $controller->getAds();
 
     ?>
 </body>

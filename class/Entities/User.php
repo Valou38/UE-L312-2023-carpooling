@@ -7,8 +7,8 @@ use DateTime;
 class User
 {
     private $id;
-    private $firstname;
-    private $lastname;
+    private $firstName;
+    private $lastName;
     private $email;
     private $birthday;
 
@@ -22,24 +22,24 @@ class User
         $this->id = $id;
     }
 
-    public function getFirstname(): string
+    public function getFirstName(): string
     {
-        return $this->firstname;
+        return $this->firstName;
     }
 
-    public function setFirstname(string $firstname): void
+    public function setFirstName(string $firstName): void
     {
-        $this->firstname = $firstname;
+        $this->firstName = $firstName;
     }
 
-    public function getLastname(): string
+    public function getLastName(): string
     {
-        return $this->lastname;
+        return $this->lastName;
     }
 
-    public function setLastname(string $lastname): void
+    public function setLastName(string $lastName): void
     {
-        $this->lastname = $lastname;
+        $this->lastName = $lastName;
     }
 
     public function getEmail(): string

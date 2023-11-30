@@ -19,12 +19,12 @@ echo $controller->createUser();
     <div class="form-container">
         <form method="post" action="users_create.php" name ="userCreateForm">
             <div class="form-field">
-                <label for="firstname">Prénom :</label>
-                <input type="text" name="firstname">
+                <label for="first_name">Prénom :</label>
+                <input type="text" name="first_name">
             </div>
             <div class="form-field">
-                <label for="lastname">Nom :</label>
-                <input type="text" name="lastname">
+                <label for="last_name">Nom :</label>
+                <input type="text" name="last_name">
             </div>
             <div class="form-field">
                 <label for="email">Email :</label>

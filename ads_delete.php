@@ -1,13 +1,13 @@
 <?php
 
-use App\Controllers\CarpooladController;
+use App\Controllers\AdsController;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$controller = new CarpooladController();
-echo $controller->deleteCarpoolad();
+$controller = new AdsController();
+echo $controller->deleteAd();
 
-$adService = new \App\Services\CarpooladService();
+$adService = new \App\Services\AdsService();
 
 ?>
 <!DOCTYPE html>
@@ -20,15 +20,15 @@ $adService = new \App\Services\CarpooladService();
 <body>
     <h1>Suppression d'une annonce</h1>
     <div class="form-container">
-        <form method="post" action="carpoolad_delete.php" name="carpooladDeleteForm">
+        <form method="post" action="ads_delete.php" name="carpooladDeleteForm">
             <div class="form-field">
-                <label for="adid">Id :</label>
-                <select name="adid">
+                <label for="ad_id">ID de l'annonce :</label>
+                <select name="ad_id">
                     <option value="">--Choisissez une annonce--</option>
                     <?php
-                    $ads = $adService->getCarpoolad();
+                    $ads = $adService->getAds();
                     foreach ($ads as $ad) {
-                        echo "<option value='{$ad->getId()}'>{$ad->getId()}</option>";
+                        echo "<option value='{$ad->getId()}'>{$ad->getId()} - {$ad->getCarId()} {$ad->getDeparture()}-{$ad->getDestination()}</option>";
                     }
                     ?>
                 </select>

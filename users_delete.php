@@ -22,13 +22,13 @@ $service = new \App\Services\UsersService();
     <div class="form-container">
         <form method="post" action="users_delete.php" name ="userDeleteForm">
             <div class="form-field">
-                <label for="id">ID utilisateur :</label>
+                <label for="id">ID de l'utilisateur :</label>
                 <select name="id">
                     <option value="">--Choisissez un ID d'utilisateur--</option>
                     <?php
                     $users = $service->getUsers();
                     foreach ($users as $user) {
-                        echo "<option value='{$user->getId()}'>{$user->getId()}</option>";
+                        echo "<option value='{$user->getId()}'>{$user->getId()} - {$user->getFirstName()} {$user->getLastName()}</option>";
                     }
                     ?>
                 </select>

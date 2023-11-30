@@ -34,17 +34,17 @@ class DataBaseService
       Create an user
      ****************************************/
 
-    public function createUser(string $firstname, string $lastname, string $email, DateTime $birthday): bool
+    public function createUser(string $firstName, string $lastName, string $email, DateTime $birthday): bool
     {
         $isOk = false;
 
         $data = [
-            'firstname' => $firstname,
-            'lastname' => $lastname,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
             'email' => $email,
             'birthday' => $birthday->format(DateTime::RFC3339),
         ];
-        $sql = 'INSERT INTO users (firstname, lastname, email, birthday) VALUES (:firstname, :lastname, :email, :birthday)';
+        $sql = 'INSERT INTO users (first_name, last_name, email, birthday) VALUES (:first_name, :last_name, :email, :birthday)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -71,18 +71,18 @@ class DataBaseService
     /**
      * Update an user.
      */
-    public function updateUser(string $id, string $firstname, string $lastname, string $email, DateTime $birthday): bool
+    public function updateUser(string $id, string $firstName, string $lastName, string $email, DateTime $birthday): bool
     {
         $isOk = false;
 
         $data = [
             'id' => $id,
-            'firstname' => $firstname,
-            'lastname' => $lastname,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
             'email' => $email,
             'birthday' => $birthday->format(DateTime::RFC3339),
         ];
-        $sql = 'UPDATE users SET firstname = :firstname, lastname = :lastname, email = :email, birthday = :birthday WHERE id = :id;';
+        $sql = 'UPDATE users SET first_name = :first_name, last_name = :last_name, email = :email, birthday = :birthday WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -191,19 +191,19 @@ class DataBaseService
       Create a carpool ad
      **********************************/
 
-    public function createCarpoolad(int $carid, string $description, datetime $dateandtime, string $departurelocation, string $destination, int $availableseats): bool
+    public function createAd(int $carId, string $description, datetime $dateTime, string $departure, string $destination, int $availableSeats, string $price): bool
     {
         $isOk = false;
 
         $data = [
-            'carid' => $carid,
             'description' => $description,
-            'dateandtime' => $dateandtime->format('Y-m-d H:i:s'),
-            'departurelocation' => $departurelocation,
+            'date_time' => $dateTime->format('Y-m-d H:i:s'),
+            'departure' => $departure,
             'destination' => $destination,
-            'availableseats' => $availableseats
+            'available_seats' => $availableSeats,
+            'price' => $price,
         ];
-        $sql = 'INSERT INTO carpoolad (carid, description, dateandtime, departurelocation, destination, availableseats) VALUES (:carid, :description, :dateandtime, :departurelocation, :destination, :availableseats)';
+        $sql = 'INSERT INTO ads (description, date_time, departure, destination, available_seats, price) VALUES (:description, :date_time, :departure, :destination, :available_seats, :price)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -213,60 +213,57 @@ class DataBaseService
     /**
      * Return all ads.
      */
-    public function getCarpoolad(): array
+    public function getAds(): array
     {
-        $carpoolad = [];
+        $ads = [];
 
-        $sql = 'SELECT * FROM carpoolad';
+        $sql = 'SELECT * FROM ads';
         $query = $this->connection->query($sql);
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
         if (!empty($results)) {
-            $carpoolad = $results;
+            $ads = $results;
         }
 
-        return $carpoolad;
+        return $ads;
     }
 
     /**
      * Return an ad by id.
      */
-    public function getCarpooladById($id): array
+    public function getAdById($id): array
     {
-        $carpoolad = [];
+        $ad = [];
 
-        $sql = 'SELECT * FROM carpoolad WHERE id = :id';
+        $sql = 'SELECT * FROM ads WHERE id = :id';
         $query = $this->connection->prepare($sql);
         $query->bindParam(':id', $id, PDO::PARAM_INT);
         $query->execute();
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
         if (!empty($results)) {
-            $carpoolad = $results[0];
+            $ad = $results[0];
         }
 
-        return $carpoolad;
+        return $ad;
     }
 
     /**
      * Update an ad.
      */
-    /**
-     * Update an ad.
-     */
-    public function updateCarpoolad(?string $id, int $carid, string $description, DateTime $dateandtime, string $departurelocation, string $destination, int $availableseats): bool
+    public function updateAd(?string $id, string $description, DateTime $dateTime, string $departure, string $destination, int $availableSeats, $price): bool
     {
         $isOk = false;
 
         $data = [
             'id' => $id,
-            'carid' => $carid,
             'description' => $description,
-            'dateandtime' => $dateandtime->format('Y-m-d H:i:s'),
-            'departurelocation' => $departurelocation,
+            'date_time' => $dateTime->format('Y-m-d H:i:s'),
+            'departure' => $departure,
             'destination' => $destination,
-            'availableseats' => $availableseats
+            'available_seats' => $availableSeats,
+            'price' => $price
         ];
 
-        $sql = 'UPDATE carpoolad SET carid = :carid, description = :description, dateandtime = :dateandtime, departurelocation = :departurelocation, destination = :destination, availableseats = :availableseats WHERE id = :id;';
+        $sql = 'UPDATE ads SET description = :description, date_time = :date_time, departure = :departure, destination = :destination, available_seats = :available_seats, price = :price WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -277,14 +274,14 @@ class DataBaseService
     /**
      * Delete an ad.
      */
-    public function deleteCarpoolad(string $id): bool
+    public function deleteAd(string $id): bool
     {
         $isOk = false;
 
         $data = [
             'id' => $id,
         ];
-        $sql = 'DELETE FROM carpoolad WHERE id = :id;';
+        $sql = 'DELETE FROM ads WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -295,16 +292,15 @@ class DataBaseService
     Create a reservation
      ****************************************/
 
-    public function createReservation(string $adid, string $userid, string $reservedSeats): bool
+    public function createReservation(string $reservedSeats, string $totalPrice): bool
     {
         $isOk = false;
 
         $data = [
-            'adid' => $adid,
-            'userid' => $userid,
             'reserved_seats' => $reservedSeats,
+            'total_price' => $totalPrice
         ];
-        $sql = 'INSERT INTO reservation (adid, userid, reserved_seats) VALUES (:adid, :userid, :reserved_seats)';
+        $sql = 'INSERT INTO reservations (reserved_seats, total_price) VALUES (:reserved_seats, :total_price)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -318,7 +314,7 @@ class DataBaseService
     {
         $reservations = [];
 
-        $sql = 'SELECT * FROM reservation';
+        $sql = 'SELECT * FROM reservations';
         $query = $this->connection->query($sql);
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
         if (!empty($results)) {
@@ -331,17 +327,18 @@ class DataBaseService
     /**
      * Update a reservation.
      */
-    public function updateReservation(string $id, string $adid, string $userid, string $reservedSeats): bool
+    public function updateReservation(string $id, string $adId, string $userId, string $reservedSeats, string $totalPrice): bool
     {
         $isOk = false;
 
         $data = [
             'id' => $id,
-            'adid' => $adid,
-            'userid' => $userid,
+            'ad_id' => $adId,
+            'user_id' => $userId,
             'reserved_seats' => $reservedSeats,
+            'total_price' => $totalPrice
         ];
-        $sql = 'UPDATE reservation SET adid = :adid, userid = :userid, reserved_seats = :reserved_seats WHERE id = :id;';
+        $sql = 'UPDATE reservations SET ad_id = :adid, user_id = :userid, reserved_seats = :reserved_seats, total_price = :total_price WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -358,7 +355,7 @@ class DataBaseService
         $data = [
             'id' => $id,
         ];
-        $sql = 'DELETE FROM reservation WHERE id = :id;';
+        $sql = 'DELETE FROM reservations WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 

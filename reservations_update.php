@@ -34,8 +34,8 @@ $service = new \App\Services\ReservationsService();
                 </select>
             </div>
             <div class="form-field">
-                <label for="adid">ID annonce de covoiturage:</label>
-                <select name="adid">
+                <label for="ad_id">ID annonce de covoiturage:</label>
+                <select name="ad_id">
                     <option value="">--Choisissez une annonce--</option>
                     <?php
                     $ads = $controller->getCarpoolad();
@@ -46,8 +46,8 @@ $service = new \App\Services\ReservationsService();
                 </select>
             </div>
             <div class="form-field">
-                <label for="userid">ID utilisateur :</label>
-                <select name="userid">
+                <label for="user_id">ID utilisateur :</label>
+                <select name="user_id">
                     <option value="">--Choisissez un utilisateur--</option>
                     <?php
                     $users = $controller->getUsers();
@@ -72,6 +72,5 @@ $service = new \App\Services\ReservationsService();
                 <input type="submit" value="Modifier une réservation">
             </div>
         </form>
-        <p>Le prix total de votre réservation est de : </p>
     </div>
 </body>
