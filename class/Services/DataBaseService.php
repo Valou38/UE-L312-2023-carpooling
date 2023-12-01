@@ -359,6 +359,8 @@ class DataBaseService
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
+        return $isOk;
+    }
 
 
 
@@ -558,10 +560,5 @@ class DataBaseService
         }
 
         return $carsAds;
-    }
-
-
-
-        return $isOk;
     }
 }
