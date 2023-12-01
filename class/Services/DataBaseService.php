@@ -359,6 +359,209 @@ class DataBaseService
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
+
+
+
+
+        
+    /*****************************************************************
+     * RELATIONS BETWEEN TABLES
+     *********************************/
+
+
+    public function setUserCar(string $userId, string $carId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'userId' => $userId,
+            'carId' => $carId,
+        ];
+        $sql = 'INSERT INTO users_cars (user_id, car_id) VALUES (:userId, :carId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    public function setUserAd(string $userId, string $adId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'userId' => $userId,
+            'adId' => $adId,
+        ];
+        $sql = 'INSERT INTO users_ads (user_id, ad_id) VALUES (:userId, :adId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    public function setUserReservation(string $userId, string $reservationId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'userId' => $userId,
+            'reservationId' => $reservationId,
+        ];
+        $sql = 'INSERT INTO users_reservations (user_id, reservation_id) VALUES (:userId, :reservationId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    public function setAdReservation(string $adId, string $reservationId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'adId' => $adId,
+            'reservationId' => $reservationId,
+        ];
+        $sql = 'INSERT INTO ads_reservations (ad_id, reservation_id) VALUES (:adId, :reservationId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+    public function setCarAd(string $carId, string $adId): bool
+    {
+        $isOk = false;
+
+        $data = [
+            'carId' => $carId ,
+            'adId' => $adId,
+        ];
+        $sql = 'INSERT INTO cars_ads (car_id, ad_id) VALUES (:carId, :adId)';
+        $query = $this->connection->prepare($sql);
+        $isOk = $query->execute($data);
+
+        return $isOk;
+    }
+
+
+
+    /**
+     * Get
+     */
+
+    public function getUsersCars(string $userId): array
+    {
+        $usersCars = [];
+
+        $data = [
+            'userId' => $userId,
+        ];
+        $sql = '
+            SELECT cars.*
+            FROM cars, users_cars
+            WHERE users_cars.car_id = cars.id
+            AND users_cars.user_id = :userId' ;
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $usersCars = $results;
+        }
+
+        return $usersCars;
+    }
+
+    public function getUsersAds(string $userId): array
+    {
+        $usersAds = [];
+
+        $data = [
+            'userId' => $userId,
+        ];
+        $sql = '
+             SELECT ads.*
+            FROM ads, users_ads
+            WHERE users_ads.ad_id = ads.id
+            AND users_ads.user_id = :userId' ;
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $usersAds = $results;
+        }
+
+        return $usersAds;
+    }
+
+    public function getUsersReservations(string $userId): array
+    {
+        $usersReservations = [];
+
+        $data = [
+            'userId' => $userId,
+        ];
+        $sql = '
+             SELECT reservations.*
+            FROM reservations, users_reservations
+            WHERE users_reservations.reservation_id = reservations.id
+            AND users_reservations .user_id = :userId' ;
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $usersReservations = $results;
+        }
+
+        return $usersReservations ;
+    }
+
+    public function getAdsReservations(string $adId): array
+    {
+        $adsReservations = [];
+
+        $data = [
+            'adId' => $adId,
+        ];
+        $sql = '
+            SELECT reservations.*
+            FROM reservations, ads_reservations
+            WHERE ads_reservations.reservation_id = reservations.id
+            AND ads_reservations .ad_id = :adId' ;
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $adsReservations = $results;
+        }
+
+        return $adsReservations ;
+    }
+
+    public function getCarsAds(string $carId): array
+    {
+        $carsAds = [];
+
+        $data = [
+            'carId' => $carId,
+        ];
+        $sql = '
+            SELECT ads.*
+            FROM ads, cars_ads
+            WHERE cars_ads.ad_id = ads.id
+            AND cars_ads.car_id = :carId' ;
+        $query = $this->connection->prepare($sql);
+        $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $carsAds = $results;
+        }
+
+        return $carsAds;
+    }
+
+
+
         return $isOk;
     }
 }
