@@ -51,7 +51,6 @@ class AdsController
                             $adsService = new AdsService();
                             $isOk = $adsService->setAd(
                                 null,
-                                $carId,
                                 $description,
                                 $dateTime,
                                 $departure,
@@ -106,7 +105,6 @@ class AdsController
             $html .= '
             <div class="info">
                 <p class="id">#' . $ad->getId() . '</p>
-                <p class="features">Voiture : ' . $ad->getCarId() . '</p>
                 <p class="features">Description : ' . $ad->getDescription() . '</p>
                 <p class="features">Date et heure : ' . $ad->getDateTime() . '</p>
                 <p class="features">Départ : ' . $ad->getDeparture() . '</p>
@@ -127,6 +125,7 @@ class AdsController
         $html = '';
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            var_dump($_POST);
             // If the form have been submitted :
             if (!empty($_POST['id']) &&
                 !empty($_POST['car_id']) &&
@@ -161,7 +160,6 @@ class AdsController
 
                                 $isOk = $adsService->setAd(
                                     $id,
-                                    $carId,
                                     $description,
                                     $dateTime,
                                     $departure,
@@ -198,33 +196,36 @@ class AdsController
     /**
      * Delete an ad
      */
-    public
-    function deleteAd(): string
+    public function deleteAd(): string
     {
         $html = '';
 
         // If the form have been submitted and not empty :
-        if (!empty($_POST['id'])) {
-            // Clean and validate the inputs
-            $id = trim(htmlspecialchars(strip_tags($_POST['id'])));
+        if ($_SERVER["REQUEST_METHOD"] == "POST"){
+            if (!empty($_POST['id'])) {
+                // Clean and validate the inputs
+                $id = trim(htmlspecialchars(strip_tags($_POST['id'])));
 
-            // Check if 'id' is a numeric value
-            if (is_numeric($id)) {
-                // Check if 'id' is a positive number
-                if ($id >= 0) {
-                    // Delete the ad :
-                    $adsService = new AdsService();
-                    $isOk = $adsService->deleteAd($id);
-                    if ($isOk) {
-                        $html = 'Annonce supprimée avec succès.';
+                // Check if 'id' is a numeric value
+                if (is_numeric($id)) {
+                    // Check if 'id' is a positive number
+                    if ($id >= 0) {
+                        // Delete the ad :
+                        $adsService = new AdsService();
+                        $isOk = $adsService->deleteAd($id);
+                        if ($isOk) {
+                            $html = 'Annonce supprimée avec succès.';
+                        } else {
+                            $html = "Erreur lors de la suppression de l'annonce.";
+                        }
                     } else {
-                        $html = "Erreur lors de la suppression de l'annonce.";
+                        $html = 'Erreur : L\'id doit être un nombre positif.';
                     }
                 } else {
-                    $html = 'Erreur : L\'id doit être un nombre positif.';
+                    $html = 'Erreur : L\'id doit être une valeur numérique.';
                 }
             } else {
-                $html = 'Erreur : L\'id doit être une valeur numérique.';
+                $html = "Erreur : Saisissez un identifiant";
             }
         }
 

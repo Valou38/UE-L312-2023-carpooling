@@ -19,7 +19,7 @@ $carService = new \App\Services\CarsService();
 <body>
     <h1>Création d'une annonce</h1>
     <div class="form-container">
-        <form method="post" action="ads_create.php" name="carpooladCreateForm">
+        <form method="post" action="ads_create.php" name="adCreateForm">
             <div class="form-field">
                 <label for="car_id">Choisir une voiture :</label>
                 <select name="car_id">
