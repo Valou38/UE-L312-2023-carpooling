@@ -159,7 +159,7 @@ class UsersService
 
         $dataBaseService = new DataBaseService();
 
-        // Get relation users and cars :
+        // Get relation users and ads :
         $usersAdsDTO = $dataBaseService->getUsersAds($userId);
         if (!empty($usersAdsDTO)) {
             foreach ($usersAdsDTO as $userAdDTO) {
@@ -189,7 +189,7 @@ class UsersService
 
         $dataBaseService = new DataBaseService();
 
-        // Get relation users and cars :
+        // Get relation reservations and user :
         $usersReservationsDTO = $dataBaseService->getUsersReservations($userId);
         if (!empty($usersReservationsDTO)) {
             foreach ($usersReservationsDTO as $userReservationDTO) {
