@@ -5,8 +5,6 @@ namespace App\Entities;
 class Reservation
 {
     private $id;
-    private $adId;
-    private $userId;
     private $reservedSeats;
     private $totalPrice;
 

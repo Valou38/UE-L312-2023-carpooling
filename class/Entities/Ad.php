@@ -5,7 +5,6 @@ namespace App\Entities;
 class Ad
 {
     private $id;
-    private $carId;
     private $description;
     private $dateTime;
     private $departure;
@@ -21,16 +20,6 @@ class Ad
     public function setId(string $id): void
     {
         $this ->id = $id;
-    }
-
-    public function getCarId() : string
-{
-    return $this->carId;
-}
-
-    public function setCarId(string $carId): void
-    {
-        $this->carid = $carId;
     }
 
     public function getDescription() : string

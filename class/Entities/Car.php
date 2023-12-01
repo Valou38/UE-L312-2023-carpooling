@@ -11,6 +11,7 @@ class Car
  private $mileage;
  private $color;
  private $nbrSlots;
+ private $ads ;
 
     public function getId() : string
     {
@@ -81,4 +82,22 @@ class Car
     {
         $this->nbrSlots = $nbrSlots;
     }
+
+    /***********************************************
+
+   CarsAds relation */
+
+    public function setAd(array $ads)
+    {
+        $this->ads = $ads;
+
+        return $this;
+    }
+
+    public function getAds(): ?array
+    {
+        return $this->ads;
+    }
+
+
 }

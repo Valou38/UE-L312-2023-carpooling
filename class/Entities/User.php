@@ -11,6 +11,9 @@ class User
     private $lastName;
     private $email;
     private $birthday;
+    private $cars ;
+    private $ads ;
+    private $reservations ;
 
     public function getId(): string
     {
@@ -37,7 +40,7 @@ class User
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): void
+    public function setLastName(striding $lastName): void
     {
         $this->lastName = $lastName;
     }
@@ -61,4 +64,58 @@ class User
     {
         $this->birthday = $birthday;
     }
+
+
+/***********************************************
+
+    UserCar relation */
+
+
+    public function setCar(array $cars)
+    {
+        $this->cars = $cars;
+
+        return $this;
+    }
+
+    public function getCars(): ?array
+    {
+        return $this->cars;
+    }
+
+
+/**** UserAd relation */
+
+    public function setAd(array $ads)
+    {
+        $this->ads = $ads;
+
+        return $this;
+    }
+
+    public function getAds(): ?array
+    {
+        return $this->ads;
+    }
+
+
+    /**** UserAd relation */
+
+    public function setReservation(array $reservations)
+    {
+        $this->reservations = $reservations;
+
+        return $this;
+    }
+
+    public function getReservations(): ?array
+    {
+        return $this->reservations;
+    }
+
+
+
+
+    /*************************************************/
+
 }
