@@ -40,7 +40,6 @@ class AdsService
             foreach ($adsDTO as $adDTO){
                 $ad = new Ad();
                 $ad->setId($adDTO['id']);
-                $ad->setCarId($adDTO['car_id']);
                 $ad->setDescription($adDTO['description']);
                 $ad->setDateTime($adDTO['date_time']);
                 $ad->setDeparture($adDTO['departure']);

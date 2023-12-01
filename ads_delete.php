@@ -20,15 +20,15 @@ $adService = new \App\Services\AdsService();
 <body>
     <h1>Suppression d'une annonce</h1>
     <div class="form-container">
-        <form method="post" action="ads_delete.php" name="carpooladDeleteForm">
+        <form method="post" action="ads_delete.php" name="adDeleteForm">
             <div class="form-field">
-                <label for="ad_id">ID de l'annonce :</label>
-                <select name="ad_id">
+                <label for="id">ID de l'annonce :</label>
+                <select name="id">
                     <option value="">--Choisissez une annonce--</option>
                     <?php
                     $ads = $adService->getAds();
                     foreach ($ads as $ad) {
-                        echo "<option value='{$ad->getId()}'>{$ad->getId()} - {$ad->getCarId()} {$ad->getDeparture()}-{$ad->getDestination()}</option>";
+                        echo "<option value='{$ad->getId()}'>{$ad->getId()} - {$ad->getDeparture()}-{$ad->getDestination()}</option>";
                     }
                     ?>
                 </select>

@@ -40,7 +40,7 @@ class User
         return $this->lastName;
     }
 
-    public function setLastName(striding $lastName): void
+    public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
     }

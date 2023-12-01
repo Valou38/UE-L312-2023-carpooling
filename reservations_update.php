@@ -28,7 +28,7 @@ $service = new \App\Services\ReservationsService();
                     <?php
                     $reservations = $service->getReservations();
                     foreach ($reservations as $reservation) {
-                        echo "<option value='{$reservation->getId()}'>{$reservation->getId()}</option>";
+                        echo "<option value='{$reservation->getId()}'>{$reservation->getId()} - {$reservation->getReservedSeats()} place(s) réservé(s), {$reservation->getTotalPrice()} euro(s)</option>";
                     }
                     ?>
                 </select>
@@ -38,9 +38,9 @@ $service = new \App\Services\ReservationsService();
                 <select name="ad_id">
                     <option value="">--Choisissez une annonce--</option>
                     <?php
-                    $ads = $controller->getCarpoolad();
+                    $ads = $controller->getAds();
                     foreach ($ads as $ad) {
-                        echo "<option value='{$ad['id']}'>{$ad['id']}</option>";
+                        echo "<option value='{$ad['id']}'>{$ad['id']} - {$ad['departure']} - {$ad['destination']} à {$ad['date_time']}</option>";
                     }
                     ?>
                 </select>
@@ -52,7 +52,7 @@ $service = new \App\Services\ReservationsService();
                     <?php
                     $users = $controller->getUsers();
                     foreach ($users as $user) {
-                        echo "<option value='{$user['id']}'>{$user['id']}</option>";
+                        echo "<option value='{$user['id']}'>{$user['id']} - {$user['first_name']} {$user['last_name']}</option>";
                     }
                     ?>
                 </select>

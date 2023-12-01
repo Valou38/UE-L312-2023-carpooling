@@ -26,6 +26,7 @@ class ReservationsController
 
         // Check if the form has been submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            var_dump($_POST);
             // If the form has been submitted and not empty:
             if (!empty($_POST['ad_id']) &&
                 !empty($_POST['user_id']) &&
@@ -45,8 +46,6 @@ class ReservationsController
                     $reservationService = new ReservationsService();
                     $isOk = $reservationService->setReservation(
                         null,
-                        $adId,
-                        $userId,
                         $reservedSeats,
                         $totalPrice
                     );
@@ -101,8 +100,6 @@ class ReservationsController
             $html .= '
             <div class="info">
                 <p class="id">#' . $reservation->getId() . '</p>
-                <p class="features">ID de l\'annonce : ' . $reservation->getAdId() . '</p>
-                <p class="features">ID de l\'utilisateur : ' . $reservation->getUserId() . '</p>
                 <p class="features">Sièges réservées : ' . $reservation->getReservedSeats() . '</p>
                 <p class="features">Prix total : ' . $reservation->getTotalPrice() . '</p>
             </div>';
@@ -135,14 +132,12 @@ class ReservationsController
                 //$totalPrice = $reservedSeats * ;
 
                 // Check if the reserved seats do not exceed the available seats
-                $ad = $this->getCarpooladById($adId);
-                if ($ad['availableseats'] >= $reservedSeats) {
+                $ad = $this->getAdById($adId);
+                if ($ad['available_seats'] >= $reservedSeats) {
                     // Process reservation creation:
                     $reservationService = new ReservationsService();
                     $isOk = $reservationService->setReservation(
                         $id,
-                        $adId,
-                        $userId,
                         $reservedSeats,
                         $totalPrice
                     );

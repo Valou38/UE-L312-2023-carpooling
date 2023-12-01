@@ -21,7 +21,7 @@ $adService = new \App\Services\AdsService();
 <body>
     <h1>Mise à jour d'une annonce</h1>
     <div class="form-container">
-        <form method="post" action="ads_update.php" name="carpooladUpdateForm">
+        <form method="post" action="ads_update.php" name="adUpdateForm">
             <div class="form-field">
                 <label for="id">ID de l'annonce :</label>
                 <select name="id">
@@ -29,14 +29,14 @@ $adService = new \App\Services\AdsService();
                     <?php
                     $ads = $adService->getAds();
                     foreach ($ads as $ad) {
-                        echo "<option value='{$ad->getId()}'>{$ad->getId()} - {$ad->getCarId()} {$ad->getDeparture()}-{$ad->getDestination()}</option>";
+                        echo "<option value='{$ad->getId()}'>{$ad->getId()} - {$ad->getDeparture()}-{$ad->getDestination()}</option>";
                     }
                     ?>
                 </select>
             </div>
             <div class="form-field">
-                <label for="carid">ID du nouveau véhicule:</label>
-                <select name="carid">
+                <label for="car_id">ID du nouveau véhicule:</label>
+                <select name="car_id">
                     <option value="">--Choisissez un véhicule--</option>
                     <?php
                     $cars = $carService->getCars();
