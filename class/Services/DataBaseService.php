@@ -533,7 +533,7 @@ class DataBaseService
             SELECT reservations.*
             FROM reservations, ads_reservations
             WHERE ads_reservations.reservation_id = reservations.id
-            AND ads_reservations .ad_id = :adId' ;
+            AND ads_reservations.ad_id = :adId' ;
         $query = $this->connection->prepare($sql);
         $query->execute($data);
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
