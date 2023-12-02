@@ -36,8 +36,28 @@ class ReservationsController
                 $adId = intval($_POST['ad_id']);
                 $userId = intval($_POST['user_id']);
                 $reservedSeats = intval($_POST['reserved_seats']);
-                $totalPrice = 0;
-                //$totalPrice = $reservedSeats * ;
+
+                // Get ads
+                $adsService = new AdsService();
+                $ads = $adsService->getAds();
+
+                // Find ad by his ID and get the unit price
+                $unitPriceAd = 0;
+                var_dump($ads);
+                var_dump($adId);
+                foreach($ads as $ad){
+                    if (intval($ad->getId()) === $adId){
+                        $unitPriceAd = $ad->getPrice();
+                        break;
+                    }
+                }
+
+                var_dump($reservedSeats, $unitPriceAd);
+
+                // Calculate the total price
+                $totalPrice = $reservedSeats * $unitPriceAd;
+
+                echo 'Prix total : ' . $totalPrice;
 
                 // Check if the reserved seats do not exceed the available seats
                 $ad = $this->getAdById($adId);
@@ -53,7 +73,7 @@ class ReservationsController
                     var_dump($reservationId);
 
                     // Create the ad reservations relations :
-                    $adsService = new AdsService();
+
                     $adReservation = $adsService->setAdReservation($adId, $reservationId);
 
                     var_dump($adReservation);
@@ -136,8 +156,26 @@ class ReservationsController
                 $adId = intval($_POST['ad_id']);
                 $userId = intval($_POST['user_id']);
                 $reservedSeats = intval($_POST['reserved_seats']);
-                $totalPrice = 0;
-                //$totalPrice = $reservedSeats * ;
+
+                // Get ads
+                $adsService = new AdsService();
+                $ads = $adsService->getAds();
+
+                // Find ad by his ID and get the unit price
+                $unitPriceAd = 0;
+                var_dump($ads);
+                var_dump($adId);
+                foreach($ads as $ad){
+                    if (intval($ad->getId()) === $adId){
+                        $unitPriceAd = $ad->getPrice();
+                        break;
+                    }
+                }
+
+                var_dump($reservedSeats, $unitPriceAd);
+
+                // Calculate the total price
+                $totalPrice = $reservedSeats * $unitPriceAd;
 
                 // Check if the reserved seats do not exceed the available seats
                 $ad = $this->getAdById($adId);
