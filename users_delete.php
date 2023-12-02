@@ -28,7 +28,7 @@ $service = new \App\Services\UsersService();
                     <?php
                     $users = $service->getUsers();
                     foreach ($users as $user) {
-                        echo "<option value='{$user->getId()}'>{$user->getId()} - {$user->getFirstName()} {$user->getLastName()}</option>";
+                        echo "<option value='{$user->getId()}'>{$user->getId()} - {$user->getFirstName()} {$user->getLastName()} ({$user->getEmail()})</option>";
                     }
                     ?>
                 </select>

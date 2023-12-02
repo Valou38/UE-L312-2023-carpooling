@@ -31,8 +31,8 @@ echo $controller->createUser();
                 <input type="text" name="email">
             </div>
             <div class="form-field">
-                <label for="birthday">Date d'anniversaire au format yyyy-mm-dd :</label>
-                <input type="text" name="birthday">
+                <label for="birthday">Date de naissance :</label>
+                <input type="date" name="birthday">
             </div>
             <div class="form-field">
                 <input type="submit" value="Créer un utilisateur">
