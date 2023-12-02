@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entities\Ad;
+use App\Entities\Reservation;
 use DateTime;
 
 class AdsService
@@ -13,17 +14,18 @@ class AdsService
      */
     public function setAd(?string $id, string $description, DateTime $dateTime, string $departure, string $destination, string $availableSeats, string $price): bool
     {
-        $isOk = false;
+        $adId = '';
 
         $dataBaseService = new DataBaseService();
 
         if (empty($id)){
-            $isOk = $dataBaseService->createAd($description,$dateTime, $departure, $destination, $availableSeats, $price);
+            $adId = $dataBaseService->createAd($description,$dateTime, $departure, $destination, $availableSeats, $price);
         } else {
-            $isOk = $dataBaseService-> updateAd($id, $description,$dateTime, $departure, $destination, $availableSeats, $price);
+            $dataBaseService-> updateAd($id, $description,$dateTime, $departure, $destination, $availableSeats, $price);
+            $adId = $id;
         }
 
-        return $isOk;
+        return $adId;
     }
 
     /**
@@ -38,6 +40,7 @@ class AdsService
 
         if (!empty($adsDTO)){
             foreach ($adsDTO as $adDTO){
+                // Get ad :
                 $ad = new Ad();
                 $ad->setId($adDTO['id']);
                 $ad->setDescription($adDTO['description']);
@@ -47,7 +50,13 @@ class AdsService
                 $ad->setAvailableSeats($adDTO['available_seats']);
                 $ad->setPrice($adDTO['price']);
 
+                // Get reservations of this ad :
+
+                $reservations = $this->getAdReservations($adDTO['id']);
+                $ad->setReservation($reservations);
+
                 $ads[] = $ad;
+
             }
         }
 
@@ -65,5 +74,44 @@ class AdsService
         $isOk = $dataBaseService->deleteAd($id);
 
         return $isOk;
+    }
+
+    /**
+     * Create relation between an ad and a reservation.
+     */
+    public function setAdReservation(string $adId, string $reservationId): bool
+    {
+        $isOk = false;
+
+        $dataBaseService = new DataBaseService();
+        $isOk = $dataBaseService->setAdReservation($adId, $reservationId);
+
+        return $isOk;
+    }
+
+    /**
+     * Get Reservation of given ad id.
+     */
+
+    public function getAdReservations(string $adId): array
+    {
+        $adReservations = [];
+
+        $dataBaseService = new DataBaseService();
+
+        // Get relation reservations and ads :
+        $adsReservationsDTO = $dataBaseService->getAdReservations($adId);
+        if (!empty($adsReservationsDTO)) {
+            foreach ($adsReservationsDTO as $adReservationDTO) {
+                $reservation = new Reservation();
+                $reservation->setId($adReservationDTO['id']);
+                $reservation->setReservedSeats($adReservationDTO['reserved_seats']);
+                $reservation->setTotalPrice($adReservationDTO['total_price']);
+
+                $adReservations[] = $reservation;
+            }
+        }
+        var_dump($adReservations);
+        return $adReservations;
     }
 }

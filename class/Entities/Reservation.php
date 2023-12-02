@@ -7,6 +7,7 @@ class Reservation
     private $id;
     private $reservedSeats;
     private $totalPrice;
+    private $adId;
 
     public function getId() : string
     {
@@ -36,5 +37,15 @@ class Reservation
     public function setTotalPrice(string $totalPrice): void
     {
         $this->totalPrice = $totalPrice;
+    }
+
+    public function getAdId() : string
+    {
+        return $this->adId;
+    }
+
+    public function setAdId(string $adId): void
+    {
+        $this->adId = $adId;
     }
 }

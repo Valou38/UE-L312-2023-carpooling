@@ -82,4 +82,18 @@ class Ad
     {
         $this->price = $price ;
     }
+
+    /**** AdReservations relation */
+
+    public function setReservation(array $reservations)
+    {
+        $this->reservations = $reservations;
+
+        return $this;
+    }
+
+    public function getReservations(): ?array
+    {
+        return $this->reservations;
+    }
 }
