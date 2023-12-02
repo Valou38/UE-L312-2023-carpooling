@@ -28,7 +28,7 @@ $service = new \App\Services\UsersService();
                     <?php
                     $users = $service->getUsers();
                     foreach ($users as $user) {
-                        echo "<option value='{$user->getId()}'>{$user->getId()} - {$user->getFirstName()} {$user->getLastName()}</option>";
+                        echo "<option value='{$user->getId()}'>{$user->getId()} - {$user->getFirstName()} {$user->getLastName()} ({$user->getEmail()})</option>";
                     }
                     ?>
                 </select>
@@ -46,8 +46,8 @@ $service = new \App\Services\UsersService();
                 <input type="text" name="email">
             </div>
             <div class="form-field">
-                <label for="birthday">Date d'anniversaire au format dd-mm-yyyy :</label>
-                <input type="text" name="birthday">
+                <label for="birthday">Date de naissance :</label>
+                <input type="date" name="birthday">
             </div>
             <div class="form-field">
                 <input type="submit" value="Modifier l'utilisateur">
