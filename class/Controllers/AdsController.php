@@ -102,6 +102,15 @@ class AdsController
 
         // Get html :
         foreach ($ads as $ad) {
+            $reservationsHtml = '';
+            if (!empty($ad->getReservations())){
+
+                $reservationsHtml .= '<br />';
+
+                foreach ($ad->getReservations() as $reservation){
+                    $reservationsHtml .= $reservation->getReservedSeats() . ' place(s) réservée(s) ' . $reservation->getTotalPrice() . ' €<br />';
+                }
+            }
             $html .= '
             <div class="info">
                 <p class="id">#' . $ad->getId() . '</p>
@@ -110,7 +119,8 @@ class AdsController
                 <p class="features">Départ : ' . $ad->getDeparture() . '</p>
                 <p class="features">Destination : ' . $ad->getDestination() . '</p>
                 <p class="features">Nombre de place(s) disponible : ' . $ad->getAvailableSeats() . '</p>
-                <p class="features"><strong>Prix</strong> : ' . $ad->getPrice() . '</p>
+                <p class="features"><strong>Prix</strong> : ' . $ad->getPrice() . ' €</p>
+                <p class="features"><strong>Réservée(s)</strong> : ' . $reservationsHtml . '</p>
             </div>';
         }
 
@@ -167,6 +177,7 @@ class AdsController
                                     $availableSeats,
                                     $price
                                 );
+
                                 if ($isOk) {
                                     $html = "L'annonce a été mise à jour avec succès.";
                                 } else {

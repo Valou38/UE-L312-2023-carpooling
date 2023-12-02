@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Services\AdsService;
 use App\Services\DataBaseService;
 use App\Services\ReservationsService;
 
@@ -26,7 +27,6 @@ class ReservationsController
 
         // Check if the form has been submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            var_dump($_POST);
             // If the form has been submitted and not empty:
             if (!empty($_POST['ad_id']) &&
                 !empty($_POST['user_id']) &&
@@ -44,13 +44,21 @@ class ReservationsController
                 if ($ad['available_seats'] >= $reservedSeats) {
                     // Process reservation creation:
                     $reservationService = new ReservationsService();
-                    $isOk = $reservationService->setReservation(
+                    $reservationId = $reservationService->setReservation(
                         null,
                         $reservedSeats,
                         $totalPrice
                     );
 
-                    if ($isOk) {
+                    var_dump($reservationId);
+
+                    // Create the ad reservations relations :
+                    $adsService = new AdsService();
+                    $adReservation = $adsService->setAdReservation($adId, $reservationId);
+
+                    var_dump($adReservation);
+
+                    if ($reservationId && $adReservation) {
                         $html = '<div class="form-container"><p>Réservation créée avec succès. Le prix total est de ' .$totalPrice. ' $</p></div>';
                     } else {
                         $html = 'Erreur lors de la création de la réservation.';
@@ -101,7 +109,7 @@ class ReservationsController
             <div class="info">
                 <p class="id">#' . $reservation->getId() . '</p>
                 <p class="features">Sièges réservées : ' . $reservation->getReservedSeats() . '</p>
-                <p class="features">Prix total : ' . $reservation->getTotalPrice() . '</p>
+                <p class="features">Prix total : ' . $reservation->getTotalPrice() . ' €</p>
             </div>';
         }
 
