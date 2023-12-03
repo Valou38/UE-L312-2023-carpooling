@@ -15,7 +15,7 @@ $adService = new \App\Services\AdsService();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" type="text/css" href="/UE-L312-2023-carpooling/assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 </head>
 <body>
     <h1>Mise à jour d'une annonce</h1>

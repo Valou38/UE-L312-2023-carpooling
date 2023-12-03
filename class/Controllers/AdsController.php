@@ -72,7 +72,7 @@ class AdsController
                                 $carAd = $adsService->setCarAd($carId, $adId);
 
                                 if ($adId && $userAd && $carAd) {
-                                    $html = '<div class="form-container"><p><strong>Erreur</strong> : L\'annonce a été créée avec succès.</p></div>';
+                                    $html = '<div class="form-container"><p>L\'annonce a été créée avec succès.</p></div>';
 
                                 } else {
                                     $html = '<div class="form-container"><p><strong>Erreur</strong> : Lors de la création de l\'annonce.</p></div>';

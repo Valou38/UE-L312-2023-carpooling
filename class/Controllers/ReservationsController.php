@@ -50,8 +50,6 @@ class ReservationsController
                 // Calculate the total price
                 $totalPrice = $reservedSeats * $unitPriceAd;
 
-                echo 'Prix total : ' . $totalPrice;
-
                 // Check if the reserved seats do not exceed the available seats
                 $ad = $reservationService->getAdById($adId);
                 if ($ad['available_seats'] >= $reservedSeats) {
@@ -69,7 +67,7 @@ class ReservationsController
                     $userReservation = $usersService->setUserReservation($userId, $reservationId);
 
                     if ($reservationId && $adReservation && $userReservation) {
-                        $html = '<div class="form-container"><p>Réservation créée avec succès. Le prix total est de ' .$totalPrice. ' $</p></div>';
+                        $html = '<div class="form-container"><p>Réservation créée avec succès. Le prix total est de ' .$totalPrice. ' €</p></div>';
                     } else {
                         $html = '<div class="form-container"><p><strong>Erreur</strong> : lors de la création de la réservation.</p></div>';
                     }
@@ -177,7 +175,7 @@ class ReservationsController
                     );
 
                     if ($isOk) {
-                        $html = '<div class="form-container"><p>Réservation mise à jour avec succès. Le prix total est de ' .$totalPrice. ' $</p></div>';
+                        $html = '<div class="form-container"><p>Réservation mise à jour avec succès. Le prix total est de ' .$totalPrice. ' €</p></div>';
                     } else {
                         $html = '<div class="form-container"><p><strong>Erreur</strong> : lors de la mise à jour de la réservation.</p></div>';
                     }
