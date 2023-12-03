@@ -3,7 +3,7 @@
 use App\Controllers\AdsController;
 use App\Services\DataBaseService;
 
-require __DIR__ . '/vendor/autoload.php';
+require '../../vendor/autoload.php';
 
 $controller = new AdsController();
 
@@ -14,7 +14,7 @@ $carService = new \App\Services\CarsService();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/styles.css">
 </head>
 <body>
     <h1>Création d'une annonce</h1>
@@ -79,7 +79,7 @@ $carService = new \App\Services\CarsService();
             </div>
         </form>
         <div class="center">
-            <a href="index.php"><button>Retour à l'accueil</button></a>
+            <a href="../../index.php"><button>Retour à l'accueil</button></a>
         </div>
     </div>
 </body>
