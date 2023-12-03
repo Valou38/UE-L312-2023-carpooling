@@ -5,7 +5,6 @@ use App\Controllers\ReservationsController;
 require __DIR__ . '/vendor/autoload.php';
 
 $controller = new ReservationsController();
-echo $controller->deleteReservation();
 
 $service = new \App\Services\ReservationsService();
 
@@ -19,6 +18,7 @@ $service = new \App\Services\ReservationsService();
 </head>
 <body>
     <h1>Suppression d'une réservation</h1>
+    <?php echo $controller->deleteReservation(); ?>
     <div class="form-container">
         <form method="post" action="reservations_delete.php" name="reservationDeleteForm">
             <div class="form-field">

@@ -72,30 +72,30 @@ class AdsController
                                 $carAd = $adsService->setCarAd($carId, $adId);
 
                                 if ($adId && $userAd && $carAd) {
-                                    $html = "L'annonce a été créée avec succès.";
+                                    $html = '<div class="form-container"><p><strong>Erreur</strong> : L\'annonce a été créée avec succès.</p></div>';
 
                                 } else {
-                                    $html = "Erreur lors de la création de l'annonce. ";
+                                    $html = '<div class="form-container"><p><strong>Erreur</strong> : Lors de la création de l\'annonce.</p></div>';
                                 }
 
                             } else {
-                                $html = 'Soyeux plus généreux :) Nous avons un ereègle, le prix s\'arrête à 100€' ;
+                                $html = '<div class="form-container"><p><strong>Erreur</strong> : Soyeux plus généreux :) Nous avons un ereègle, le prix s\'arrête à 100€</p></div>' ;
                             }
 
                         } else {
-                            $html = 'Erreur : Le nombre de sièges disponibles et le prix doivent être un nombre positif.';
+                            $html = '<div class="form-container"><p><strong>Erreur</strong> : Le nombre de sièges disponibles et le prix doivent être un nombre positif.</p></div>';
                         }
 
                     } else {
-                        $html = 'Erreur : Le nombre de sièges disponibles et le prix doivent être une valeur numérique.';
+                        $html = '<div class="form-container"><p><strong>Erreur</strong> : Le nombre de sièges disponibles et le prix doivent être une valeur numérique.</p></div>';
                     }
 
                 } else {
-                    $html = "Erreur : La date doit se situer dans le futur";
+                    $html = '<div class="form-container"><p><strong>Erreur</strong> : La date doit se situer dans le futur</p></div>';
                 }
 
             } else {
-                $html = "Erreur : Merci de remplir tous les champs ";
+                $html = '<div class="form-container"><p><strong>Erreur</strong> : Merci de remplir tous les champs</p></div>';
             }
 
         }
@@ -150,7 +150,6 @@ class AdsController
         $html = '';
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            var_dump($_POST);
             // If the form have been submitted :
             if (!empty($_POST['id']) &&
                 !empty($_POST['car_id']) &&
@@ -194,25 +193,25 @@ class AdsController
                                 );
 
                                 if ($isOk) {
-                                    $html = "L'annonce a été mise à jour avec succès.";
+                                    $html = "<div class='form-container'><p>L'annonce a été mise à jour avec succès.</p></div>";
                                 } else {
-                                    $html = "Erreur lors de la création de l'annonce. ";
+                                    $html = "<div class='form-container'><p><strong>Erreur</strong> : Lors de la création de l'annonce.</p></div>";
                                 }
 
                             } else {
-                                $html = 'Erreur : Le nombre de sièges disponibles et le prix doivent être un nombre positif.';
+                                $html = '<div class="form-container"><p><strong>Erreur</strong> : Le nombre de sièges disponibles et le prix doivent être un nombre positif.</p></div>';
                             }
 
                         } else {
-                            $html = 'Erreur : Le nombre de sièges disponibles et le prix doivent être une valeur numérique.';
+                            $html = '<div class="form-container"><p><strong>Erreur</strong> : Le nombre de sièges disponibles et le prix doivent être une valeur numérique.</p></div>';
                         }
 
                     } else {
-                        $html = "Erreur : La date doit se situer dans le futur";
+                        $html = "<div class='form-container'><p><strong>Erreur</strong> : La date doit se situer dans le futur</p></div>";
                     }
 
             } else {
-                $html = "Erreur : Remplissez tous les champs";
+                $html = "<div class='form-container'><p><strong>Erreur</strong> : Remplissez tous les champs</p></div>";
             }
         }
 
@@ -240,18 +239,18 @@ class AdsController
                         $adsService = new AdsService();
                         $isOk = $adsService->deleteAd($id);
                         if ($isOk) {
-                            $html = 'Annonce supprimée avec succès.';
+                            $html = '<div class="form-container"><p>Annonce supprimée avec succès.</p></div>';
                         } else {
-                            $html = "Erreur lors de la suppression de l'annonce.";
+                            $html = "<div class='form-container'><p><strong>Erreur</strong> : lors de la suppression de l'annonce.</p></div>";
                         }
                     } else {
-                        $html = 'Erreur : L\'id doit être un nombre positif.';
+                        $html = '<div class="form-container"><p><strong>Erreur</strong> : L\'id doit être un nombre positif.</p></div>';
                     }
                 } else {
-                    $html = 'Erreur : L\'id doit être une valeur numérique.';
+                    $html = '<div class="form-container"><p><strong>Erreur</strong> : L\'id doit être une valeur numérique.</p></div>';
                 }
             } else {
-                $html = "Erreur : Saisissez un identifiant";
+                $html = "<div class='form-container'><p><strong>Erreur</strong> : Saisissez un identifiant</p></div>";
             }
         }
 

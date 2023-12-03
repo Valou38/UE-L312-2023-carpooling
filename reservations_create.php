@@ -5,7 +5,6 @@ use App\Controllers\ReservationsController;
 require __DIR__ . '/vendor/autoload.php';
 
 $controller = new ReservationsController();
-echo $controller->createReservation();
 
 ?>
 <!DOCTYPE html>
@@ -17,6 +16,7 @@ echo $controller->createReservation();
 </head>
 <body>
     <h1>Création d'une réservation</h1>
+    <?php echo $controller->createReservation(); ?>
     <div class="form-container">
         <form method="post" action="reservations_create.php" name="reservationCreateForm">
             <div class="form-field">

@@ -5,7 +5,6 @@ use App\Controllers\AdsController;
 require __DIR__ . '/vendor/autoload.php';
 
 $controller = new AdsController();
-echo $controller->deleteAd();
 
 $adService = new \App\Services\AdsService();
 
@@ -19,6 +18,7 @@ $adService = new \App\Services\AdsService();
 </head>
 <body>
     <h1>Suppression d'une annonce</h1>
+    <?php echo $controller->deleteAd(); ?>
     <div class="form-container">
         <form method="post" action="ads_delete.php" name="adDeleteForm">
             <div class="form-field">

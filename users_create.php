@@ -5,7 +5,7 @@ use App\Controllers\UsersController;
 require __DIR__ . '/vendor/autoload.php';
 
 $controller = new UsersController();
-echo $controller->createUser();
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -16,6 +16,7 @@ echo $controller->createUser();
 </head>
 <body>
     <h1>Création d'un utilisateur</h1>
+    <?php echo $controller->createUser(); ?>
     <div class="form-container">
         <form method="post" action="users_create.php" name ="userCreateForm">
             <div class="form-field">

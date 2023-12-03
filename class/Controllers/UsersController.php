@@ -31,12 +31,12 @@ class UsersController
                     $_POST['birthday']
                 );
                 if ($isOk) {
-                    $html = 'Utilisateur créé avec succès.';
+                    $html = '<div class="form-container"><p>Utilisateur créé avec succès.</p></div>';
                 } else {
-                    $html = 'Erreur lors de la création de l\'utilisateur.';
+                    $html = '<div class="form-container"><p><strong>Erreur</strong> : lors de la création de l\'utilisateur.</p></div>';
                 }
             } else {
-                $html = 'Erreur : Il faut remplir tous les champs';
+                $html = '<div class="form-container"><p><strong>Erreur</strong> : Il faut remplir tous les champs</p></div>';
             }
         }
 
@@ -115,7 +115,6 @@ class UsersController
                 <p class="features"><strong>Annonce(s) : </strong> ' . $adsHtml . '</p>
             </div>';
         }
-        var_dump($carsHtml);
         return $html;
     }
 
@@ -143,12 +142,12 @@ class UsersController
                     $_POST['birthday']
                 );
                 if ($isOk) {
-                    $html = 'Utilisateur mis à jour avec succès.';
+                    $html = '<div class="form-container"><p>Utilisateur mis à jour avec succès.</p></div>';
                 } else {
-                    $html = 'Erreur lors de la mise à jour de l\'utilisateur.';
+                    $html = '<div class="form-container"><p><strong>Erreur</strong> : lors de la mise à jour de l\'utilisateur.</p></div>';
                 }
             } else {
-                $html = 'Erreur : Il faut remplir tous les champs';
+                $html = '<div class="form-container"><p><strong>Erreur</strong> : Il faut remplir tous les champs</p></div>';
             }
         }
 
@@ -169,12 +168,12 @@ class UsersController
                 $usersService = new UsersService();
                 $isOk = $usersService->deleteUser($_POST['id']);
                 if ($isOk) {
-                    $html = 'Utilisateur supprimé avec succès.';
+                    $html = '<div class="form-container"><p>Utilisateur supprimé avec succès.</p></div>';
                 } else {
-                    $html = 'Erreur lors de la supression de l\'utilisateur.';
+                    $html = '<div class="form-container"><p><strong>Erreur</strong> : lors de la supression de l\'utilisateur.</p></div>';
                 }
             } else {
-                $html = 'Erreur : Aucun identifiant sélectionné';
+                $html = '<div class="form-container"><p><strong>Erreur</strong> : Aucun identifiant sélectionné</p></div>';
             }
         }
 

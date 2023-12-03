@@ -19,11 +19,9 @@ class CarsService
 
         if (empty($id)){
             $carId = $dataBaseService-> createCar($brand, $model, $year, $mileage, $color, $nbrSlots);
-            echo "New Car ID: " . $carId . '<br />';
         } else {
             $dataBaseService-> updateCar($id, $brand, $model, $year, $mileage, $color, $nbrSlots);
             $carId = $id;
-            echo "Updated Car ID: " . $carId;
         }
 
         return $carId;
@@ -97,7 +95,6 @@ class CarsService
         $dataBaseService = new DataBaseService();
         $isOk = $dataBaseService->setUserCar($userId, $carId);
 
-        var_dump($isOk);
         return $isOk;
     }
 
@@ -126,7 +123,6 @@ class CarsService
             }
         }
 
-        var_dump($usersCars);
         return $usersCars;
     }
 

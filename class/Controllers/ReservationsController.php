@@ -35,18 +35,17 @@ class ReservationsController
 
                 $reservationService = new ReservationsService();
 
+                $usersService = new UsersService();
+
                 // Find ad by his ID and get the unit price
                 $unitPriceAd = 0;
-                var_dump($ads);
-                var_dump($adId);
+
                 foreach($ads as $ad){
                     if (intval($ad->getId()) === $adId){
                         $unitPriceAd = $ad->getPrice();
                         break;
                     }
                 }
-
-                var_dump($reservedSeats, $unitPriceAd);
 
                 // Calculate the total price
                 $totalPrice = $reservedSeats * $unitPriceAd;
@@ -64,25 +63,21 @@ class ReservationsController
                         $totalPrice
                     );
 
-                    var_dump($reservationId);
-
                     // Create the reservations relations :
 
                     $adReservation = $reservationService->setAdReservation($adId, $reservationId);
                     $userReservation = $usersService->setUserReservation($userId, $reservationId);
 
-                    var_dump($adReservation);
-
                     if ($reservationId && $adReservation && $userReservation) {
                         $html = '<div class="form-container"><p>Réservation créée avec succès. Le prix total est de ' .$totalPrice. ' $</p></div>';
                     } else {
-                        $html = '<div class="form-container"><p>Erreur lors de la création de la réservation.</p></div>';
+                        $html = '<div class="form-container"><p><strong>Erreur</strong> : lors de la création de la réservation.</p></div>';
                     }
                 } else {
-                    $html = '<div class="form-container"><p>Erreur : Le nombre de sièges réservés ne peut pas dépasser le nombre de sièges disponibles.</p></div>';
+                    $html = '<div class="form-container"><p><strong>Erreur</strong> : Le nombre de sièges réservés ne peut pas dépasser le nombre de sièges disponibles.</p></div>';
                 }
             } else {
-                $html = '<div class="form-container"><p>Erreur : Tous les champs doivent être remplis.</p></div>';
+                $html = '<div class="form-container"><p><strong>Erreur</strong>r : Tous les champs doivent être remplis.</p></div>';
             }
         }
 
@@ -160,16 +155,13 @@ class ReservationsController
 
                 // Find ad by his ID and get the unit price
                 $unitPriceAd = 0;
-                var_dump($ads);
-                var_dump($adId);
+
                 foreach($ads as $ad){
                     if (intval($ad->getId()) === $adId){
                         $unitPriceAd = $ad->getPrice();
                         break;
                     }
                 }
-
-                var_dump($reservedSeats, $unitPriceAd);
 
                 // Calculate the total price
                 $totalPrice = $reservedSeats * $unitPriceAd;
@@ -187,13 +179,13 @@ class ReservationsController
                     if ($isOk) {
                         $html = '<div class="form-container"><p>Réservation mise à jour avec succès. Le prix total est de ' .$totalPrice. ' $</p></div>';
                     } else {
-                        $html = '<div class="form-container"><p>Erreur lors de la mise à jour de la réservation.</p></div>';
+                        $html = '<div class="form-container"><p><strong>Erreur</strong> : lors de la mise à jour de la réservation.</p></div>';
                     }
                 } else {
-                    $html = '<div class="form-container"><p>Erreur : Le nombre de sièges réservés ne peut pas dépasser le nombre de sièges disponibles.</p></div>';
+                    $html = '<div class="form-container"><p><strong>Erreur</strong> : Le nombre de sièges réservés ne peut pas dépasser le nombre de sièges disponibles.</p></div>';
                 }
             } else {
-                $html = '<div class="form-container"><p>Erreur : Tous les champs doivent être remplis.</p></div>';
+                $html = '<div class="form-container"><p><strong>Erreur</strong> : Tous les champs doivent être remplis.</p></div>';
             }
         }
 
@@ -224,16 +216,16 @@ class ReservationsController
                         if ($isOk) {
                             $html = '<div class="form-container"><p>Réservation supprimé avec succès.</p></div>';
                         } else {
-                            $html = '<div class="form-container"><p>Erreur lors de la suppression de la réservation.</p></div>';
+                            $html = '<div class="form-container"><p><strong>Erreur</strong> : lors de la suppression de la réservation.</p></div>';
                         }
                     } else {
-                        $html = '<div class="form-container"><p>Erreur : L\'id doit être un nombre positif.</p></div>';
+                        $html = '<div class="form-container"><p><strong>Erreur</strong> : L\'id doit être un nombre positif.</p></div>';
                     }
                 } else {
-                    $html = '<div class="form-container"><p>Erreur : L\'id doit être une valeur numérique.</p></div>';
+                    $html = '<div class="form-container"><p><strong>Erreur</strong> : L\'id doit être une valeur numérique.</p></div>';
                 }
             } else {
-                $html = '<div class="form-container"><p>Erreur : Aucun identifiant saisi</p></div>';
+                $html = '<div class="form-container"><p><strong>Erreur</strong> : Aucun identifiant saisi</p></div>';
             }
 
         }

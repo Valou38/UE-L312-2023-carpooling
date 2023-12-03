@@ -6,7 +6,6 @@ use App\Services\DataBaseService;
 require __DIR__ . '/vendor/autoload.php';
 
 $controller = new AdsController();
-echo $controller->createAd();
 
 $carService = new \App\Services\CarsService();
 ?>
@@ -19,6 +18,9 @@ $carService = new \App\Services\CarsService();
 </head>
 <body>
     <h1>Création d'une annonce</h1>
+    <?php
+        echo $controller->createAd();
+    ?>
     <div class="form-container">
         <form method="post" action="ads_create.php" name="adCreateForm">
             <div class="form-field">

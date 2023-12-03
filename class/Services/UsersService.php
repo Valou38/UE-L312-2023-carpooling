@@ -166,7 +166,6 @@ class UsersService
             }
         }
 
-        var_dump($userReservations);
         return $userReservations;
     }
 
@@ -195,7 +194,7 @@ class UsersService
                 $userCars[] = $car;
             }
         }
-        var_dump($userCars);
+
         return $userCars;
     }
 }

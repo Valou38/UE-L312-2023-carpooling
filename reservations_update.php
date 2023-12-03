@@ -5,7 +5,6 @@ use App\Controllers\ReservationsController;
 require __DIR__ . '/vendor/autoload.php';
 
 $controller = new ReservationsController();
-echo $controller->updateReservation();
 
 $service = new \App\Services\ReservationsService();
 
@@ -19,6 +18,7 @@ $service = new \App\Services\ReservationsService();
 </head>
 <body>
     <h1>Modification d'une réservation</h1>
+    <?php echo $controller->updateReservation(); ?>
     <div class="form-container">
         <form method="post" action="reservations_update.php" name="reservationUpdateForm">
             <div class="form-field">
