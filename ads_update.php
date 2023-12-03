@@ -5,7 +5,6 @@ use App\Controllers\AdsController;
 require __DIR__ . '/vendor/autoload.php';
 
 $controller = new AdsController();
-echo $controller->updateAd();
 
 $carService = new \App\Services\CarsService();
 $adService = new \App\Services\AdsService();
@@ -20,6 +19,7 @@ $adService = new \App\Services\AdsService();
 </head>
 <body>
     <h1>Mise à jour d'une annonce</h1>
+    <?php echo $controller->updateAd(); ?>
     <div class="form-container">
         <form method="post" action="ads_update.php" name="adUpdateForm">
             <div class="form-field">

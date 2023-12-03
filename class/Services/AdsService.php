@@ -103,7 +103,7 @@ class AdsService
                 $adReservations[] = $reservation;
             }
         }
-        var_dump($adReservations);
+
         return $adReservations;
     }
 
