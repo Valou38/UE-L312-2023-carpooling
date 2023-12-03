@@ -10,19 +10,22 @@ class CarsService
     /**
      * Create or update a car
      */
-    public function setCar(?string $id, string $brand, string $model, string $year, string $mileage, string $color, string $nbrSlots): bool
+    public function setCar(?string $id, string $brand, string $model, string $year, string $mileage, string $color, string $nbrSlots): ?string
     {
-        $isOk = false;
+        $carId = '';
 
         $dataBaseService = new DataBaseService();
 
         if (empty($id)){
-            $isOk = $dataBaseService-> createCar($brand, $model, $year, $mileage, $color, $nbrSlots);
+            $carId = $dataBaseService-> createCar($brand, $model, $year, $mileage, $color, $nbrSlots);
+            echo "New Car ID: " . $carId . '<br />';
         } else {
-            $isOk = $dataBaseService-> updateCar($id, $brand, $model, $year, $mileage, $color, $nbrSlots);
+            $dataBaseService-> updateCar($id, $brand, $model, $year, $mileage, $color, $nbrSlots);
+            $carId = $id;
+            echo "Updated Car ID: " . $carId;
         }
 
-        return $isOk;
+        return $carId;
     }
 
     /**
@@ -70,10 +73,61 @@ class CarsService
         return $isOk;
     }
 
+    /**
+     * Fetch available user IDs from the database.
+     */
+    public function getUsers(): array
+    {
+        $dataBaseService = new DataBaseService();
+        return $dataBaseService->getUsers();
+    }
 
     /********
      **RELATIONS
      **/
+
+    /**
+     * Create relation between an user and his car.
+     */
+    public function setUserCar(string $userId, string $carId): bool
+    {
+        $isOk = false;
+
+        $dataBaseService = new DataBaseService();
+        $isOk = $dataBaseService->setUserCar($userId, $carId);
+
+        var_dump($isOk);
+        return $isOk;
+    }
+
+    /**
+     * Get cars of given user id.
+     */
+    public function getUsersCars(string $userId): array
+    {
+        $usersCars = [];
+
+        $dataBaseService = new DataBaseService();
+
+        // Get relation users and cars :
+        $usersCarsDTO = $dataBaseService->getUsersCars($userId);
+        if (!empty($usersCarsDTO)) {
+            foreach ($usersCarsDTO as $userCarDTO) {
+                $car = new Car();
+                $car->setId($userCarDTO['id']);
+                $car->setBrand($userCarDTO['brand']);
+                $car->setModel($userCarDTO['model']);
+                $car-> setYear($userCarDTO['year']);
+                $car->setMileage($userCarDTO['mileage']) ;
+                $car->setColor($userCarDTO['color']);
+                $car->setNbrSlots($userCarDTO['nbrSlots']);
+                $usersCars[] = $car;
+            }
+        }
+
+        var_dump($usersCars);
+        return $usersCars;
+    }
 
 
     public function setCarAd(string $carId, string $adId): bool

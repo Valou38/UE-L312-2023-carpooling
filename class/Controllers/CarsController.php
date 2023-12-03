@@ -19,13 +19,15 @@ class CarsController
         // Check if the form has been submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // If the form have been submitted and not empty :
-            if (!empty($_POST['brand']) &&
+            if (!empty($_POST['user_id']) &&
+                !empty($_POST['brand']) &&
                 !empty($_POST['model']) &&
                 !empty($_POST['year']) &&
                 !empty($_POST['mileage']) &&
                 !empty($_POST['color']) &&
                 !empty($_POST['nbr_slots'])) {
                 // Clean and validate the inputs
+                $userId = trim(htmlspecialchars(strip_tags($_POST['user_id'])));
                 $brand = trim(htmlspecialchars(strip_tags($_POST['brand'])));
                 $model = trim(htmlspecialchars(strip_tags($_POST['model'])));
                 $year = trim(htmlspecialchars(strip_tags($_POST['year'])));
@@ -37,13 +39,13 @@ class CarsController
                 if (is_numeric($year)) {
                     // Check if 'year' is a valid year
                     if ($year >= 1886 && $year <= $currentYear) {
-                        // Check if 'mileage' and 'nbrSlots' are numeric values
-                        if (is_numeric($mileage) && is_numeric($nbrSlots)) {
-                            // Check if 'mileage' and 'nbrSlots' positive numbers
-                            if ($mileage >= 0 && $nbrSlots >= 0) {
+                        // Check if 'mileage', 'userId' and 'nbrSlots' are numeric values
+                        if (is_numeric($mileage) && is_numeric($nbrSlots) && is_numeric($userId)) {
+                            // Check if 'mileage', 'userId' and 'nbrSlots' positive numbers
+                            if ($mileage >= 0 && $nbrSlots >= 0 && $userId >= 0) {
                                 // Create the car :
                                 $carsService = new CarsService();
-                                $isOk = $carsService->setCar(
+                                $carId = $carsService->setCar(
                                     null,
                                     $brand,
                                     $model,
@@ -52,7 +54,14 @@ class CarsController
                                     $color,
                                     $nbrSlots
                                 );
-                                if ($isOk) {
+
+                                // Create the user cars relations :
+
+                                $userCar = $carsService->setUserCar($userId, $carId);
+
+                                var_dump($userCar);
+
+                                if ($carId && $userCar) {
                                     $html = 'Véhicule créé avec succès.';
                                 } else {
                                     $html = 'Erreur lors de la création du véhicule.';

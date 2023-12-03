@@ -12,6 +12,7 @@ class Car
  private $color;
  private $nbrSlots;
  private $ads ;
+ private $userId;
 
     public function getId() : string
     {
@@ -99,5 +100,20 @@ class Car
         return $this->ads;
     }
 
+    /***********************************************
+
+    CarUsersId relation */
+
+    public function setUserId(array $userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    public function getUsersId(): ?array
+    {
+        return $this->userId;
+    }
 
 }
