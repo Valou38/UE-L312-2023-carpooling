@@ -94,7 +94,7 @@ class UsersController
                 foreach ($user->getAds() as $ad){
 
                     $adsHtml .= 'Description : ' . $ad->getDescription() .
-                        '<br /> Joue et heure de départ : ' . $ad->getDateTime() .
+                        '<br /> Jour et heure de départ : ' . $ad->getDateTime() .
                         '<br /> Lieu de départ : ' . $ad->getDeparture() .
                         '<br /> Lieu d\'arrivé : ' . $ad->getDestination() .
                         '<br /> Nombre de siège(s) disponible(s) : ' . $ad->getAvailableSeats() .
