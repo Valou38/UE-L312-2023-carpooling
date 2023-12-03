@@ -62,8 +62,9 @@ Utilisation du modèle MVC (Modele - Vue - Controller)
 
 ## Conditions de démarrage
 
-Vérifier dans le fichier class/Services/DataBaseService.php que vos identifiants locaux correspondent à ceux du fichers.
-Créer votre base de données en important le fichier tables.sql dans votre gestionnaire de bases de données SQL.
+Vérifier dans le fichier class/Services/DataBaseService.php que vos identifiants locaux correspondent à ceux du ficher.
+
+Créer votre base de données "carpooling" et importer le fichier tables.sql dans votre gestionnaire de bases de données SQL.
 
 ## Fonctionnement
 
