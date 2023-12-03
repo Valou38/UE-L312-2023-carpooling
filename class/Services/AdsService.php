@@ -128,4 +128,17 @@ class AdsService
 
         return $isOk;
     }
+
+    /**
+     * Create relation between an ad and car.
+     */
+    public function setCarAd(string $carId, string $adId): bool
+    {
+        $isOk = false;
+
+        $dataBaseService = new DataBaseService();
+        $isOk = $dataBaseService->setCarAd($carId, $adId);
+
+        return $isOk;
+    }
 }

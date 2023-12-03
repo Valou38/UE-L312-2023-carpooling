@@ -50,30 +50,36 @@ class AdsController
 
                         if ($availableSeats >= 0 && $price >= 0){
 
-                            // Create the ad :
-                            $adsService = new AdsService();
-                            $adId = $adsService->setAd(
-                                null,
-                                $description,
-                                $dateTime,
-                                $departure,
-                                $destination,
-                                $availableSeats,
-                                $price
-                            );
+                            if ($price < 100){
 
-                            // Create the reservations relations :
-                            
-                            list($userId, $carId) = explode('|', $userCar);
+                                // Create the ad :
+                                $adsService = new AdsService();
+                                $adId = $adsService->setAd(
+                                    null,
+                                    $description,
+                                    $dateTime,
+                                    $departure,
+                                    $destination,
+                                    $availableSeats,
+                                    $price
+                                );
 
-                            $userReservation = $adsService->setUserAd($userId, $adId);
-                            //$carReservation = $usersService->setUserReservation($userId, $reservationId);
+                                // Create the reservations relations :
 
-                            if ($adId && $userReservation) {
-                                $html = "L'annonce a été créée avec succès.";
+                                list($userId, $carId) = explode('|', $userCar);
+
+                                $userAd = $adsService->setUserAd($userId, $adId);
+                                $carAd = $adsService->setCarAd($carId, $adId);
+
+                                if ($adId && $userAd && $carAd) {
+                                    $html = "L'annonce a été créée avec succès.";
+
+                                } else {
+                                    $html = "Erreur lors de la création de l'annonce. ";
+                                }
 
                             } else {
-                                $html = "Erreur lors de la création de l'annonce. ";
+                                $html = 'Soyeux plus généreux :) Nous avons un ereègle, le prix s\'arrête à 100€' ;
                             }
 
                         } else {

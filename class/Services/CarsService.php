@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entities\Car;
+use App\Entities\Ad;
 
 class CarsService
 {
@@ -152,10 +153,10 @@ class CarsService
                 $ad = new Ad();
                 $ad->setId($carAdDTO['id']);
                 $ad->setDescription($carAdDTO['description']);
-                $ad->setDateTime($carAdDTO['dateTime']);
+                $ad->setDateTime($carAdDTO['date_time']);
                 $ad->setDeparture($carAdDTO['departure']);
                 $ad->setDestination($carAdDTO['destination']);
-                $ad->setAvailableSeats($carAdDTO['availableSeats']);
+                $ad->setAvailableSeats($carAdDTO['available_seats']);
                 $ad->setPrice($carAdDTO['price']);
                 $carsAds[] = $ad;
             }

@@ -70,7 +70,7 @@ $carService = new \App\Services\CarsService();
             </div>
             <div class="form-field">
                 <label for="price">Prix</label>
-                <input type="number" name="price" min="0" max="100" step="1">
+                <input type="number" name="price" min="0" step="1">
             </div>
             <div class="form-field">
                 <input type="submit" value="Créer une annonce">
