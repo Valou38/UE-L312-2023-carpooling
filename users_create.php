@@ -39,5 +39,8 @@ $controller = new UsersController();
                 <input type="submit" value="Créer un utilisateur">
             </div>
         </form>
+        <div class="center">
+            <a href="index.php"><button>Retour à l'accueil</button></a>
+        </div>
     </div>
 </body>

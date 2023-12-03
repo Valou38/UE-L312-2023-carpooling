@@ -53,5 +53,8 @@ $service = new \App\Services\UsersService();
                 <input type="submit" value="Modifier l'utilisateur">
             </div>
         </form>
+        <div class="center">
+            <a href="index.php"><button>Retour à l'accueil</button></a>
+        </div>
     </div>
 </body>

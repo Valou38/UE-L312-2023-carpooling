@@ -113,5 +113,8 @@ $controller = new CarsController();
                 <input type="submit" value="Créer un véhicule">
             </div>
         </form>
+        <div class="center">
+            <a href="index.php"><button>Retour à l'accueil</button></a>
+        </div>
     </div>
 </body>

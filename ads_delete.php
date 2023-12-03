@@ -37,5 +37,8 @@ $adService = new \App\Services\AdsService();
                 <input type="submit" value="Supprimer l'annonce">
             </div>
         </form>
+        <div class="center">
+            <a href="index.php"><button>Retour à l'accueil</button></a>
+        </div>
     </div>
 </body>
