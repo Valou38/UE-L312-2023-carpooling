@@ -8,7 +8,7 @@ class Reservation
     private $reservedSeats;
     private $totalPrice;
     private $adId;
-    private $userId ;
+    private $userId;
 
     public function getId() : string
     {

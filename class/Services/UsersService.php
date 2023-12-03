@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
+use App\Entities\Reservation;
 use App\Entities\User;
-use App\Entities\Car ;
+use App\Entities\Car;
 use DateTime;
 
 class UsersService
@@ -13,17 +14,18 @@ class UsersService
      */
     public function setUser(?string $id, string $firstName, string $lastName, string $email, string $birthday): bool
     {
-        $isOk = false;
+        $userId = '';
 
         $dataBaseService = new DataBaseService();
         $birthdayDateTime = new DateTime($birthday);
         if (empty($id)) {
-            $isOk = $dataBaseService->createUser($firstName, $lastName, $email, $birthdayDateTime);
+            $userId = $dataBaseService->createUser($firstName, $lastName, $email, $birthdayDateTime);
         } else {
-            $isOk = $dataBaseService->updateUser($id, $firstName, $lastName, $email, $birthdayDateTime);
+            $dataBaseService->updateUser($id, $firstName, $lastName, $email, $birthdayDateTime);
+            $userId = $id;
         }
 
-        return $isOk;
+        return $userId;
     }
 
     /**
@@ -48,7 +50,8 @@ class UsersService
                 }
 
                 // Get cars, ads and reservations of this user :
-                $cars = $this->getUsersCars($userDTO['id']);
+
+                $cars = $this->getUserCars($userDTO['id']);
                 $user->setCar($cars);
 
                 $ads = $this->getUsersAds($userDTO['id']);
@@ -82,18 +85,7 @@ class UsersService
      * *************************************************************************
      * **************************************************************************
      */
-    /**
-     * Create relation between an user and his car.
-     */
-    public function setUserCar(string $userId, string $carId): bool
-    {
-        $isOk = false;
 
-        $dataBaseService = new DataBaseService();
-        $isOk = $dataBaseService->setUserCar($userId, $carId);
-
-        return $isOk;
-    }
     /**
      * Create relation between an user and an ad.
      */
@@ -119,37 +111,6 @@ class UsersService
 
         return $isOk;
     }
-
-
-
-    /**
-     * Get cars of given user id.
-     */
-    public function getUsersCars(string $userId): array
-    {
-        $usersCars = [];
-
-        $dataBaseService = new DataBaseService();
-
-        // Get relation users and cars :
-        $usersCarsDTO = $dataBaseService->getUsersCars($userId);
-        if (!empty($usersCarsDTO)) {
-            foreach ($usersCarsDTO as $userCarDTO) {
-                $car = new Car();
-                $car->setId($userCarDTO['id']);
-                $car->setBrand($userCarDTO['brand']);
-                $car->setModel($userCarDTO['model']);
-                $car-> setYear($userCarDTO['year']);
-                $car->setMileage($userCarDTO['mileage']) ;
-                $car->setColor($userCarDTO['color']);
-                $car->setNbrSlots($userCarDTO['nbr_slots']);
-                $usersCars[] = $car;
-            }
-        }
-
-        return $usersCars;
-    }
-
 
     /**
      * Get Ad of given user id.
@@ -203,8 +164,37 @@ class UsersService
                 $userReservations[] = $reservation;
             }
         }
+
         var_dump($userReservations);
         return $userReservations;
     }
-}
 
+    /**
+     * Get Cars of given user id.
+     */
+
+    public function getUserCars(string $userId): array
+    {
+        $userCars = [];
+
+        $dataBaseService = new DataBaseService();
+
+        // Get relation cars and users :
+        $usersCarsDTO = $dataBaseService->getUsersCars($userId);
+        if (!empty($usersCarsDTO)) {
+            foreach ($usersCarsDTO as $userCarDTO) {
+                $car = new Car();
+                $car->setBrand($userCarDTO['brand']);
+                $car->setModel($userCarDTO['model']);
+                $car->setYear($userCarDTO['year']);
+                $car->setMileage($userCarDTO['mileage']);
+                $car->setColor($userCarDTO['color']);
+                $car->setNbrSlots($userCarDTO['nbr_slots']);
+
+                $userCars[] = $car;
+            }
+        }
+        var_dump($userCars);
+        return $userCars;
+    }
+}

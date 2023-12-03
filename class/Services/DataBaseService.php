@@ -12,7 +12,7 @@ class DataBaseService
     const PORT = '3306';
     const DATABASE_NAME = 'carpooling';
     const MYSQL_USER = 'root';
-    const MYSQL_PASSWORD = 'password';
+    const MYSQL_PASSWORD = '';
 
     private $connection;
 
@@ -110,9 +110,9 @@ class DataBaseService
         Create a car
      *****************************/
 
-    public function createCar(string $brand, string $model, string $year, string $mileage, string $color, string $nbrSlots): bool
+    public function createCar(string $brand, string $model, string $year, string $mileage, string $color, string $nbrSlots): string
     {
-        $isOk = false;
+        $carId = "";
 
         $data = [
             'brand' => $brand,
@@ -124,9 +124,12 @@ class DataBaseService
         ];
         $sql = 'INSERT INTO cars (brand, model, year, mileage, color, nbr_slots) VALUES (:brand, :model, :year, :mileage, :color, :nbr_slots)';
         $query = $this->connection->prepare($sql);
-        $isOk = $query->execute($data);
+        $query->execute($data);
 
-        return $isOk;
+        $carId = $this->connection->lastInsertId();
+
+
+        return $carId;
     }
 
     /**
@@ -292,9 +295,9 @@ class DataBaseService
     Create a reservation
      ****************************************/
 
-    public function createReservation(string $reservedSeats, string $totalPrice): bool
+    public function createReservation(string $reservedSeats, string $totalPrice): string
     {
-        $isOk = false;
+        $reservationId = '';
 
         $data = [
             'reserved_seats' => $reservedSeats,
@@ -302,9 +305,11 @@ class DataBaseService
         ];
         $sql = 'INSERT INTO reservations (reserved_seats, total_price) VALUES (:reserved_seats, :total_price)';
         $query = $this->connection->prepare($sql);
-        $isOk = $query->execute($data);
+        $query->execute($data);
 
-        return $isOk;
+        $reservationId = $this->connection->lastInsertId();
+
+        return $reservationId;
     }
 
     /**
@@ -414,7 +419,7 @@ class DataBaseService
         return $isOk;
     }
 
-    public function setAdReservation(string $adId, string $reservationId): bool
+    public function setAdReservation(string $adId, string $reservationId): string
     {
         $isOk = false;
 
@@ -508,7 +513,7 @@ class DataBaseService
             'userId' => $userId,
         ];
         $sql = '
-             SELECT reservations.*
+            SELECT reservations.*
             FROM reservations, users_reservations
             WHERE users_reservations.reservation_id = reservations.id
             AND users_reservations.user_id = :userId' ;

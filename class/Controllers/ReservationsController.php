@@ -85,7 +85,7 @@ class ReservationsController
 
                     // Create the reservations relations :
 
-                    $adReservation = $adsService->setAdReservation($adId, $reservationId);
+                    $adReservation = $reservationService->setAdReservation($adId, $reservationId);
                     $userReservation = $usersService->setUserReservation($userId, $reservationId);
 
                     var_dump($adReservation);

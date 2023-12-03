@@ -20,6 +20,19 @@ echo $controller->createCar();
     <div class="form-container">
         <form method="post" action="cars_create.php" name="carCreateForm">
             <div class="form-field">
+                <label for="user_id">ID utilisateur :</label>
+                <select name="user_id">
+                    <option value="">--Choisissez un utilisateur--</option>
+                    <?php
+                    $usersService = new App\Services\CarsService();
+                    $users = $usersService->getUsers();
+                    foreach ($users as $user) {
+                        echo "<option value='{$user['id']}'>{$user['id']} - {$user['first_name']} {$user['last_name']} </option>";
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="form-field">
                 <label for="brand">Marque :</label>
                 <select name="brand">
                     <option value="">--Choisissez une marque--</option>
