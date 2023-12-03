@@ -35,6 +35,8 @@ class ReservationsController
 
                 $reservationService = new ReservationsService();
 
+                $usersService = new UsersService();
+
                 // Find ad by his ID and get the unit price
                 $unitPriceAd = 0;
                 var_dump($ads);
