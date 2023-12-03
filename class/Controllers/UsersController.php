@@ -56,19 +56,6 @@ class UsersController
 
         // Get html :
         foreach ($users as $user) {
-            $reservationsHtml = '';
-            if (!empty($user->getReservations())) {
-
-                $reservationsHtml .= '<br />';
-
-                foreach ($user->getReservations() as $reservation) {
-                    $reservationsHtml .= $reservation->getReservedSeats() . ' place(s) réservée(s) ' . $reservation->getTotalPrice() . ' €<br />';
-                }
-            }
-        }
-
-        // Get html :
-        foreach ($users as $user) {
             $carsHtml = '';
             if (!empty($user->getCars())){
 
@@ -82,6 +69,20 @@ class UsersController
                         ' km <br /> Couleur : ' . $car->getColor() .
                         '<br /> Nombre de place(s) : ' . $car->getNbrSlots() .
                         '<hr />';
+                }
+            }
+
+            $reservationsHtml = '';
+            if (!empty($user->getReservations())) {
+
+                $reservationsHtml .= '<br />';
+
+                foreach ($user->getReservations() as $reservation) {
+                    $reservationsHtml .=
+                        $reservation->getReservedSeats() .
+                        ' place(s) réservée(s) à ' .
+                        $reservation->getTotalPrice() .
+                        ' € prix total<br />';
                 }
             }
 
@@ -102,7 +103,6 @@ class UsersController
                 }
             }
 
-
             $html .= '
             <div class="info">
                 <p class="id">#' . $user->getId() . '</p>
@@ -111,7 +111,7 @@ class UsersController
                 <p class="features">Email : ' . $user->getEmail() . '</p>
                 <p class="features">Date de naissance : ' . $user->getBirthday()->format('d-m-Y') . '</p>
                 <p class="features"><strong>Voiture(s) : </strong> ' . $carsHtml . '</p>
-                <p class="features"><strong>Réservation(s) : </strong> ' . $carsHtml . '</p>
+                <p class="features"><strong>Réservation(s) : </strong> ' . $reservationsHtml . '</p>
                 <p class="features"><strong>Annonce(s) : </strong> ' . $adsHtml . '</p>
             </div>';
         }
