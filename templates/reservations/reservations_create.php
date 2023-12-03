@@ -2,7 +2,7 @@
 
 use App\Controllers\ReservationsController;
 
-require __DIR__ . '/vendor/autoload.php';
+require '../../vendor/autoload.php';
 
 $controller = new ReservationsController();
 
@@ -12,7 +12,7 @@ $controller = new ReservationsController();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/styles.css">
 </head>
 <body>
     <h1>Création d'une réservation</h1>
@@ -59,7 +59,7 @@ $controller = new ReservationsController();
             </div>
         </form>
         <div class="center">
-            <a href="index.php"><button>Retour à l'accueil</button></a>
+            <a href="../../index.php"><button>Retour à l'accueil</button></a>
         </div>
     </div>
 </body>

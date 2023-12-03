@@ -2,7 +2,7 @@
 
 use App\Controllers\AdsController;
 
-require __DIR__ . '/vendor/autoload.php';
+require '../../vendor/autoload.php';
 
 $controller = new AdsController();
 
@@ -15,7 +15,7 @@ $adService = new \App\Services\AdsService();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/styles.css">
 </head>
 <body>
     <h1>Mise à jour d'une annonce</h1>
@@ -82,7 +82,7 @@ $adService = new \App\Services\AdsService();
             </div>
         </form>
         <div class="center">
-            <a href="index.php"><button>Retour à l'accueil</button></a>
+            <a href="../../index.php"><button>Retour à l'accueil</button></a>
         </div>
     </div>
 </body>

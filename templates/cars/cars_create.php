@@ -2,7 +2,7 @@
 
 use App\Controllers\CarsController;
 
-require __DIR__ . '/vendor/autoload.php';
+require '../../vendor/autoload.php';
 
 $controller = new CarsController();
 
@@ -12,7 +12,7 @@ $controller = new CarsController();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/styles.css">
 </head>
 <body>
     <h1>Création d'un véhicule</h1>
@@ -114,7 +114,7 @@ $controller = new CarsController();
             </div>
         </form>
         <div class="center">
-            <a href="index.php"><button>Retour à l'accueil</button></a>
+            <a href="../../index.php"><button>Retour à l'accueil</button></a>
         </div>
     </div>
 </body>
