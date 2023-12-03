@@ -12,7 +12,7 @@ class DataBaseService
     const PORT = '3306';
     const DATABASE_NAME = 'carpooling';
     const MYSQL_USER = 'root';
-    const MYSQL_PASSWORD = 'password';
+    const MYSQL_PASSWORD = '';
 
     private $connection;
 
@@ -191,7 +191,7 @@ class DataBaseService
       Create a carpool ad
      **********************************/
 
-    public function createAd(int $carId, string $description, datetime $dateTime, string $departure, string $destination, int $availableSeats, string $price): bool
+    public function createAd(string $description, datetime $dateTime, string $departure, string $destination, int $availableSeats, string $price): bool
     {
         $isOk = false;
 
@@ -281,7 +281,7 @@ class DataBaseService
         $data = [
             'id' => $id,
         ];
-        $sql = 'DELETE FROM ads WHERE id = :id;';
+        $sql = 'DELETE FROM ads WHERE id = :id';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -327,18 +327,16 @@ class DataBaseService
     /**
      * Update a reservation.
      */
-    public function updateReservation(string $id, string $adId, string $userId, string $reservedSeats, string $totalPrice): bool
+    public function updateReservation(string $id, string $reservedSeats, string $totalPrice): bool
     {
         $isOk = false;
 
         $data = [
             'id' => $id,
-            'ad_id' => $adId,
-            'user_id' => $userId,
             'reserved_seats' => $reservedSeats,
             'total_price' => $totalPrice
         ];
-        $sql = 'UPDATE reservations SET ad_id = :adid, user_id = :userid, reserved_seats = :reserved_seats, total_price = :total_price WHERE id = :id;';
+        $sql = 'UPDATE reservations SET reserved_seats = :reserved_seats, total_price = :total_price WHERE id = :id;';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
@@ -359,6 +357,8 @@ class DataBaseService
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
 
+        return $isOk;
+    }
 
 
 
@@ -418,6 +418,9 @@ class DataBaseService
     {
         $isOk = false;
 
+        echo "Before execution";
+        var_dump($adId, $reservationId);
+
         $data = [
             'adId' => $adId,
             'reservationId' => $reservationId,
@@ -425,6 +428,9 @@ class DataBaseService
         $sql = 'INSERT INTO ads_reservations (ad_id, reservation_id) VALUES (:adId, :reservationId)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
+
+        echo "After execution";
+        var_dump($isOk);
 
         return $isOk;
     }
@@ -516,7 +522,7 @@ class DataBaseService
         return $usersReservations ;
     }
 
-    public function getAdsReservations(string $adId): array
+    public function getAdReservations(string $adId): array
     {
         $adsReservations = [];
 
@@ -527,7 +533,7 @@ class DataBaseService
             SELECT reservations.*
             FROM reservations, ads_reservations
             WHERE ads_reservations.reservation_id = reservations.id
-            AND ads_reservations .ad_id = :adId' ;
+            AND ads_reservations.ad_id = :adId' ;
         $query = $this->connection->prepare($sql);
         $query->execute($data);
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -558,10 +564,5 @@ class DataBaseService
         }
 
         return $carsAds;
-    }
-
-
-
-        return $isOk;
     }
 }
