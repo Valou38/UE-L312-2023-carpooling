@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entities\Ad;
 use App\Entities\Reservation;
+
 use DateTime;
 
 class AdsService
@@ -12,7 +13,7 @@ class AdsService
     /**
      * Create or update an ad
      */
-    public function setAd(?string $id, string $description, DateTime $dateTime, string $departure, string $destination, string $availableSeats, string $price): bool
+    public function setAd(?string $id, string $description, DateTime $dateTime, string $departure, string $destination, string $availableSeats, string $price): string
     {
         $adId = '';
 
@@ -76,6 +77,10 @@ class AdsService
         return $isOk;
     }
 
+    /********
+     **RELATIONS
+     **/
+
     /**
      * Get Reservation of given ad id.
      */
@@ -100,5 +105,40 @@ class AdsService
         }
         var_dump($adReservations);
         return $adReservations;
+    }
+
+    /**
+     * Fetch available user IDs from the database.
+     */
+    public function getUsers(): array
+    {
+        $dataBaseService = new DataBaseService();
+        return $dataBaseService->getUsers();
+    }
+
+    /**
+     * Create relation between an ad and user.
+     */
+    public function setUserAd(string $userId, string $adId): bool
+    {
+        $isOk = false;
+
+        $dataBaseService = new DataBaseService();
+        $isOk = $dataBaseService->setUserAd($userId, $adId);
+
+        return $isOk;
+    }
+
+    /**
+     * Create relation between an ad and car.
+     */
+    public function setCarAd(string $carId, string $adId): bool
+    {
+        $isOk = false;
+
+        $dataBaseService = new DataBaseService();
+        $isOk = $dataBaseService->setCarAd($carId, $adId);
+
+        return $isOk;
     }
 }

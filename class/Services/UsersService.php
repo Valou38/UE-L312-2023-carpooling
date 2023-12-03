@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Entities\Reservation;
 use App\Entities\User;
 use App\Entities\Car;
+use App\Entities\Ad;
 use DateTime;
 
 class UsersService
@@ -129,10 +130,10 @@ class UsersService
                 $ad = new Ad();
                 $ad->setId($userAdDTO['id']);
                 $ad->setDescription($userAdDTO['description']);
-                $ad->setDateTime($userAdDTO['dateTime']);
+                $ad->setDateTime($userAdDTO['date_time']);
                 $ad->setDeparture($userAdDTO['departure']);
                 $ad->setDestination($userAdDTO['destination']);
-                $ad->setAvailableSeats($userAdDTO['availableSeats']);
+                $ad->setAvailableSeats($userAdDTO['available_seats']);
                 $ad->setPrice($userAdDTO['price']);
                 $usersAds[] = $ad;
             }

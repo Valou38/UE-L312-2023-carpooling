@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\AdsController;
+use App\Services\DataBaseService;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -21,13 +22,21 @@ $carService = new \App\Services\CarsService();
     <div class="form-container">
         <form method="post" action="ads_create.php" name="adCreateForm">
             <div class="form-field">
-                <label for="car_id">Choisir une voiture :</label>
-                <select name="car_id">
-                    <option value="">--Choisissez l'ID de votre voiture--</option>
+                <label for="user_car">Choisir un utilisateur et sa voiture :</label>
+                <select name="user_car">
+                    <option value="">--Choisissez un utilisateur et sa voiture--</option>
                     <?php
-                    $cars = $carService->getCars();
-                    foreach ($cars as $car) {
-                        echo "<option value='{$car->getId()}'>{$car->getId()} - {$car->getBrand()} {$car->getModel()} {$car->getColor()}</option>";
+                        $adsService = new DataBaseService();
+                        $userCars = $adsService->getUsersWithCars();
+
+                        foreach ($userCars as $userCar) {
+                        $userCarId = $userCar['user_car_id'];
+                        $userId = $userCar['user_id'];
+                        $userName = $userCar['first_name'] . ' ' . $userCar['last_name'];
+                        $carId = $userCar['car_id'];
+                        $carDetails = "{$userCar['brand']} {$userCar['model']}";
+
+                        echo "<option value='{$userId}|{$carId}'>{$userName} - {$carDetails}</option>";
                     }
                     ?>
                 </select>
@@ -61,7 +70,7 @@ $carService = new \App\Services\CarsService();
             </div>
             <div class="form-field">
                 <label for="price">Prix</label>
-                <input type="number" name="price" min="0" max="100" step="1">
+                <input type="number" name="price" min="0" step="1">
             </div>
             <div class="form-field">
                 <input type="submit" value="Créer une annonce">

@@ -99,6 +99,22 @@ class CarsController
 
         // Get html:
         foreach ($cars as $car) {
+            $adsHtml = '';
+            if (!empty($car->getAds())){
+
+                $adsHtml .= '<br />';
+
+                foreach ($car->getAds() as $ad){
+                    $adsHtml .= 'Description : ' . $ad->getDescription() .
+                        '<br /> Jour et heure de départ : ' . $ad->getDateTime() .
+                        '<br /> Lieu de départ : ' . $ad->getDeparture() .
+                        '<br /> Lieu d\'arrivé : ' . $ad->getDestination() .
+                        '<br /> Nombre de siège(s) disponible(s) : ' . $ad->getAvailableSeats() .
+                        '<br /> Prix : ' . $ad->getPrice() .
+                        ' €<hr />';
+                }
+            }
+
             $html .= '
             <div class="info">
                 <p class="id">#' . $car->getId() . '</p>
@@ -108,6 +124,7 @@ class CarsController
                 <p class="features">Kilométrage : ' . $car->getMileage() . '</p>
                 <p class="features">Couleur : ' . $car->getColor() . '</p>
                 <p class="features">Nombre de places : ' . $car->getNbrSlots() . '</p>
+                <p class="features"><strong>Annonce(s)</strong> : ' . $adsHtml . '</p>
             </div>';
         }
 

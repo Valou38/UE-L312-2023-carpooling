@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Services\CarsService;
 use App\Services\UsersService;
+use App\Services\DataBaseService;
 
 class UsersController
 {
@@ -55,19 +56,6 @@ class UsersController
 
         // Get html :
         foreach ($users as $user) {
-            $reservationsHtml = '';
-            if (!empty($user->getReservations())) {
-
-                $reservationsHtml .= '<br />';
-
-                foreach ($user->getReservations() as $reservation) {
-                    $reservationsHtml .= $reservation->getReservedSeats() . ' place(s) réservée(s) ' . $reservation->getTotalPrice() . ' €<br />';
-                }
-            }
-        }
-
-        // Get html :
-        foreach ($users as $user) {
             $carsHtml = '';
             if (!empty($user->getCars())){
 
@@ -78,9 +66,40 @@ class UsersController
                         '<br /> Modèle : ' . $car->getModel() .
                         '<br /> Année : ' . $car->getYear() .
                         '<br /> Kilométrage : ' . $car->getMileage() .
-                        '<br /> Couleur : ' . $car->getColor() .
+                        ' km <br /> Couleur : ' . $car->getColor() .
                         '<br /> Nombre de place(s) : ' . $car->getNbrSlots() .
                         '<hr />';
+                }
+            }
+
+            $reservationsHtml = '';
+            if (!empty($user->getReservations())) {
+
+                $reservationsHtml .= '<br />';
+
+                foreach ($user->getReservations() as $reservation) {
+                    $reservationsHtml .=
+                        $reservation->getReservedSeats() .
+                        ' place(s) réservée(s) à ' .
+                        $reservation->getTotalPrice() .
+                        ' € prix total<br />';
+                }
+            }
+
+            $adsHtml = '';
+            if (!empty($user->getAds())){
+
+                $adsHtml .= '<br />';
+
+                foreach ($user->getAds() as $ad){
+
+                    $adsHtml .= 'Description : ' . $ad->getDescription() .
+                        '<br /> Jour et heure de départ : ' . $ad->getDateTime() .
+                        '<br /> Lieu de départ : ' . $ad->getDeparture() .
+                        '<br /> Lieu d\'arrivé : ' . $ad->getDestination() .
+                        '<br /> Nombre de siège(s) disponible(s) : ' . $ad->getAvailableSeats() .
+                        '<br /> Prix : ' . $ad->getPrice() .
+                        ' €<hr />';
                 }
             }
 
@@ -92,7 +111,8 @@ class UsersController
                 <p class="features">Email : ' . $user->getEmail() . '</p>
                 <p class="features">Date de naissance : ' . $user->getBirthday()->format('d-m-Y') . '</p>
                 <p class="features"><strong>Voiture(s) : </strong> ' . $carsHtml . '</p>
-                <p class="features"><strong>Réservation(s) : </strong> ' . $carsHtml . '</p>
+                <p class="features"><strong>Réservation(s) : </strong> ' . $reservationsHtml . '</p>
+                <p class="features"><strong>Annonce(s) : </strong> ' . $adsHtml . '</p>
             </div>';
         }
         var_dump($carsHtml);

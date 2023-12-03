@@ -11,6 +11,7 @@ class Ad
     private $destination;
     private $availableSeats ;
     private $price;
+    private $userCar;
 
     public function getId() : string
     {
@@ -95,5 +96,17 @@ class Ad
     public function getReservations(): ?array
     {
         return $this->reservations;
+    }
+
+    public function setUserCar(array $userCar)
+    {
+        $this->userCar = $userCar;
+
+        return $this;
+    }
+
+    public function getUsersCars(): ?array
+    {
+        return $this->userCar;
     }
 }
