@@ -5,7 +5,6 @@ use App\Controllers\UsersController;
 require __DIR__ . '/vendor/autoload.php';
 
 $controller = new UsersController();
-echo $controller->updateUser();
 
 $service = new \App\Services\UsersService();
 
@@ -19,6 +18,7 @@ $service = new \App\Services\UsersService();
 </head>
 <body>
     <h1>Mise à jour d'un utilisateur</h1>
+    <?php echo $controller->updateUser(); ?>
     <div class="form-container">
         <form method="post" action="users_update.php" name ="userUpdateForm">
             <div class="form-field">
