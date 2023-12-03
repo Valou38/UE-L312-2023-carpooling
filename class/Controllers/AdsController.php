@@ -43,9 +43,9 @@ class AdsController
                 // Check if the ad date is after today's date
                 if ($dateTime > $currentTime) {
 
-                    if (is_numeric($availableSeats) && is_numeric($price)){
+                    if (is_numeric($availableSeats) && is_numeric($price) && is_numeric($carId)){
 
-                        if ($availableSeats >= 0 && $price >= 0){
+                        if ($availableSeats >= 0 && $price >= 0 && $carId >= 0){
 
                             // Create the ad :
                             $adsService = new AdsService();
@@ -91,8 +91,7 @@ class AdsController
     /**
      * Return the html for the read action.
      */
-    public
-    function getAds(): string
+    public function getAds(): string
     {
         $html = '';
 
@@ -108,7 +107,7 @@ class AdsController
                 $reservationsHtml .= '<br />';
 
                 foreach ($ad->getReservations() as $reservation){
-                    $reservationsHtml .= $reservation->getReservedSeats() . ' place(s) réservée(s) ' . $reservation->getTotalPrice() . ' €<br />';
+                    $reservationsHtml .= $reservation->getReservedSeats() . ' place(s) réservée(s) pour ' . $reservation->getTotalPrice() . ' € au total<br />';
                 }
             }
             $html .= '

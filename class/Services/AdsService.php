@@ -77,19 +77,6 @@ class AdsService
     }
 
     /**
-     * Create relation between an ad and a reservation.
-     */
-    public function setAdReservation(string $adId, string $reservationId): bool
-    {
-        $isOk = false;
-
-        $dataBaseService = new DataBaseService();
-        $isOk = $dataBaseService->setAdReservation($adId, $reservationId);
-
-        return $isOk;
-    }
-
-    /**
      * Get Reservation of given ad id.
      */
 

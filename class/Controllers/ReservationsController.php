@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Services\AdsService;
+use App\Services\UsersService;
 use App\Services\DataBaseService;
 use App\Services\ReservationsService;
 
@@ -16,6 +17,12 @@ class ReservationsController
     {
         $dataBaseService = new DataBaseService();
         return $dataBaseService->getAdById($id);
+    }
+
+    public function getUserById($id): array
+    {
+        $dataBaseService = new DataBaseService();
+        return $dataBaseService->getUserById($id);
     }
 
     /**
@@ -40,6 +47,10 @@ class ReservationsController
                 // Get ads
                 $adsService = new AdsService();
                 $ads = $adsService->getAds();
+
+                // Get users
+                $usersService = new UsersService();
+                $users = $usersService->getUsers();
 
                 // Find ad by his ID and get the unit price
                 $unitPriceAd = 0;
@@ -72,13 +83,14 @@ class ReservationsController
 
                     var_dump($reservationId);
 
-                    // Create the ad reservations relations :
+                    // Create the reservations relations :
 
-                    $adReservation = $adsService->setAdReservation($adId, $reservationId);
+                    $adReservation = $reservationService->setAdReservation($adId, $reservationId);
+                    $userReservation = $usersService->setUserReservation($userId, $reservationId);
 
                     var_dump($adReservation);
 
-                    if ($reservationId && $adReservation) {
+                    if ($reservationId && $adReservation && $userReservation) {
                         $html = '<div class="form-container"><p>Réservation créée avec succès. Le prix total est de ' .$totalPrice. ' $</p></div>';
                     } else {
                         $html = 'Erreur lors de la création de la réservation.';
@@ -160,6 +172,10 @@ class ReservationsController
                 // Get ads
                 $adsService = new AdsService();
                 $ads = $adsService->getAds();
+
+                // Get users
+                $usersService = new UsersService();
+                $users = $usersService->getUsers();
 
                 // Find ad by his ID and get the unit price
                 $unitPriceAd = 0;

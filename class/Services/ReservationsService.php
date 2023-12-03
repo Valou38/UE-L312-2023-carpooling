@@ -8,7 +8,7 @@ class ReservationsService
     /**
      * Create or update a reservation.
      */
-    public function setReservation(?string $id, string $reservedSeats, string $totalPrice): string
+    public function setReservation(?string $id, string $reservedSeats, string $totalPrice): ?string
     {
         $reservationId = '';
         $dataBaseService = new DataBaseService();
@@ -59,6 +59,23 @@ class ReservationsService
 
         $dataBaseService = new DataBaseService();
         $isOk = $dataBaseService->deleteReservation($id);
+
+        return $isOk;
+    }
+
+    /********
+     **RELATIONS
+     **/
+
+    /**
+     * Create relation between an ad and a reservation.
+     */
+    public function setAdReservation(string $adId, string $reservationId): bool
+    {
+        $isOk = false;
+
+        $dataBaseService = new DataBaseService();
+        $isOk = $dataBaseService->setAdReservation($adId, $reservationId);
 
         return $isOk;
     }
