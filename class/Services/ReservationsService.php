@@ -63,6 +63,16 @@ class ReservationsService
         return $isOk;
     }
 
+    /**
+     * Return just the carpoolad choice
+     */
+
+    public function getAdById($id): array
+    {
+        $dataBaseService = new DataBaseService();
+        return $dataBaseService->getAdById($id);
+    }
+
     /********
      **RELATIONS
      **/
