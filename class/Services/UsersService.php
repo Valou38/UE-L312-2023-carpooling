@@ -120,6 +120,7 @@ class UsersService
     }
 
 
+
     /**
      * Get cars of given user id.
      */
@@ -185,26 +186,24 @@ class UsersService
 
     public function getUsersReservations(string $userId): array
     {
-        $usersReservations = [];
+        $userReservations = [];
 
         $dataBaseService = new DataBaseService();
 
-        // Get relation reservations and user :
+        // Get relation reservations and users :
         $usersReservationsDTO = $dataBaseService->getUsersReservations($userId);
         if (!empty($usersReservationsDTO)) {
             foreach ($usersReservationsDTO as $userReservationDTO) {
                 $reservation = new Reservation();
                 $reservation->setId($userReservationDTO['id']);
-                $reservation->setReservedSeats($userReservationDTO['reservedSeats']);
-                $reservation->setPrice($userReservationDTO['price']);
+                $reservation->setReservedSeats($userReservationDTO['reserved_seats']);
+                $reservation->setTotalPrice($userReservationDTO['total_price']);
 
-                $usersReservations[] = $reservation;
+                $userReservations[] = $reservation;
             }
         }
-
-        return $usersReservations;
+        var_dump($userReservations);
+        return $userReservations;
     }
-
-
-
 }
+
