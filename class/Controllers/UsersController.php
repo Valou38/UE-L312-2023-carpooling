@@ -54,6 +54,18 @@ class UsersController
 
         // Get html :
         foreach ($users as $user) {
+            $reservationsHtml = '';
+            if (!empty($user->getReservations())) {
+
+                $reservationsHtml .= '<br />';
+
+                foreach ($user->getReservations() as $reservation) {
+                    $reservationsHtml .= $reservation->getReservedSeats() . ' place(s) réservée(s) ' . $reservation->getTotalPrice() . ' €<br />';
+                }
+            }
+        }
+        // Get html :
+        foreach ($users as $user) {
             $html .= '
             <div class="info">
                 <p class="id">#' . $user->getId() . '</p>
