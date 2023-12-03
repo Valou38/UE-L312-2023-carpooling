@@ -98,15 +98,15 @@ class Ad
         return $this->reservations;
     }
 
-    public function setUserCar(array $reservations)
+    public function setUserCar(array $userCar)
     {
-        $this->reservations = $reservations;
+        $this->userCar = $userCar;
 
         return $this;
     }
 
     public function getUsersCars(): ?array
     {
-        return $this->reservations;
+        return $this->userCar;
     }
 }

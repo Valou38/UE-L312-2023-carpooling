@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Services\CarsService;
 use App\Services\UsersService;
+use App\Services\DataBaseService;
 
 class UsersController
 {
@@ -78,11 +79,29 @@ class UsersController
                         '<br /> Modèle : ' . $car->getModel() .
                         '<br /> Année : ' . $car->getYear() .
                         '<br /> Kilométrage : ' . $car->getMileage() .
-                        '<br /> Couleur : ' . $car->getColor() .
+                        ' km <br /> Couleur : ' . $car->getColor() .
                         '<br /> Nombre de place(s) : ' . $car->getNbrSlots() .
                         '<hr />';
                 }
             }
+
+            $adsHtml = '';
+            if (!empty($user->getAds())){
+
+                $adsHtml .= '<br />';
+
+                foreach ($user->getAds() as $ad){
+
+                    $adsHtml .= 'Description : ' . $ad->getDescription() .
+                        '<br /> Joue et heure de départ : ' . $ad->getDateTime() .
+                        '<br /> Lieu de départ : ' . $ad->getDeparture() .
+                        '<br /> Lieu d\'arrivé : ' . $ad->getDestination() .
+                        '<br /> Nombre de siège(s) disponible(s) : ' . $ad->getAvailableSeats() .
+                        '<br /> Prix : ' . $ad->getPrice() .
+                        ' €<hr />';
+                }
+            }
+
 
             $html .= '
             <div class="info">
@@ -93,6 +112,7 @@ class UsersController
                 <p class="features">Date de naissance : ' . $user->getBirthday()->format('d-m-Y') . '</p>
                 <p class="features"><strong>Voiture(s) : </strong> ' . $carsHtml . '</p>
                 <p class="features"><strong>Réservation(s) : </strong> ' . $carsHtml . '</p>
+                <p class="features"><strong>Annonce(s) : </strong> ' . $adsHtml . '</p>
             </div>';
         }
         var_dump($carsHtml);
