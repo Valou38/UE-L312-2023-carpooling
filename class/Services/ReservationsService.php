@@ -15,11 +15,9 @@ class ReservationsService
 
         if (empty($id)) {
             $reservationId = $dataBaseService->createReservation($reservedSeats, $totalPrice);
-            echo "New Reservation ID: " . $reservationId . '<br />';
         } else {
             $dataBaseService->updateReservation($id, $reservedSeats, $totalPrice);
             $reservationId = $id;
-            echo "Updated Reservation ID: " . $reservationId;
         }
 
         return $reservationId;

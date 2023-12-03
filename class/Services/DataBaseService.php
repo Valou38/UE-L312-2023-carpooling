@@ -423,9 +423,6 @@ class DataBaseService
     {
         $isOk = false;
 
-        echo "Before execution";
-        var_dump($adId, $reservationId);
-
         $data = [
             'adId' => $adId,
             'reservationId' => $reservationId,
@@ -433,9 +430,6 @@ class DataBaseService
         $sql = 'INSERT INTO ads_reservations (ad_id, reservation_id) VALUES (:adId, :reservationId)';
         $query = $this->connection->prepare($sql);
         $isOk = $query->execute($data);
-
-        echo "After execution";
-        var_dump($isOk);
 
         return $isOk;
     }
