@@ -17,4 +17,7 @@
         echo $controller->getReservations();
 
     ?>
+    <div class="center">
+        <a href="index.php"><button>Retour à l'accueil</button></a>
+    </div>
 </body>

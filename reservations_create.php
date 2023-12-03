@@ -58,5 +58,8 @@ $controller = new ReservationsController();
                 <input type="submit" value="Créer une réservation">
             </div>
         </form>
+        <div class="center">
+            <a href="index.php"><button>Retour à l'accueil</button></a>
+        </div>
     </div>
 </body>

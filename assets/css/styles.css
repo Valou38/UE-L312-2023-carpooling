@@ -86,7 +86,7 @@ h1 {
 .form-field label {
     margin-bottom: 10px;
 }
-.form-field input {
+.form-field input, .center a button {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -94,7 +94,13 @@ h1 {
 .form-field input[type="submit"] {
     background-color: #4CAF50;
     color: white;
-    cursor: pointer;
+}
+button {
+    background-color: #000000;
+    color: #ffffff;
+}
+.center {
+    text-align: center;
 }
 .form-field input[type="submit"]:hover {
     background-color: #45a049;

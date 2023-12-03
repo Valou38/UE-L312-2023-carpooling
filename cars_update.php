@@ -114,5 +114,8 @@ $service = new \App\Services\CarsService();
                 <input type="submit" value="Modifier le véhicule">
             </div>
         </form>
+        <div class="center">
+            <a href="index.php"><button>Retour à l'accueil</button></a>
+        </div>
     </div>
 </body>
