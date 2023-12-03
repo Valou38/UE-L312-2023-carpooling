@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use App\Services\AdsService;
+use App\Services\UsersService;
+use App\Services\DataBaseService;
+use App\Services\CarsService;
 
 use Cassandra\Date;
 use DateTime;
@@ -22,7 +25,7 @@ class AdsController
         // Check if the form has been submitted
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // If the form has been submitted and not empty :
-            if (!empty($_POST['car_id']) &&
+            if (!empty($_POST['user_car']) &&
                 !empty($_POST['description']) &&
                 !empty($_POST['date_time']) &&
                 !empty($_POST['departure']) &&
@@ -31,7 +34,7 @@ class AdsController
                 !empty($_POST['price'])) {
 
                 // Clean and validate the inputs
-                $carId = trim(htmlspecialchars(strip_tags($_POST['car_id'])));
+                $userCar = trim(htmlspecialchars(strip_tags($_POST['user_car'])));
                 $description = trim(htmlspecialchars(strip_tags($_POST['description'])));
                 $dateTime = new DateTime(trim(htmlspecialchars(strip_tags($_POST['date_time']))));
                 $departure = trim(htmlspecialchars(strip_tags($_POST['departure'])));
@@ -43,13 +46,13 @@ class AdsController
                 // Check if the ad date is after today's date
                 if ($dateTime > $currentTime) {
 
-                    if (is_numeric($availableSeats) && is_numeric($price) && is_numeric($carId)){
+                    if (is_numeric($availableSeats) && is_numeric($price)){
 
-                        if ($availableSeats >= 0 && $price >= 0 && $carId >= 0){
+                        if ($availableSeats >= 0 && $price >= 0){
 
                             // Create the ad :
                             $adsService = new AdsService();
-                            $isOk = $adsService->setAd(
+                            $adId = $adsService->setAd(
                                 null,
                                 $description,
                                 $dateTime,
@@ -59,7 +62,14 @@ class AdsController
                                 $price
                             );
 
-                            if ($isOk) {
+                            // Create the reservations relations :
+                            
+                            list($userId, $carId) = explode('|', $userCar);
+
+                            $userReservation = $adsService->setUserAd($userId, $adId);
+                            //$carReservation = $usersService->setUserReservation($userId, $reservationId);
+
+                            if ($adId && $userReservation) {
                                 $html = "L'annonce a été créée avec succès.";
 
                             } else {

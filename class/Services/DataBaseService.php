@@ -189,14 +189,12 @@ class DataBaseService
         return $isOk;
     }
 
-
     /***********************************
       Create a carpool ad
      **********************************/
 
-    public function createAd(string $description, datetime $dateTime, string $departure, string $destination, int $availableSeats, string $price): bool
+    public function createAd(string $description, datetime $dateTime, string $departure, string $destination, int $availableSeats, string $price): string
     {
-        $isOk = false;
 
         $data = [
             'description' => $description,
@@ -208,9 +206,11 @@ class DataBaseService
         ];
         $sql = 'INSERT INTO ads (description, date_time, departure, destination, available_seats, price) VALUES (:description, :date_time, :departure, :destination, :available_seats, :price)';
         $query = $this->connection->prepare($sql);
-        $isOk = $query->execute($data);
+        $query->execute($data);
 
-        return $isOk;
+        $reservationId = $this->connection->lastInsertId();
+
+        return $reservationId;
     }
 
     /**
@@ -389,7 +389,7 @@ class DataBaseService
         return $isOk;
     }
 
-    public function setUserAd(string $userId, string $adId): bool
+    public function setUserAd(string $userId, string $adId): string
     {
         $isOk = false;
 
@@ -475,6 +475,34 @@ class DataBaseService
             AND users_cars.user_id = :userId' ;
         $query = $this->connection->prepare($sql);
         $query->execute($data);
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($results)) {
+            $usersCars = $results;
+        }
+
+        return $usersCars;
+    }
+
+    /**
+     * Get all users and cars
+     */
+
+    public function getUsersWithCars(): array
+    {
+        $usersCars = [];
+
+        $sql = '
+            SELECT uc.id AS user_car_id, 
+                   u.id AS user_id, 
+                   u.first_name, 
+                   u.last_name, 
+                   c.id AS car_id, 
+                   c.brand, c.model
+            FROM users_cars AS uc
+            INNER JOIN users AS u ON uc.user_id = u.id
+            INNER JOIN cars AS c ON uc.car_id = c.id' ;
+        $query = $this->connection->prepare($sql);
+        $query->execute();
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
         if (!empty($results)) {
             $usersCars = $results;
