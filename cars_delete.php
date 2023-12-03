@@ -5,7 +5,6 @@ use App\Controllers\CarsController;
 require __DIR__ . '/vendor/autoload.php';
 
 $controller = new CarsController();
-echo $controller->deleteCar();
 
 $service = new \App\Services\CarsService();
 
@@ -19,6 +18,7 @@ $service = new \App\Services\CarsService();
 </head>
 <body>
 <h1>Suppression d'un véhicule</h1>
+<?php echo $controller->deleteCar(); ?>
     <div class="form-container">
         <form method="post" action="cars_delete.php" name="carDeleteForm">
             <div class="form-field">

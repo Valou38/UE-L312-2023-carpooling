@@ -5,7 +5,6 @@ use App\Controllers\CarsController;
 require __DIR__ . '/vendor/autoload.php';
 
 $controller = new CarsController();
-echo $controller->updateCar();
 
 $service = new \App\Services\CarsService();
 
@@ -19,6 +18,7 @@ $service = new \App\Services\CarsService();
 </head>
 <body>
     <h1>Mise à jour d'un véhicule</h1>
+    <?php echo $controller->updateCar(); ?>
     <div class="form-container">
         <form method="post" action="cars_update.php" name="carUpdateForm">
             <div class="form-field">

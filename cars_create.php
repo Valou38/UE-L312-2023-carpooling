@@ -5,7 +5,6 @@ use App\Controllers\CarsController;
 require __DIR__ . '/vendor/autoload.php';
 
 $controller = new CarsController();
-echo $controller->createCar();
 
 ?>
 <!DOCTYPE html>
@@ -17,6 +16,7 @@ echo $controller->createCar();
 </head>
 <body>
     <h1>Création d'un véhicule</h1>
+    <?php echo $controller->createCar(); ?>
     <div class="form-container">
         <form method="post" action="cars_create.php" name="carCreateForm">
             <div class="form-field">

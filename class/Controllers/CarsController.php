@@ -59,27 +59,25 @@ class CarsController
 
                                 $userCar = $carsService->setUserCar($userId, $carId);
 
-                                var_dump($userCar);
-
                                 if ($carId && $userCar) {
-                                    $html = 'Véhicule créé avec succès.';
+                                    $html = '<div class="form-container"><p>Véhicule créé avec succès.';
                                 } else {
-                                    $html = 'Erreur lors de la création du véhicule.';
+                                    $html = '<div class="form-container"><p><strong>Erreur</strong> : lors de la création du véhicule.';
                                 }
                             } else {
-                                $html = 'Erreur : Le kilométrage et le nombre de places doivent être un nombre positif.';
+                                $html = '<div class="form-container"><p><strong>Erreur</strong> : Le kilométrage et le nombre de places doivent être un nombre positif.';
                             }
                         } else {
-                            $html = 'Erreur : Le kilométrage et le nombre de places doivent être une valeur numérique.';
+                            $html = '<div class="form-container"><p><strong>Erreur</strong> : Le kilométrage et le nombre de places doivent être une valeur numérique.';
                         }
                     } else {
-                        $html = 'Erreur : L\'année doit être une valeur numérique à quatre chiffres entre 1886 et ' . $currentYear . '.';
+                        $html = '<div class="form-container"><p><strong>Erreur</strong> : L\'année doit être une valeur numérique à quatre chiffres entre 1886 et ' . $currentYear . '.</p></div>';
                     }
                 } else {
-                    $html = 'Erreur : L\'année doit être une valeur numérique.';
+                    $html = '<div class="form-container"><p><strong>Erreur</strong> : L\'année doit être une valeur numérique.';
                 }
             } else {
-                $html = 'Erreur : Tous les champs doivent être remplis.';
+                $html = '<div class="form-container"><p><strong>Erreur</strong> : Tous les champs doivent être remplis.';
             }
         }
 
@@ -187,24 +185,24 @@ class CarsController
                                     $nbrSlots
                                 );
                                 if ($isOk) {
-                                    $html = 'Véhicule mis à jour avec succès.';
+                                    $html = '<div class="form-container"><p>Véhicule mis à jour avec succès.</p></div>';
                                 } else {
-                                    $html = 'Erreur lors de la mise à jour du véhicule.';
+                                    $html = '<div class="form-container"><p><strong>Erreur</strong> : lors de la mise à jour du véhicule.</p></div>';
                                 }
                             } else {
-                                $html = 'Erreur : Le kilométrage doit être un nombre positif.';
+                                $html = '<div class="form-container"><p><strong>Erreur</strong> : Le kilométrage doit être un nombre positif.</p></div>';
                             }
                         } else {
-                            $html = 'Erreur : Le kilométrage doit être une valeur numérique.';
+                            $html = '<div class="form-container"><p><strong>Erreur</strong> : Le kilométrage doit être une valeur numérique.</p></div>';
                         }
                     } else {
-                        $html = 'Erreur : L\'année doit être une valeur numérique à quatre chiffres entre 1886 et ' . $currentYear . '.';
+                        $html = '<div class="form-container"><p><strong>Erreur</strong> : L\'année doit être une valeur numérique à quatre chiffres entre 1886 et ' . $currentYear . '.</p></div>';
                     }
                 } else {
-                    $html = 'Erreur : L\'année doit être une valeur numérique.';
+                    $html = '<div class="form-container"><p><strong>Erreur</strong> : L\'année doit être une valeur numérique.</p></div>';
                 }
             } else {
-                $html = 'Erreur : Tous les champs doivent être remplis.';
+                $html = '<div class="form-container"><p><strong>Erreur</strong> : Tous les champs doivent être remplis.</p></div>';
             }
         }
 
@@ -232,18 +230,18 @@ class CarsController
                         $carsService = new CarsService();
                         $isOk = $carsService->deleteCar($id);
                         if ($isOk) {
-                            $html = 'Véhicule supprimé avec succès.';
+                            $html = '<div class="form-container"><p>Véhicule supprimé avec succès.</p></div>';
                         } else {
-                            $html = 'Erreur lors de la suppression du véhicule.';
+                            $html = '<div class="form-container"><p><strong>Erreur</strong> : lors de la suppression du véhicule.</p></div>';
                         }
                     } else {
-                        $html = 'Erreur : L\'id doit être un nombre positif.';
+                        $html = '<div class="form-container"><p><strong>Erreur</strong> : L\'id doit être un nombre positif.</p></div>';
                     }
                 } else {
-                    $html = 'Erreur : L\'id doit être une valeur numérique.';
+                    $html = '<div class="form-container"><p><strong>Erreur</strong> : L\'id doit être une valeur numérique.</p></div>';
                 }
             } else {
-                $html= 'Erreur : aucun identifiant saisi';
+                $html= '<div class="form-container"><p><strong>Erreur</strong> : aucun identifiant saisi</p></div>';
             }
         }
 
