@@ -195,23 +195,23 @@ class AdsController
                                 if ($isOk) {
                                     $html = "<div class='form-container'><p>L'annonce a été mise à jour avec succès.</p></div>";
                                 } else {
-                                    $html = "<div class='form-container'><p>Erreur lors de la création de l'annonce.</p></div>";
+                                    $html = "<div class='form-container'><p><strong>Erreur</strong> : Lors de la création de l'annonce.</p></div>";
                                 }
 
                             } else {
-                                $html = '<div class="form-container"><p>Erreur : Le nombre de sièges disponibles et le prix doivent être un nombre positif.</p></div>';
+                                $html = '<div class="form-container"><p><strong>Erreur</strong> : Le nombre de sièges disponibles et le prix doivent être un nombre positif.</p></div>';
                             }
 
                         } else {
-                            $html = '<div class="form-container"><p>Erreur : Le nombre de sièges disponibles et le prix doivent être une valeur numérique.</p></div>';
+                            $html = '<div class="form-container"><p><strong>Erreur</strong> : Le nombre de sièges disponibles et le prix doivent être une valeur numérique.</p></div>';
                         }
 
                     } else {
-                        $html = "<div class='form-container'><p>Erreur : La date doit se situer dans le futur</p></div>";
+                        $html = "<div class='form-container'><p><strong>Erreur</strong> : La date doit se situer dans le futur</p></div>";
                     }
 
             } else {
-                $html = "<div class='form-container'><p>Erreur : Remplissez tous les champs</p></div>";
+                $html = "<div class='form-container'><p><strong>Erreur</strong> : Remplissez tous les champs</p></div>";
             }
         }
 
@@ -241,16 +241,16 @@ class AdsController
                         if ($isOk) {
                             $html = '<div class="form-container"><p>Annonce supprimée avec succès.</p></div>';
                         } else {
-                            $html = "<div class='form-container'><p>Erreur lors de la suppression de l'annonce.</p></div>";
+                            $html = "<div class='form-container'><p><strong>Erreur</strong> : lors de la suppression de l'annonce.</p></div>";
                         }
                     } else {
-                        $html = '<div class="form-container"><p>Erreur : L\'id doit être un nombre positif.</p></div>';
+                        $html = '<div class="form-container"><p><strong>Erreur</strong> : L\'id doit être un nombre positif.</p></div>';
                     }
                 } else {
-                    $html = '<div class="form-container"><p>Erreur : L\'id doit être une valeur numérique.</p></div>';
+                    $html = '<div class="form-container"><p><strong>Erreur</strong> : L\'id doit être une valeur numérique.</p></div>';
                 }
             } else {
-                $html = "<div class='form-container'><p>Erreur : Saisissez un identifiant</p></div>";
+                $html = "<div class='form-container'><p><strong>Erreur</strong> : Saisissez un identifiant</p></div>";
             }
         }
 
