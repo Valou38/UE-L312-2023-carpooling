@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Services\AdsService;
+use App\Services\UsersService;
 use App\Services\DataBaseService;
 use App\Services\ReservationsService;
 
@@ -15,6 +17,12 @@ class ReservationsController
     {
         $dataBaseService = new DataBaseService();
         return $dataBaseService->getAdById($id);
+    }
+
+    public function getUserById($id): array
+    {
+        $dataBaseService = new DataBaseService();
+        return $dataBaseService->getUserById($id);
     }
 
     /**
@@ -35,23 +43,54 @@ class ReservationsController
                 $adId = intval($_POST['ad_id']);
                 $userId = intval($_POST['user_id']);
                 $reservedSeats = intval($_POST['reserved_seats']);
-                $totalPrice = 0;
-                //$totalPrice = $reservedSeats * ;
+
+                // Get ads
+                $adsService = new AdsService();
+                $ads = $adsService->getAds();
+
+                // Get users
+                $usersService = new UsersService();
+                $users = $usersService->getUsers();
+
+                // Find ad by his ID and get the unit price
+                $unitPriceAd = 0;
+                var_dump($ads);
+                var_dump($adId);
+                foreach($ads as $ad){
+                    if (intval($ad->getId()) === $adId){
+                        $unitPriceAd = $ad->getPrice();
+                        break;
+                    }
+                }
+
+                var_dump($reservedSeats, $unitPriceAd);
+
+                // Calculate the total price
+                $totalPrice = $reservedSeats * $unitPriceAd;
+
+                echo 'Prix total : ' . $totalPrice;
 
                 // Check if the reserved seats do not exceed the available seats
                 $ad = $this->getAdById($adId);
                 if ($ad['available_seats'] >= $reservedSeats) {
                     // Process reservation creation:
                     $reservationService = new ReservationsService();
-                    $isOk = $reservationService->setReservation(
+                    $reservationId = $reservationService->setReservation(
                         null,
-                        $adId,
-                        $userId,
                         $reservedSeats,
                         $totalPrice
                     );
 
-                    if ($isOk) {
+                    var_dump($reservationId);
+
+                    // Create the reservations relations :
+
+                    $adReservation = $adsService->setAdReservation($adId, $reservationId);
+                    $userReservation = $usersService->setUserReservation($userId, $reservationId);
+
+                    var_dump($adReservation);
+
+                    if ($reservationId && $adReservation && $userReservation) {
                         $html = '<div class="form-container"><p>Réservation créée avec succès. Le prix total est de ' .$totalPrice. ' $</p></div>';
                     } else {
                         $html = 'Erreur lors de la création de la réservation.';
@@ -101,10 +140,8 @@ class ReservationsController
             $html .= '
             <div class="info">
                 <p class="id">#' . $reservation->getId() . '</p>
-                <p class="features">ID de l\'annonce : ' . $reservation->getAdId() . '</p>
-                <p class="features">ID de l\'utilisateur : ' . $reservation->getUserId() . '</p>
                 <p class="features">Sièges réservées : ' . $reservation->getReservedSeats() . '</p>
-                <p class="features">Prix total : ' . $reservation->getTotalPrice() . '</p>
+                <p class="features">Prix total : ' . $reservation->getTotalPrice() . ' €</p>
             </div>';
         }
 
@@ -131,18 +168,38 @@ class ReservationsController
                 $adId = intval($_POST['ad_id']);
                 $userId = intval($_POST['user_id']);
                 $reservedSeats = intval($_POST['reserved_seats']);
-                $totalPrice = 0;
-                //$totalPrice = $reservedSeats * ;
+
+                // Get ads
+                $adsService = new AdsService();
+                $ads = $adsService->getAds();
+
+                // Get users
+                $usersService = new UsersService();
+                $users = $usersService->getUsers();
+
+                // Find ad by his ID and get the unit price
+                $unitPriceAd = 0;
+                var_dump($ads);
+                var_dump($adId);
+                foreach($ads as $ad){
+                    if (intval($ad->getId()) === $adId){
+                        $unitPriceAd = $ad->getPrice();
+                        break;
+                    }
+                }
+
+                var_dump($reservedSeats, $unitPriceAd);
+
+                // Calculate the total price
+                $totalPrice = $reservedSeats * $unitPriceAd;
 
                 // Check if the reserved seats do not exceed the available seats
-                $ad = $this->getCarpooladById($adId);
-                if ($ad['availableseats'] >= $reservedSeats) {
+                $ad = $this->getAdById($adId);
+                if ($ad['available_seats'] >= $reservedSeats) {
                     // Process reservation creation:
                     $reservationService = new ReservationsService();
                     $isOk = $reservationService->setReservation(
                         $id,
-                        $adId,
-                        $userId,
                         $reservedSeats,
                         $totalPrice
                     );
