@@ -103,30 +103,35 @@ UE-312-2023-carpooling _ branche main
         ├── DataBaseService.php
         ├── ReservationsService.php
         └── UserService.php        
+└── templates
+    ├── ads
+        ├── ads_create.php
+        ├── ads_delete.php
+        ├── ads_read.php
+        ├── ads_update.php
+    ├── cars
+        ├── cars_create.php
+        ├── cars_delete.php
+        ├── cars_read.php
+        ├── cars_update.php
+    ├── reservations
+        ├── reservations_create.php
+        ├── reservation_delete.php
+        ├── reservation_read.php
+        ├── reservations_update.php
+    └── users
+        ├── users_create.php
+        ├── users_delete.php
+        ├── users_read.php
+        └── users_update.php
 └── vendor
     └── Composer
         └── autoload.php
 
-ads_create.php
-ads_delete.php
-ads_read.php
-ads_update.php
-cars_create.php
-cars_delete.php
-cars_read.php
-cars_update.php
 composer.json
 index.php
 README.md
-reservations_create.php
-reservation_delete.php
-reservation_read.php
-reservations_update.php
 tables.sql
-users_create.php
-users_delete.php
-users_read.php
-users_update.php
 
 ```
 
